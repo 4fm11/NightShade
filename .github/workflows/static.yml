@@ -811,12 +811,11 @@ async function getAIResponse(question) {
             })
         });
 
-        const data = await response.json();
-        if (data.choices && data.choices.length > 0) {
-            return data.choices[0].message.content.trim();
-        } else {
-            return "عذرًا، لم أتمكن من الحصول على رد من الخادم.";
-        }
+if (data.choices && data.choices.length > 0) {
+  return data.choices[0].message.content.trim();
+} else {
+  return "عذرًا، لم أتمكن من الحصول على رد من الخادم.";
+}
     } catch (error) {
   console.error("خطأ من fetch:", error);
   alert("خطأ من fetch:\n" + error.message);
