@@ -791,13 +791,13 @@ async function sendMessage() {
 
 
 
-async function getAIResponse(question) {
-  const apiKey = "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";
-  const endpoint = "https://openrouter.ai/api/v1/chat/completions";
+async function getAIResponse(prompt) {
+  const apiKey = "Y8B749ATHlYrRAqAHbn7VVEWVn8ORwzF"; // انسخ المفتاح من DeepInfra
+  const endpoint = "https://api.deepinfra.com/v1/openai/chat/completions";
 
   const body = {
-    model: "gpt-3.5-turbo",
-    messages: [{ role: "user", content: question }]
+    model: "mistralai/Mistral-7B-Instruct-v0.1",
+    messages: [{ role: "user", content: prompt }]
   };
 
   try {
@@ -811,22 +811,15 @@ async function getAIResponse(question) {
     });
 
     const data = await response.json();
-
-    if (data.choices && data.choices.length > 0) {
-      return data.choices[0].message.content;
-    } else if (data.error) {
-      return `❌ خطأ: ${data.error.message || data.error}`;
-    } else {
-      return "⚠️ لم يتم استقبال رد صالح.";
-    }
+    return data.choices?.[0]?.message?.content || "⚠️ لا يوجد رد.";
   } catch (error) {
-    return `⚠️ خطأ في الاتصال بالخادم: ${error.message}`;
+    return `❌ خطأ في الاتصال: ${error.message}`;
   }
 }
 
-// تجربة
-getAIResponse("What is the difference between AI and machine learning?")
-  .then(console.log);
+// مثال:
+getAIResponse("ما الفرق بين الذكاء الصناعي والتعلم الآلي؟").then(console.log);
+
 
 
 
