@@ -818,9 +818,12 @@ async function getAIResponse(question) {
             return "عذرًا، لم أتمكن من الحصول على رد من الخادم.";
         }
     } catch (error) {
-        console.error("API Error:", error);
-        return "حدث خطأ أثناء الاتصال بـ GPT. تحقق من الاتصال بالإنترنت أو من صحة مفتاح API.";
-    }
+  console.error("خطأ من fetch:", error);
+  alert("خطأ من fetch:\n" + error.message);
+  return "⚠️ لم يتم الاتصال بـ OpenAI. الخطأ: " + error.message;
+}
+
+}
 }
 
 </script>
