@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raven information - المميزات</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* أنماط مشتركة مع الصفحة الرئيسية */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Tajawal', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* أنماط الجسيمات المتحركة */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: rgba(64, 224, 255, 0.5);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+                opacity: 0.5;
+            }
+        }
+
+        /* أنماط الهيدر */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(15, 15, 35, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(64, 224, 255, 0.2);
+            padding: 1rem 2rem;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .header.scrolled {
+            background: rgba(15, 15, 35, 0.98);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #40e0ff, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            font-weight: 500;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a:hover {
+            color: #40e0ff;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(45deg, #40e0ff, #8b5cf6);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a.active {
+            color: #40e0ff;
+        }
+
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.5rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid #40e0ff;
+            color: #40e0ff;
+        }
+
+        .btn-outline:hover {
+            background: #40e0ff;
+            color: #0f0f23;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(64, 224, 255, 0.4);
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #40e0ff, #8b5cf6);
+            color: white;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(64, 224, 255, 0.4);
+        }
+
+        .btn-large {
+            padding: 0.8rem 2rem;
+            font-size: 1.1rem;
+        }
+
+        /* أنماط المحتوى الرئيسي */
+        .main-content {
+            padding-top: 100px;
+            min-height: 100vh;
+            position: relative;
+            z-index: 100;
+        }
+
+        .page-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            min-height: 80vh;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            background: linear-gradient(45deg, #40e0ff, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-description {
+            font-size: 1.1rem;
+            color: #a0a0a0;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        /* أنماط بطاقات الميزات */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(64, 224, 255, 0.2);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(64, 224, 255, 0.2);
+            border-color: #40e0ff;
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, #40e0ff, #8b5cf6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+        }
+
+        .feature-icon svg {
+            width: 30px;
+            height: 30px;
+            fill: white;
+        }
+
+        .feature-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #ffffff;
+        }
+
+        .feature-description {
+            color: #a0a0a0;
+            line-height: 1.6;
+        }
+
+        /* أنماط مقارنة الخطط */
+        .pricing-plans {
+            margin-top: 4rem;
+        }
+
+        .plans-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .plan-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(64, 224, 255, 0.2);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .plan-card.featured {
+            border: 2px solid #8b5cf6;
+            transform: scale(1.05);
+        }
+
+        .plan-name {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #40e0ff;
+        }
+
+        .plan-price {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .plan-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .plan-features li {
+            margin-bottom: 0.8rem;
+            position: relative;
+            padding-right: 1.5rem;
+        }
+
+        .plan-features li::before {
+            content: '✓';
+            position: absolute;
+            right: 0;
+            color: #40e0ff;
+        }
+
+        /* أنماط الوضع الفاتح */
+        body.light-mode {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 50%, #d8e1e8 100%);
+            color: #333;
+        }
+
+        body.light-mode .header {
+            background: rgba(245, 247, 250, 0.95);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        body.light-mode .nav-links a {
+            color: #333;
+        }
+
+        body.light-mode .feature-card {
+            background: rgba(255, 255, 255, 0.8);
+            color: #333;
+        }
+
+        body.light-mode .feature-description {
+            color: #666;
+        }
+
+        body.light-mode .plan-card {
+            background: rgba(255, 255, 255, 0.8);
+            color: #333;
+        }
+
+        /* تحسينات للاستجابة */
+        @media (max-width: 768px) {
+            .page-content {
+                padding: 2rem 1rem;
+            }
+
+            .plans-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .plan-card.featured {
+                transform: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- جسيمات الخلفية المتحركة -->
+    <div class="particles" id="particles"></div>
+
+    <!-- الهيدر -->
+    <header class="header" id="header">
+        <nav class="nav">
+            <a href="index.html" class="logo">Raven information</a>
+            <ul class="nav-links">
+                <li><a href="1index.html">الرئيسية</a></li>
+                <li><a href="ai.html">الذكاء الاصطناعي</a></li>
+                <li><a href="features.html" class="active">المميزات</a></li>
+                <li><a href="api.html">API</a></li>
+                <li><a href="docs.html">التوثيق</a></li>
+                <li><a href="about.html">حول</a></li>
+            </ul>
+            <div class="auth-buttons" id="authButtons">
+                <a href="#login" class="btn btn-outline" id="loginBtn">تسجيل الدخول</a>
+                <a href="#signup" class="btn btn-primary" id="signupBtn">إنشاء حساب</a>
+            </div>
+            <div class="user-info" id="userInfo" style="display: none;">
+                <div class="user-avatar" id="userAvatar"></div>
+                <span class="user-name" id="userName"></span>
+                <button class="logout-btn" id="logoutBtn">تسجيل خروج</button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- المحتوى الرئيسي -->
+    <main class="main-content">
+        <div class="page-content">
+            <h1 class="page-title">مميزات Raven information</h1>
+            <p class="page-description">اكتشف القوة الكاملة لمنصتنا الذكية التي توفر حلولاً متقدمة للذكاء الاصطناعي تلبي جميع احتياجاتك</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3 class="feature-title">ذكاء اصطناعي متقدم</h3>
+                    <p class="feature-description">نموذج ذكاء اصطناعي قوي يدعم معالجة اللغة الطبيعية، فهم السياق، وتوليد إجابات دقيقة وذكية.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-file-upload"></i>
+                    </div>
+                    <h3 class="feature-title">تحليل الملفات</h3>
+                    <p class="feature-description">يدعم تحليل وتفسير محتوى الملفات بأنواعها المختلفة بما في ذلك PDF، Word، Excel، وملفات البرمجة.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-microphone"></i>
+                    </div>
+                    <h3 class="feature-title">تفاعل صوتي</h3>
+                    <p class="feature-description">إمكانية التفاعل الصوتي مع المساعد الذكي باستخدام تقنيات التعرف على الكلام المتقدمة.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3 class="feature-title">واجهة برمجة (API)</h3>
+                    <p class="feature-description">واجهة برمجة تطبيقات قوية تسمح بدمج الذكاء الاصطناعي في تطبيقاتك ومواقعك بسهولة.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="feature-title">خصوصية وأمان</h3>
+                    <p class="feature-description">نضمن حماية بياناتك وخصوصيتك مع تشفير متقدم لجميع الاتصالات والبيانات.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-language"></i>
+                    </div>
+                    <h3 class="feature-title">دعم متعدد اللغات</h3>
+                    <p class="feature-description">يدعم اللغة العربية والإنجليزية والعديد من اللغات الأخرى بطلاقة ودقة عالية.</p>
+                </div>
+            </div>
+            
+            <div class="pricing-plans">
+                <h2 class="section-title">خطط الأسعار</h2>
+                <p class="section-subtitle">اختر الخطة التي تناسب احتياجاتك واستمتع بتجربة Raven information الكاملة</p>
+                
+                <div class="plans-grid">
+                    <div class="plan-card">
+                        <h3 class="plan-name">الخطة الأساسية</h3>
+                        <div class="plan-price">مجانًا</div>
+                        <ul class="plan-features">
+                            <li>100 طلب شهريًا</li>
+                            <li>دعم الملفات الأساسية</li>
+                            <li>إجابات محدودة الطول</li>
+                            <li>دعم فني أساسي</li>
+                        </ul>
+                        <a href="#signup" class="btn btn-outline">ابدأ الآن</a>
+                    </div>
+                    
+                    <div class="plan-card featured">
+                        <h3 class="plan-name">الخطة المميزة</h3>
+                        <div class="plan-price">$9.99 <span style="font-size: 1rem;">/شهر</span></div>
+                        <ul class="plan-features">
+                            <li>2000 طلب شهريًا</li>
+                            <li>دعم جميع أنواع الملفات</li>
+                            <li>إجابات أطول وأكثر تفصيلاً</li>
+                            <li>أولوية في الدعم الفني</li>
+                            <li>وصلات API محدودة</li>
+                        </ul>
+                        <a href="#signup" class="btn btn-primary">اشترك الآن</a>
+                    </div>
+                    
+                    <div class="plan-card">
+                        <h3 class="plan-name">الخطة الاحترافية</h3>
+                        <div class="plan-price">$29.99 <span style="font-size: 1rem;">/شهر</span></div>
+                        <ul class="plan-features">
+                            <li>طلبات غير محدودة</li>
+                            <li>دعم متقدم لجميع الملفات</li>
+                            <li>أولوية قصوى في الدعم</li>
+                            <li>وصلات API غير محدودة</li>
+                            <li>إمكانيات مخصصة</li>
+                        </ul>
+                        <a href="#contact" class="btn btn-outline">اتصل بنا</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- الفوتر -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="social-links">
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+            <div class="footer-links">
+                <a href="index.html">الرئيسية</a>
+                <a href="ai.html">الذكاء الاصطناعي</a>
+                <a href="features.html">المميزات</a>
+                <a href="api.html">API</a>
+                <a href="docs.html">التوثيق</a>
+                <a href="about.html">حول</a>
+                <a href="#privacy">سياسة الخصوصية</a>
+                <a href="#terms">شروط الاستخدام</a>
+                <a href="#contact">اتصل بنا</a>
+            </div>
+            <p class="footer-text">© 2025 Raven information. جميع الحقوق محفوظة.</p>
+        </div>
+    </footer>
+
+    <!-- مودال تسجيل الدخول -->
+    <div class="modal" id="loginModal">
+        <!-- ... نفس محتوى المودال السابق ... -->
+    </div>
+
+    <!-- مودال إنشاء حساب -->
+    <div class="modal" id="signupModal">
+        <!-- ... نفس محتوى المودال السابق ... -->
+    </div>
+
+    <!-- زر تبديل الوضع الليلي -->
+    <div class="dark-mode-toggle" id="darkModeToggle">
+        <i class="fas fa-moon"></i>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

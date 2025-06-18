@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raven information - الذكاء الاصطناعي</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* أنماط مشتركة مع الصفحة الرئيسية */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Tajawal', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* أنماط الجسيمات المتحركة */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: rgba(64, 224, 255, 0.5);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+                opacity: 0.5;
+            }
+        }
+
+        /* أنماط الهيدر */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(15, 15, 35, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(64, 224, 255, 0.2);
+            padding: 1rem 2rem;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .header.scrolled {
+            background: rgba(15, 15, 35, 0.98);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #40e0ff, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            font-weight: 500;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a:hover {
+            color: #40e0ff;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(45deg, #40e0ff, #8b5cf6);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a.active {
+            color: #40e0ff;
+        }
+
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.5rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid #40e0ff;
+            color: #40e0ff;
+        }
+
+        .btn-outline:hover {
+            background: #40e0ff;
+            color: #0f0f23;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(64, 224, 255, 0.4);
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #40e0ff, #8b5cf6);
+            color: white;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(64, 224, 255, 0.4);
+        }
+
+        /* أنماط المحتوى الرئيسي */
+        .main-content {
+            padding-top: 100px;
+            min-height: 100vh;
+            position: relative;
+            z-index: 100;
+        }
+
+        .page-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            min-height: 80vh;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            background: linear-gradient(45deg, #40e0ff, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-description {
+            font-size: 1.1rem;
+            color: #a0a0a0;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        /* أنماط واجهة الدردشة */
+        .chat-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(64, 224, 255, 0.2);
+            border-radius: 20px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chat-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #40e0ff, transparent);
+        }
+
+        .chat-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .chat-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(45deg, #40e0ff, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .chat-description {
+            color: #a0a0a0;
+            font-size: 0.9rem;
+        }
+
+        .chat-messages {
+            height: 400px;
+            overflow-y: auto;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            scrollbar-width: thin;
+            scrollbar-color: #40e0ff transparent;
+        }
+
+        .chat-messages::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb {
+            background-color: #40e0ff;
+            border-radius: 3px;
+        }
+
+        .message {
+            margin-bottom: 1rem;
+            padding: 0.8rem 1rem;
+            border-radius: 15px;
+            max-width: 80%;
+            word-wrap: break-word;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .user-message {
+            background: rgba(64, 224, 255, 0.1);
+            border: 1px solid rgba(64, 224, 255, 0.3);
+            margin-left: auto;
+            text-align: right;
+        }
+
+        .ai-message {
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            margin-right: auto;
+            text-align: right;
+        }
+
+        .message-content {
+            line-height: 1.6;
+        }
+
+        .message-content p {
+            margin-bottom: 0.5rem;
+        }
+
+        .message-content ul, .message-content ol {
+            padding-right: 1.5rem;
+            margin: 0.5rem 0;
+        }
+
+        .message-content li {
+            margin-bottom: 0.3rem;
+        }
+
+        .message-time {
+            font-size: 0.7rem;
+            color: #a0a0a0;
+            margin-top: 0.3rem;
+            text-align: left;
+        }
+
+        .message-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+            justify-content: flex-end;
+        }
+
+        .message-action {
+            background: none;
+            border: none;
+            color: #a0a0a0;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: color 0.3s ease;
+        }
+
+        .message-action:hover {
+            color: #40e0ff;
+        }
+
+        .chat-input-container {
+            position: relative;
+            margin-bottom: 1rem;
+        }
+
+        .chat-input {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            padding-right: 4rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(64, 224, 255, 0.3);
+            border-radius: 25px;
+            color: #ffffff;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .chat-input:focus {
+            border-color: #40e0ff;
+            box-shadow: 0 0 20px rgba(64, 224, 255, 0.3);
+        }
+
+        .chat-input::placeholder {
+            color: #888;
+        }
+
+        .send-btn {
+            position: absolute;
+            right: 0.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: linear-gradient(45deg, #40e0ff, #8b5cf6);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .send-btn:hover {
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 5px 15px rgba(64, 224, 255, 0.4);
+        }
+
+        .send-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: white;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 0.5rem;
+            color: #40e0ff;
+        }
+
+        .loading-dots {
+            display: inline-block;
+        }
+
+        .loading-dots span {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #40e0ff;
+            margin: 0 2px;
+            animation: bounce 1.4s infinite ease-in-out both;
+        }
+
+        .loading-dots span:nth-child(1) {
+            animation-delay: -0.32s;
+        }
+
+        .loading-dots span:nth-child(2) {
+            animation-delay: -0.16s;
+        }
+
+        /* أنماط عرض نوع الملف */
+.uploaded-file .file-type {
+    display: inline-block;
+    padding: 0.2rem 0.5rem;
+    background: rgba(64, 224, 255, 0.2);
+    border-radius: 4px;
+    font-size: 0.7rem;
+    margin-right: 0.5rem;
+}
+
+/* ألوان لأنواع الملفات المختلفة */
+.uploaded-file .js-file {
+    background: rgba(247, 223, 30, 0.2);
+    color: #f7df1e;
+}
+
+.uploaded-file .lua-file {
+    background: rgba(0, 0, 128, 0.2);
+    color: #000080;
+}
+
+.uploaded-file .html-file {
+    background: rgba(227, 79, 38, 0.2);
+    color: #e34f26;
+}
+
+.uploaded-file .css-file {
+    background: rgba(21, 114, 182, 0.2);
+    color: #1572b6;
+}
+
+        @keyframes bounce {
+            0%, 80%, 100% { 
+                transform: scale(0);
+            }
+            40% { 
+                transform: scale(1.0);
+            }
+        }
+
+        /* أنماط تحميل الملفات */
+        .file-upload-container {
+            margin-top: 1.5rem;
+            text-align: center;
+        }
+
+        .file-upload-btn {
+            background: rgba(64, 224, 255, 0.1);
+            border: 1px dashed rgba(64, 224, 255, 0.5);
+            border-radius: 8px;
+            padding: 0.8rem 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: #40e0ff;
+        }
+
+        .file-upload-btn:hover {
+            background: rgba(64, 224, 255, 0.2);
+            border-color: #40e0ff;
+        }
+
+        .uploaded-file {
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            color: #a0a0a0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .remove-file {
+            color: #ff6b6b;
+            cursor: pointer;
+        }
+
+        /* أنماط عرض نوع الملف */
+        .uploaded-file .file-type {
+            display: inline-block;
+            padding: 0.2rem 0.5rem;
+            background: rgba(64, 224, 255, 0.2);
+            border-radius: 4px;
+            font-size: 0.7rem;
+            margin-right: 0.5rem;
+        }
+
+        /* ألوان لأنواع الملفات المختلفة */
+        .uploaded-file .js-file {
+            background: rgba(247, 223, 30, 0.2);
+            color: #f7df1e;
+        }
+
+        .uploaded-file .lua-file {
+            background: rgba(0, 0, 128, 0.2);
+            color: #000080;
+        }
+
+        .uploaded-file .html-file {
+            background: rgba(227, 79, 38, 0.2);
+            color: #e34f26;
+        }
+
+        .uploaded-file .css-file {
+            background: rgba(21, 114, 182, 0.2);
+            color: #1572b6;
+        }
+
+        /* زر التحكم بالصوت */
+        .voice-btn {
+            position: absolute;
+            left: 0.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: transparent;
+            border: none;
+            color: #40e0ff;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .voice-btn:hover {
+            color: #8b5cf6;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .voice-recording {
+            animation: pulse 1.5s infinite;
+            color: #ff6b6b;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* أنماط الوضع الفاتح */
+        body.light-mode {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 50%, #d8e1e8 100%);
+            color: #333;
+        }
+
+        body.light-mode .header {
+            background: rgba(245, 247, 250, 0.95);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        body.light-mode .nav-links a {
+            color: #333;
+        }
+
+        body.light-mode .chat-container {
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            color: #333;
+        }
+
+        body.light-mode .message {
+            color: #333;
+        }
+
+        body.light-mode .user-message {
+            background: rgba(64, 224, 255, 0.2);
+            border: 1px solid rgba(64, 224, 255, 0.4);
+        }
+
+        body.light-mode .ai-message {
+            background: rgba(139, 92, 246, 0.2);
+            border: 1px solid rgba(139, 92, 246, 0.4);
+        }
+
+        /* تحسينات للاستجابة */
+        @media (max-width: 768px) {
+            .chat-messages {
+                height: 300px;
+            }
+
+            .page-content {
+                padding: 2rem 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .chat-container {
+                padding: 1.5rem;
+            }
+
+            .chat-input {
+                padding-right: 3.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- جسيمات الخلفية المتحركة -->
+    <div class="particles" id="particles"></div>
+
+    <!-- الهيدر -->
+    <header class="header" id="header">
+        <nav class="nav">
+            <a href="index.html" class="logo">Raven information</a>
+            <ul class="nav-links">
+                <li><a href="index.html">الرئيسية</a></li>
+                <li><a href="ai.html" class="active">الذكاء الاصطناعي</a></li>
+                <li><a href="features.html">المميزات</a></li>
+                <li><a href="api.html">API</a></li>
+                <li><a href="docs.html">التوثيق</a></li>
+                <li><a href="about.html">حول</a></li>
+            </ul>
+            <div class="auth-buttons" id="authButtons">
+                <a href="#login" class="btn btn-outline" id="loginBtn">تسجيل الدخول</a>
+                <a href="#signup" class="btn btn-primary" id="signupBtn">إنشاء حساب</a>
+            </div>
+            <div class="user-info" id="userInfo" style="display: none;">
+                <div class="user-avatar" id="userAvatar"></div>
+                <span class="user-name" id="userName"></span>
+                <button class="logout-btn" id="logoutBtn">تسجيل خروج</button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- المحتوى الرئيسي -->
+    <main class="main-content">
+        <div class="page-content">
+            <h1 class="page-title">مساعد Raven information الذكي</h1>
+            <p class="page-description">استخدم الذكاء الاصطناعي المتقدم للحصول على إجابات دقيقة، تحليل المستندات، إنشاء المحتوى، وحل المشكلات المعقدة. ابدأ المحادثة الآن أو ارفع ملفاً للحصول على تحليل مفصل.</p>
+            
+            <div class="chat-container">
+                <div class="chat-header">
+                    <h2 class="chat-title">مساعد Raven information</h2>
+                    <p class="chat-description">كيف يمكنني مساعدتك اليوم؟</p>
+                </div>
+                
+                <div class="chat-messages" id="chatMessages">
+                    <!-- الرسائل ستظهر هنا -->
+                </div>
+                
+                <div class="loading" id="loadingIndicator">
+                    <div class="loading-dots">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+                
+                <div class="chat-input-container">
+                    <button class="voice-btn" id="voiceBtn">
+                        <i class="fas fa-microphone"></i>
+                    </button>
+                    <input type="text" class="chat-input" placeholder="اكتب سؤالك هنا أو اضغط على الميكروفون..." id="chatInput">
+                    <button class="send-btn" id="sendBtn">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M2,21L23,12L2,3V10L17,12L2,14V21Z"/>
+                        </svg>
+                    </button>
+                </div>
+                
+                <div class="file-upload-container">
+                    <label for="fileUpload" class="file-upload-btn">
+                        <i class="fas fa-paperclip"></i>
+                        <span>رفع ملف (PDF, Word, Excel, TXT, JS, Lua, HTML, CSS)</span>
+                        <input type="file" id="fileUpload" 
+                               accept=".pdf,.doc,.docx,.xls,.xlsx,.txt,.js,.lua,.html,.css,.zip,.rar" 
+                               style="display: none;">
+                    </label>
+                    <div class="uploaded-file" id="uploadedFile" style="display: none;">
+                        <span id="fileName"></span>
+                        <span class="remove-file" id="removeFile"><i class="fas fa-times"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- الفوتر -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="social-links">
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+            <div class="footer-links">
+                <a href="index.html">الرئيسية</a>
+                <a href="ai.html">الذكاء الاصطناعي</a>
+                <a href="features.html">المميزات</a>
+                <a href="api.html">API</a>
+                <a href="docs.html">التوثيق</a>
+                <a href="about.html">حول</a>
+                <a href="#privacy">سياسة الخصوصية</a>
+                <a href="#terms">شروط الاستخدام</a>
+                <a href="#contact">اتصل بنا</a>
+            </div>
+            <p class="footer-text">© 2025 Raven information. جميع الحقوق محفوظة.</p>
+        </div>
+    </footer>
+
+    <!-- مودال تسجيل الدخول -->
+    <div class="modal" id="loginModal">
+        <!-- ... نفس محتوى المودال السابق ... -->
+    </div>
+
+    <!-- مودال إنشاء حساب -->
+    <div class="modal" id="signupModal">
+        <!-- ... نفس محتوى المودال السابق ... -->
+    </div>
+
+    <!-- زر تبديل الوضع الليلي -->
+    <div class="dark-mode-toggle" id="darkModeToggle">
+        <i class="fas fa-moon"></i>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
