@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DeepSeek - AI Assistant</title>
+    <title>Raven information - الذكاء الاصطناعي المتقدم</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -12,7 +14,7 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Tajawal', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
             color: #ffffff;
             min-height: 100vh;
@@ -20,7 +22,7 @@
             overflow-x: hidden;
         }
 
-        /* Animated background particles */
+        /* أنماط الجسيمات المتحركة */
         .particles {
             position: fixed;
             top: 0;
@@ -51,7 +53,7 @@
             }
         }
 
-        /* Header */
+        /* أنماط الهيدر */
         .header {
             position: fixed;
             top: 0;
@@ -62,6 +64,12 @@
             border-bottom: 1px solid rgba(64, 224, 255, 0.2);
             padding: 1rem 2rem;
             z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .header.scrolled {
+            background: rgba(15, 15, 35, 0.98);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
         }
 
         .nav {
@@ -79,19 +87,26 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
         }
 
         .nav-links {
             display: flex;
-            gap: 2rem;
+            gap: 1.5rem;
             list-style: none;
         }
 
         .nav-links a {
             color: #ffffff;
             text-decoration: none;
-            transition: color 0.3s ease;
+            transition: all 0.3s ease;
             position: relative;
+            font-weight: 500;
+            padding: 0.5rem 0;
         }
 
         .nav-links a:hover {
@@ -101,7 +116,7 @@
         .nav-links a::after {
             content: '';
             position: absolute;
-            bottom: -5px;
+            bottom: 0;
             left: 0;
             width: 0;
             height: 2px;
@@ -110,6 +125,14 @@
         }
 
         .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a.active {
+            color: #40e0ff;
+        }
+
+        .nav-links a.active::after {
             width: 100%;
         }
 
@@ -153,261 +176,206 @@
             box-shadow: 0 5px 15px rgba(64, 224, 255, 0.4);
         }
 
-        /* Main Content */
+        .btn-large {
+            padding: 0.8rem 2rem;
+            font-size: 1.1rem;
+        }
+
+        /* أنماط المحتوى الرئيسي */
         .main-content {
             padding-top: 100px;
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
             position: relative;
             z-index: 100;
         }
 
         .hero-section {
             text-align: center;
-            max-width: 800px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 0 2rem;
+            padding: 4rem 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 80vh;
         }
 
         .hero-title {
             font-size: 3.5rem;
             font-weight: 700;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
             background: linear-gradient(45deg, #ffffff, #40e0ff, #8b5cf6);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             line-height: 1.2;
+            animation: fadeInUp 1s ease-out;
         }
 
         .hero-subtitle {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             color: #a0a0a0;
             margin-bottom: 3rem;
             line-height: 1.6;
+            max-width: 800px;
+            animation: fadeInUp 1s ease-out 0.2s;
+            animation-fill-mode: both;
         }
 
-        /* Chat Interface */
-        .chat-container {
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+            animation: fadeInUp 1s ease-out 0.4s;
+            animation-fill-mode: both;
+        }
+
+        .hero-image {
             width: 100%;
-            max-width: 700px;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(64, 224, 255, 0.2);
+            max-width: 800px;
+            margin: 2rem auto;
             border-radius: 20px;
-            padding: 2rem;
-            margin: 2rem 0;
-            position: relative;
             overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 1s ease-out 0.6s;
+            animation-fill-mode: both;
         }
 
-        .chat-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, #40e0ff, transparent);
+        .hero-image img {
+            width: 100%;
+            height: auto;
+            display: block;
         }
 
-        .chat-header {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .chat-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        .chat-description {
-            color: #a0a0a0;
-            font-size: 0.9rem;
-        }
-
-        .chat-messages {
-            height: 300px;
-            overflow-y: auto;
-            margin-bottom: 1rem;
-            padding: 1rem;
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 10px;
-        }
-
-        .message {
-            margin-bottom: 1rem;
-            padding: 0.8rem 1rem;
-            border-radius: 15px;
-            max-width: 80%;
-            word-wrap: break-word;
-            animation: fadeIn 0.3s ease-out;
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
         }
 
-        .user-message {
-            background: rgba(64, 224, 255, 0.1);
-            border: 1px solid rgba(64, 224, 255, 0.3);
-            margin-left: auto;
-            text-align: left;
-        }
-
-        .ai-message {
-            background: rgba(139, 92, 246, 0.1);
-            border: 1px solid rgba(139, 92, 246, 0.3);
-            margin-right: auto;
-            text-align: right;
-        }
-
-        .chat-input-container {
+        /* أنماط الأقسام */
+        .section {
+            padding: 6rem 2rem;
             position: relative;
-            margin-bottom: 1rem;
         }
 
-        .chat-input {
-            width: 100%;
-            padding: 1rem 1.5rem;
-            padding-right: 4rem;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(64, 224, 255, 0.3);
-            border-radius: 25px;
-            color: #ffffff;
-            font-size: 1rem;
-            outline: none;
-            transition: all 0.3s ease;
-        }
+        /* إضافة هذه الأنماط إلى ملفات CSS */
+/* أنماط الأسئلة الشائعة */
+.faq-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
 
-        .chat-input:focus {
-            border-color: #40e0ff;
-            box-shadow: 0 0 20px rgba(64, 224, 255, 0.3);
-        }
+.faq-item {
+    margin-bottom: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    overflow: hidden;
+}
 
-        .chat-input::placeholder {
-            color: #888;
-        }
+.faq-question {
+    padding: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
-        .send-btn {
-            position: absolute;
-            right: 0.5rem;
-            top: 50%;
-            transform: translateY(-50%);
-            background: linear-gradient(45deg, #40e0ff, #8b5cf6);
-            border: none;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+.faq-answer {
+    padding: 0 1rem;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
 
-        .send-btn:hover {
-            transform: translateY(-50%) scale(1.1);
-            box-shadow: 0 5px 15px rgba(64, 224, 255, 0.4);
-        }
+.faq-item.active .faq-answer {
+    padding: 0 1rem 1rem;
+    max-height: 500px;
+}
 
-        .send-btn svg {
-            width: 20px;
-            height: 20px;
-            fill: white;
-        }
+/* أنماط آراء العملاء */
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
 
-        .loading {
-            display: none;
-            text-align: center;
-            padding: 0.5rem;
-            color: #40e0ff;
-        }
+.testimonial-card {
+    background: rgba(64, 224, 255, 0.1);
+    border: 1px solid rgba(64, 224, 255, 0.3);
+    border-radius: 15px;
+    padding: 2rem;
+    position: relative;
+}
 
-        .loading-dots {
-            display: inline-block;
-        }
+.testimonial-card::before {
+    content: '"';
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 3rem;
+    color: rgba(64, 224, 255, 0.2);
+}
 
-        .loading-dots span {
-            display: inline-block;
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #40e0ff;
-            margin: 0 2px;
-            animation: bounce 1.4s infinite ease-in-out both;
-        }
+.testimonial-content {
+    font-style: italic;
+    margin-bottom: 1rem;
+}
 
-        .loading-dots span:nth-child(1) {
-            animation-delay: -0.32s;
-        }
+.testimonial-author {
+    font-weight: 600;
+    color: #40e0ff;
+}
 
-        .loading-dots span:nth-child(2) {
-            animation-delay: -0.16s;
-        }
+/* أنماط وضع المطور */
+.developer-controls {
+    text-align: center;
+    margin-top: 2rem;
+}
 
-        @keyframes bounce {
-            0%, 80%, 100% { 
-                transform: scale(0);
-            }
-            40% { 
-                transform: scale(1.0);
-            }
-        }
+.dev-options {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    padding: 1rem;
+    margin-top: 1rem;
+}
 
-        .suggestions {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-top: 2rem;
-        }
+.form-group {
+    margin-bottom: 1rem;
+}
 
-        .suggestion-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(64, 224, 255, 0.2);
-            border-radius: 12px;
-            padding: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-align: right;
-        }
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+}
 
-        .suggestion-card:hover {
-            background: rgba(64, 224, 255, 0.1);
-            border-color: #40e0ff;
-            transform: translateY(-2px);
-        }
+/* تحسينات للوضع الفاتح */
+body.light-mode .faq-item {
+    background: rgba(0, 0, 0, 0.05);
+}
 
-        .suggestion-title {
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: #40e0ff;
-        }
+body.light-mode .testimonial-card {
+    background: rgba(64, 224, 255, 0.1);
+    border: 1px solid rgba(64, 224, 255, 0.3);
+}
 
-        .suggestion-text {
-            font-size: 0.9rem;
-            color: #a0a0a0;
-            line-height: 1.4;
-        }
-
-        /* Features Section */
-        .features-section {
-            padding: 4rem 2rem;
-            background: rgba(255, 255, 255, 0.02);
-            width: 100%;
-        }
-
-        .features-container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .features-title {
+        .section-title {
             text-align: center;
             font-size: 2.5rem;
             font-weight: 700;
@@ -418,6 +386,22 @@
             background-clip: text;
         }
 
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #a0a0a0;
+            margin-bottom: 4rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* أنماط بطاقات الميزات */
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -469,10 +453,10 @@
             line-height: 1.6;
         }
 
-        /* Footer */
+        /* أنماط الفوتر */
         .footer {
             background: rgba(15, 15, 35, 0.8);
-            padding: 2rem;
+            padding: 3rem 2rem;
             text-align: center;
             border-top: 1px solid rgba(64, 224, 255, 0.2);
         }
@@ -486,7 +470,7 @@
             display: flex;
             justify-content: center;
             gap: 2rem;
-            margin-bottom: 1rem;
+            margin-bottom: 2rem;
             flex-wrap: wrap;
         }
 
@@ -503,326 +487,258 @@
         .footer-text {
             color: #666;
             font-size: 0.9rem;
+            margin-top: 1rem;
         }
 
-        /* Responsive */
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-links a {
+            color: #a0a0a0;
+            font-size: 1.2rem;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: #40e0ff;
+            transform: translateY(-3px);
+        }
+
+        /* أنماط الصفحات الداخلية */
+        .page-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 6rem 2rem;
+            min-height: 80vh;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            background: linear-gradient(45deg, #40e0ff, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-description {
+            font-size: 1.1rem;
+            color: #a0a0a0;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        /* أنماط الوضع الفاتح */
+        body.light-mode {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 50%, #d8e1e8 100%);
+            color: #333;
+        }
+
+        body.light-mode .header {
+            background: rgba(245, 247, 250, 0.95);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        body.light-mode .nav-links a {
+            color: #333;
+        }
+
+        body.light-mode .feature-card {
+            background: rgba(255, 255, 255, 0.8);
+            color: #333;
+        }
+
+        body.light-mode .feature-description {
+            color: #666;
+        }
+
+        body.light-mode .footer {
+            background: rgba(245, 247, 250, 0.9);
+        }
+
+        /* تحسينات للاستجابة */
+        @media (max-width: 992px) {
+            .hero-title {
+                font-size: 2.8rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+        }
+
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
             }
 
             .hero-title {
-                font-size: 2.5rem;
+                font-size: 2.2rem;
             }
 
             .hero-subtitle {
                 font-size: 1rem;
             }
 
-            .chat-container {
-                margin: 1rem;
-                padding: 1.5rem;
-            }
-
-            .suggestions {
-                grid-template-columns: 1fr;
-            }
-
-            .features-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .footer-links {
+            .hero-buttons {
                 flex-direction: column;
                 gap: 1rem;
+            }
+
+            .section {
+                padding: 4rem 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 1.8rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .page-title {
+                font-size: 2rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Animated Background Particles -->
+    <!-- جسيمات الخلفية المتحركة -->
     <div class="particles" id="particles"></div>
 
-    <!-- Header -->
-    <header class="header">
+    <!-- الهيدر -->
+    <header class="header" id="header">
         <nav class="nav">
-            <div class="logo">DeepSeek</div>
+            <a href="index.html" class="logo">Raven information</a>
             <ul class="nav-links">
-                <li><a href="#home">الرئيسية</a></li>
-                <li><a href="#features">المميزات</a></li>
-                <li><a href="#api">API</a></li>
-                <li><a href="#docs">التوثيق</a></li>
-                <li><a href="#about">حول</a></li>
+                <li><a href="1index.html">الرئيسية</a></li>
+                <li><a href="ai.html">الذكاء الاصطناعي</a></li>
+                <li><a href="features.html">المميزات</a></li>
+                <li><a href="api.html">API</a></li>
+                <li><a href="docs.html">التوثيق</a></li>
+                <li><a href="about.html">حول</a></li>
             </ul>
-            <div class="auth-buttons">
-                <a href="#login" class="btn btn-outline">تسجيل الدخول</a>
-                <a href="#signup" class="btn btn-primary">إنشاء حساب</a>
+            <div class="auth-buttons" id="authButtons">
+                <a href="#login" class="btn btn-outline" id="loginBtn">تسجيل الدخول</a>
+                <a href="#signup" class="btn btn-primary" id="signupBtn">إنشاء حساب</a>
+            </div>
+            <div class="user-info" id="userInfo" style="display: none;">
+                <div class="user-avatar" id="userAvatar"></div>
+                <span class="user-name" id="userName"></span>
+                <button class="logout-btn" id="logoutBtn">تسجيل خروج</button>
             </div>
         </nav>
     </header>
 
-    <!-- Main Content -->
+    <!-- المحتوى الرئيسي -->
     <main class="main-content">
         <section class="hero-section">
-            <h1 class="hero-title">كشف أسرار الذكاء الاصطناعي</h1>
-            <p class="hero-subtitle">DeepSeek - مساعد ذكي متقدم يساعدك في حل المشاكل المعقدة والإجابة على أسئلتك بدقة عالية</p>
+            <h1 class="hero-title">ثورة الذكاء الاصطناعي تبدأ هنا</h1>
+            <p class="hero-subtitle">Raven information - منصة الذكاء الاصطناعي المتقدمة التي تقدم حلولاً ذكية لمشاكل العالم الحقيقي. اكتشف قوة الذكاء الاصطناعي في تحليل البيانات، معالجة اللغة الطبيعية، وإنشاء المحتوى الذكي.</p>
             
-            <div class="chat-container">
-                <div class="chat-header">
-                    <h2 class="chat-title">ابدأ محادثتك الآن</h2>
-                    <p class="chat-description">اسأل أي سؤال واحصل على إجابات ذكية ومفصلة</p>
-                </div>
-                
-                <div class="chat-messages" id="chatMessages">
-                    <!-- Messages will appear here -->
-                </div>
-                
-                <div class="loading" id="loadingIndicator">
-                    <div class="loading-dots">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div>
-                </div>
-                
-                <div class="chat-input-container">
-                    <input type="text" class="chat-input" placeholder="اكتب سؤالك هنا..." id="chatInput">
-                    <button class="send-btn" onclick="sendMessage()">
-                        <svg viewBox="0 0 24 24">
-                            <path d="M2,21L23,12L2,3V10L17,12L2,14V21Z"/>
-                        </svg>
-                    </button>
-                </div>
-                
-                <div class="suggestions">
-                    <div class="suggestion-card" onclick="selectSuggestion('ما هو الذكاء الاصطناعي؟')">
-                        <div class="suggestion-title">الذكاء الاصطناعي</div>
-                        <div class="suggestion-text">تعرف على مفهوم الذكاء الاصطناعي وتطبيقاته</div>
-                    </div>
-                    <div class="suggestion-card" onclick="selectSuggestion('كيف يعمل التعلم العميق؟')">
-                        <div class="suggestion-title">التعلم العميق</div>
-                        <div class="suggestion-text">شرح مفصل لآلية عمل التعلم العميق</div>
-                    </div>
-                    <div class="suggestion-card" onclick="selectSuggestion('ما هي أفضل لغات البرمجة؟')">
-                        <div class="suggestion-title">البرمجة</div>
-                        <div class="suggestion-text">دليل شامل لأفضل لغات البرمجة</div>
-                    </div>
-                    <div class="suggestion-card" onclick="selectSuggestion('كيف أتعلم علوم البيانات؟')">
-                        <div class="suggestion-title">علوم البيانات</div>
-                        <div class="suggestion-text">خريطة طريق لتعلم علوم البيانات</div>
-                    </div>
-                </div>
+            <div class="hero-buttons">
+                <a href="ai.html" class="btn btn-primary btn-large">جرب الذكاء الاصطناعي الآن</a>
+                <a href="features.html" class="btn btn-outline btn-large">استكشف المميزات</a>
+            </div>
+            
+            <div class="hero-image">
+                <img src="https://media.discordapp.net/attachments/1249410743141400607/1384678336474779659/aeeece215431223.png?ex=68534db1&is=6851fc31&hm=87568920c9dfae29240742bfd85cf3676443c2f76f17b24e58096bf1aad09ec9&=&format=webp&quality=lossless&width=1027&height=578" alt="Raven information AI Platform">
             </div>
         </section>
-    </main>
 
-    <!-- Features Section -->
-    <section class="features-section" id="features">
-        <div class="features-container">
-            <h2 class="features-title">لماذا DeepSeek؟</h2>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 24 24">
-                            <path d="M12,2A2,2 0 0,1 14,4C14,4.74 13.6,5.39 13,5.73V7H14A7,7 0 0,1 21,14H22A1,1 0 0,1 23,15V18A1,1 0 0,1 22,19H21V20A2,2 0 0,1 19,22H5A2,2 0 0,1 3,20V19H2A1,1 0 0,1 1,18V15A1,1 0 0,1 2,14H3A7,7 0 0,1 10,7H11V5.73C10.4,5.39 10,4.74 10,4A2,2 0 0,1 12,2M7.5,13A2.5,2.5 0 0,0 5,15.5A2.5,2.5 0 0,0 7.5,18A2.5,2.5 0 0,0 10,15.5A2.5,2.5 0 0,0 7.5,13M16.5,13A2.5,2.5 0 0,0 14,15.5A2.5,2.5 0 0,0 16.5,18A2.5,2.5 0 0,0 19,15.5A2.5,2.5 0 0,0 16.5,13Z"/>
-                        </svg>
-                    </div>
-                    <h3 class="feature-title">ذكاء متقدم</h3>
-                    <p class="feature-description">نموذج ذكاء اصطناعي متطور قادر على فهم السياق والإجابة على الأسئلة المعقدة بدقة عالية</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 24 24">
-                            <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,7C13.4,7 14.8,8.6 14.8,10V11.5C15.4,11.5 16,12.1 16,12.7V16.2C16,16.8 15.4,17.3 14.8,17.3H9.2C8.6,17.3 8,16.8 8,16.2V12.8C8,12.2 8.6,11.7 9.2,11.7V10.1C9.2,8.6 10.6,7 12,7M12,8.2C11.2,8.2 10.5,8.7 10.5,9.5V11.4H13.5V9.5C13.5,8.7 12.8,8.2 12,8.2Z"/>
-                        </svg>
-                    </div>
-                    <h3 class="feature-title">أمان وخصوصية</h3>
-                    <p class="feature-description">نحن نضع الأمان والخصوصية في المقدمة، مع حماية كاملة لبياناتك ومحادثاتك</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 24 24">
-                            <path d="M13,9H18.5L13,3.5V9M6,2H14L20,8V20A2,2 0 0,1 18,22H6C4.89,22 4,21.1 4,20V4C4,2.89 4.89,2 6,2M15,18V16H6V18H15M18,14V12H6V14H18Z"/>
-                        </svg>
-                    </div>
-                    <h3 class="feature-title">معالجة المستندات</h3>
-                    <p class="feature-description">قدرة على قراءة وتحليل المستندات المختلفة وتقديم ملخصات وإجابات دقيقة</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 24 24">
-                            <path d="M12,2C13.1,2 14,2.9 14,4C14,5.1 13.1,6 12,6C10.9,6 10,5.1 10,4C10,2.9 10.9,2 12,2M21,9V7L15,1H5C3.89,1 3,1.89 3,3V21A2,2 0 0,0 5,23H19A2,2 0 0,0 21,21V9M19,9H14V4H19V9Z"/>
-                        </svg>
-                    </div>
-                    <h3 class="feature-title">إنشاء المحتوى</h3>
-                    <p class="feature-description">مساعدة في كتابة المقالات، الرسائل، والمحتوى الإبداعي بجودة احترافية</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 24 24">
-                            <path d="M17,12C17,14.42 15.28,16.44 13,16.9V21H11V16.9C8.72,16.44 7,14.42 7,12C7,9.58 8.72,7.56 11,7.1V2H13V7.1C15.28,7.56 17,9.58 17,12M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9Z"/>
-                        </svg>
-                    </div>
-                    <h3 class="feature-title">API متطور</h3>
-                    <p class="feature-description">واجهة برمجة التطبيقات قوية وسهلة الاستخدام للمطورين</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 24 24">
-                            <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M7.07,18.28C7.5,17.38 10.12,16.5 12,16.5C13.88,16.5 16.5,17.38 16.93,18.28C15.57,19.36 13.86,20 12,20C10.14,20 8.43,19.36 7.07,18.28M18.36,16.83C16.93,15.09 13.46,14.5 12,14.5C10.54,14.5 7.07,15.09 5.64,16.83C4.62,15.5 4,13.82 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,13.82 19.38,15.5 18.36,16.83M12,6C10.06,6 8.5,7.56 8.5,9.5C8.5,11.44 10.06,13 12,13C13.94,13 15.5,11.44 15.5,9.5C15.5,7.56 13.94,6 12,6M12,11A1.5,1.5 0 0,1 10.5,9.5A1.5,1.5 0 0,1 12,8A1.5,1.5 0 0,1 13.5,9.5A1.5,1.5 0 0,1 12,11Z"/>
-                        </svg>
-                    </div>
-                    <h3 class="feature-title">دعم متعدد اللغات</h3>
-                    <p class="feature-description">دعم كامل للغة العربية والعديد من اللغات الأخرى بدقة عالية</p>
-                </div>
+        <!-- قسم الميزات الرئيسية -->
+<!-- بعد قسم الميزات الرئيسية -->
+<section class="section">
+    <div class="container">
+        <h2 class="section-title">الأسئلة الشائعة</h2>
+        <div class="faq-container">
+            <div class="faq-item">
+                <div class="faq-question">ما هو Raven information؟</div>
+                <div class="faq-answer">Raven information هو منصة ذكاء اصطناعي متقدمة توفر حلولاً ذكية لتحليل البيانات، معالجة اللغة الطبيعية، وإنشاء المحتوى الذكي.</div>
             </div>
+            <!-- المزيد من الأسئلة -->
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Footer -->
+<section class="section testimonials-section">
+    <div class="container">
+        <h2 class="section-title">آراء عملائنا</h2>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="testimonial-content">"لقد غير Raven information طريقة عملي تماماً!"</div>
+                <div class="testimonial-author">أحمد محمد</div>
+            </div>
+            <!-- المزيد من الآراء -->
+        </div>
+    </div>
+</section>
+
+
+<!-- بعد واجهة الدردشة -->
+<div class="developer-controls" id="developerControls">
+    <button class="btn btn-outline" id="toggleDevMode">وضع المطور</button>
+    <div class="dev-options" id="devOptions" style="display: none;">
+        <div class="form-group">
+            <label for="temperature">Temperature:</label>
+            <input type="range" id="temperature" min="0" max="1" step="0.1" value="0.7">
+            <span id="tempValue">0.7</span>
+        </div>
+        <div class="form-group">
+            <label for="maxTokens">Max Tokens:</label>
+            <input type="number" id="maxTokens" min="100" max="2000" value="1000">
+        </div>
+    </div>
+</div>
+
+    <!-- الفوتر -->
     <footer class="footer">
         <div class="footer-content">
+            <div class="social-links">
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
             <div class="footer-links">
+                <a href="index.html">الرئيسية</a>
+                <a href="ai.html">الذكاء الاصطناعي</a>
+                <a href="features.html">المميزات</a>
+                <a href="api.html">API</a>
+                <a href="docs.html">التوثيق</a>
+                <a href="about.html">حول</a>
                 <a href="#privacy">سياسة الخصوصية</a>
                 <a href="#terms">شروط الاستخدام</a>
                 <a href="#contact">اتصل بنا</a>
-                <a href="#blog">المدونة</a>
-                <a href="#careers">الوظائف</a>
             </div>
-            <p class="footer-text">© 2024 DeepSeek. جميع الحقوق محفوظة.</p>
+            <p class="footer-text">© 2025 Raven information. جميع الحقوق محفوظة.</p>
         </div>
     </footer>
 
-    <script>
-        // Initialize the page
-        document.addEventListener('DOMContentLoaded', function() {
-            createParticles();
-            addWelcomeMessage();
-        });
+    <!-- مودال تسجيل الدخول -->
+    <div class="modal" id="loginModal">
+        <!-- ... نفس محتوى المودال السابق ... -->
+    </div>
 
-        // Create animated particles
-        function createParticles() {
-            const particlesContainer = document.getElementById('particles');
-            const particleCount = 50;
+    <!-- مودال إنشاء حساب -->
+    <div class="modal" id="signupModal">
+        <!-- ... نفس محتوى المودال السابق ... -->
+    </div>
 
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.top = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 6 + 's';
-                particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
-                particlesContainer.appendChild(particle);
-            }
-        }
+    <!-- زر تبديل الوضع الليلي -->
+    <div class="dark-mode-toggle" id="darkModeToggle">
+        <i class="fas fa-moon"></i>
+    </div>
 
-        // Add welcome message
-        function addWelcomeMessage() {
-            setTimeout(() => {
-                addMessage('مرحباً بك! أنا مساعد DeepSeek الذكي. كيف يمكنني مساعدتك اليوم؟', false);
-            }, 500);
-        }
-
-        // Add message to chat
-        function addMessage(text, isUser) {
-            const messagesContainer = document.getElementById('chatMessages');
-            const messageElement = document.createElement('div');
-            messageElement.className = `message ${isUser ? 'user-message' : 'ai-message'}`;
-            messageElement.textContent = text;
-            messagesContainer.appendChild(messageElement);
-            messagesContainer.scrollTop = messagesContainer.scrollHeight;
-        }
-
-        // Show loading indicator
-        function showLoading(show) {
-            document.getElementById('loadingIndicator').style.display = show ? 'block' : 'none';
-        }
-
-        // Select suggestion
-        function selectSuggestion(text) {
-            document.getElementById('chatInput').value = text;
-        }
-
-        // Send message function
-        function sendMessage() {
-            const input = document.getElementById('chatInput');
-            const message = input.value.trim();
-            
-            if (message === '') return;
-            
-            // Add user message
-            addMessage(message, true);
-            input.value = '';
-            
-            // Show loading
-            showLoading(true);
-            
-            // Get AI response after a short delay
-getAIResponse(message).then(response => {
-    addMessage(response, false);
-    showLoading(false);
-});
-        }
-
-        // Send message function
-async function sendMessage() {
-    const input = document.getElementById('chatInput');
-    const message = input.value.trim();
-
-    if (message === '') return;
-
-    // Add user message
-    addMessage(message, true);
-    input.value = '';
-
-    // Show loading
-    showLoading(true);
-
-    // ✅ انتظر الرد من GPT
-    const response = await getAIResponse(message);
-    addMessage(response, false);
-    showLoading(false);
-}
-
-
-
-async function getAIResponse(prompt) {
-  const apiKey = "Y8B749ATHlYrRAqAHbn7VVEWVn8ORwzF"; // انسخ المفتاح من DeepInfra
-  const endpoint = "https://api.deepinfra.com/v1/openai/chat/completions";
-
-  const body = {
-    model: "mistralai/Mistral-7B-Instruct-v0.1",
-    messages: [{ role: "user", content: prompt }]
-  };
-
-  try {
-    const response = await fetch(endpoint, {
-      method: "POST",
-      headers: {
-        "Authorization": `Bearer ${apiKey}`,
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(body)
-    });
-
-    const data = await response.json();
-    return data.choices?.[0]?.message?.content || "⚠️ لا يوجد رد.";
-  } catch (error) {
-    return `❌ خطأ في الاتصال: ${error.message}`;
-  }
-}
-
-// مثال:
-getAIResponse("ما الفرق بين الذكاء الصناعي والتعلم الآلي؟").then(console.log);
-
-
-
-
-</script>
+    <script src="script.js"></script>
 </body>
 </html>
