@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>قوانين سيرفر لاست يير</title>
+    <style>
+        :root {
+            --main-color: #2c3e50;
+            --secondary-color: #e74c3c;
+            --accent-color: #f36c12;
+            --light-color: #ecf0f1;
+            --dark-color: #1a252f;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tajawal', sans-serif;
+        }
+        
+        body {
+            background-color: var(--dark-color);
+            color: var(--light-color);
+            background-image: url('https://media.discordapp.net/attachments/1200079938842279937/1387276828355334155/PLAYER-LIST.gif?ex=685cc1ba&is=685b703a&hm=f5234b5cc4ed6e2b14d8374ba73715da3bb29aa5afaaf45b797a5172e1da093d&=&width=440&height=229');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+        }
+        
+        .overlay {
+            background-color: rgba(0, 0, 0, 0.9);
+            min-height: 100vh;
+            width: 100%;
+        }
+        
+        header {
+            padding: 20px 0;
+            border-bottom: 2px solid var(--accent-color);
+            position: sticky;
+            top: 0;
+            background-color: rgba(26, 37, 47, 0.95);
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .logo img {
+            width: 70px;
+            border-radius: 50%;
+            border: 2px solid var(--accent-color);
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+            color: var(--accent-color);
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 8px 20px;
+            background-color: var(--secondary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            margin: 5px;
+        }
+        
+        .btn:hover {
+            background-color: #c0392b;
+            transform: translateY(-2px);
+        }
+        
+        .btn-accent {
+            background-color: var(--accent-color);
+        }
+        
+        .btn-accent:hover {
+            background-color: #e67e22;
+        }
+        
+        .laws-container {
+            padding: 40px 0;
+        }
+        
+        .law-category {
+            margin-bottom: 40px;
+            background-color: rgba(26, 37, 47, 0.7);
+            border-radius: 10px;
+            padding: 25px;
+            border-left: 5px solid var(--accent-color);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .law-category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            border-left-color: var(--secondary-color);
+        }
+        
+        .law-category h2 {
+            font-size: 1.8rem;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--main-color);
+        }
+        
+        .law-item {
+            margin-bottom: 15px;
+            padding-left: 20px;
+            border-left: 2px solid var(--secondary-color);
+            position: relative;
+        }
+        
+        .law-item:before {
+            content: '';
+            position: absolute;
+            left: -6px;
+            top: 10px;
+            width: 10px;
+            height: 10px;
+            background-color: var(--secondary-color);
+            border-radius: 50%;
+        }
+        
+        .law-item h3 {
+            font-size: 1.3rem;
+            color: var(--light-color);
+            margin-bottom: 5px;
+        }
+        
+        .law-item p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #bdc3c7;
+        }
+        
+        .penalty {
+            display: inline-block;
+            background-color: rgba(231, 76, 60, 0.2);
+            color: var(--secondary-color);
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 0.9rem;
+            margin-top: 5px;
+            border: 1px solid var(--secondary-color);
+        }
+        
+        .search-container {
+            margin: 20px 0;
+            position: sticky;
+            top: 80px;
+            z-index: 50;
+            background-color: rgba(26, 37, 47, 0.9);
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .search-box {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 5px;
+            border: none;
+            background-color: var(--dark-color);
+            color: var(--light-color);
+            font-size: 1.1rem;
+            border: 1px solid var(--main-color);
+            transition: all 0.3s ease;
+        }
+        
+        .search-box:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 10px rgba(243, 156, 18, 0.3);
+        }
+        
+        .law-importance {
+            display: inline-block;
+            font-size: 0.8rem;
+            padding: 2px 8px;
+            border-radius: 3px;
+            margin-left: 10px;
+            font-weight: bold;
+        }
+        
+        .high-importance {
+            background-color: rgba(231, 76, 60, 0.2);
+            color: var(--secondary-color);
+            border: 1px solid var(--secondary-color);
+        }
+        
+        .medium-importance {
+            background-color: rgba(243, 156, 18, 0.2);
+            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+        }
+        
+        .low-importance {
+            background-color: rgba(46, 204, 113, 0.2);
+            color: #2ecc71;
+            border: 1px solid #2ecc71;
+        }
+        
+        .law-number {
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            border-top: 1px solid var(--main-color);
+            margin-top: 50px;
+            background-color: rgba(26, 37, 47, 0.9);
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background-color: var(--accent-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            text-decoration: none;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            background-color: #e67e22;
+            transform: translateY(-3px);
+        }
+        
+        @media (max-width: 768px) {
+            .logo h1 {
+                font-size: 1.4rem;
+            }
+            
+            .law-category h2 {
+                font-size: 1.5rem;
+            }
+            
+            .law-item h3 {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="overlay">
+        <header>
+            <div class="container">
+                <div class="logo">
+                    <a href="index.html" class="btn btn-accent"><i class="fas fa-home"></i> الرئيسية</a>
+                    <h1>قوانين السيرفر</h1>
+                    <img src="https://media.discordapp.net/attachments/784916891822194729/1387236209054580786/logo-anmititon-66.gif?ex=685c9be5&is=685b4a65&hm=a632382907b3996eff88b4eaf28a8269753977411eb3b4415c3208410f904efb&=" alt="شعار السيرفر">
+                </div>
+            </div>
+        </header>
+        
+        <main>
+            <div class="container">
+                <div class="search-container">
+                    <input type="text" class="search-box" placeholder="ابحث في القوانين..." id="searchInput">
+                </div>
+                
+                <div class="laws-container" id="lawsContainer">
+                    <div class="law-category">
+                        <h2><i class="fas fa-gavel"></i> القوانين العامة</h2>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">1.</span> احترام جميع اللاعبين <span class="law-importance high-importance">عالية</span></h3>
+                            <p>يمنع التمييز أو الإساءة لأي لاعب لأي سبب كان (عرق، دين، جنس، إلخ).</p>
+                            <span class="penalty">العقوبة: حظر مؤقت من 3 أيام إلى حظر دائم</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">2.</span> منع استخدام الألفاظ النابية <span class="law-importance medium-importance">متوسطة</span></h3>
+                            <p>يمنع استخدام الألفاظ النابية أو المسيئة في الشات الصوتي أو النصي.</p>
+                            <span class="penalty">العقوبة: إنذار ثم حظر مؤقت</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">3.</span> منع الغش أو الاستغلال <span class="law-importance high-importance">عالية</span></h3>
+                            <p>يمنع استخدام أي برامج أو أدوات غش أو استغلال ثغرات في السيرفر.</p>
+                            <span class="penalty">العقوبة: حظر دائم بدون سابق إنذار</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">4.</span> الالتزام بأدوار الشخصية <span class="law-importance medium-importance">متوسطة</span></h3>
+                            <p>يجب الالتزام بأدوار الشخصية (RP) وعدم الخروج عنها إلا في المناطق المخصصة.</p>
+                            <span class="penalty">العقوبة: إنذار ثم حظر مؤقت من السيرفر</span>
+                        </div>
+                    </div>
+                    
+                    <div class="law-category">
+                        <h2><i class="fas fa-car-crash"></i> قوانين المرور والمركبات</h2>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">5.</span> الالتزام بقواعد المرور <span class="law-importance medium-importance">متوسطة</span></h3>
+                            <p>يجب الالتزام بإشارات المرور والسرعة المحددة في المناطق المختلفة.</p>
+                            <span class="penalty">العقوبة: غرامة مالية أو سحب رخصة</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">6.</span> منع القيادة المتهورة <span class="law-importance medium-importance">متوسطة</span></h3>
+                            <p>يمنع القيادة المتهورة التي تعرض حياة الآخرين للخطر.</p>
+                            <span class="penalty">العقوبة: سحب رخصة القيادة أو حظر من استخدام المركبات</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">7.</span> منع سرقة المركبات العشوائية <span class="law-importance high-importance">عالية</span></h3>
+                            <p>يمنع سرقة مركبات اللاعبين الآخرين بدون سبب منطقي في لعبة الأدوار.</p>
+                            <span class="penalty">العقوبة: سجن في اللعبة أو حظر مؤقت</span>
+                        </div>
+                    </div>
+                    
+                    <div class="law-category">
+                        <h2><i class="fas fa-shield-alt"></i> قوانين الأسلحة والجرائم</h2>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">8.</span> منع القتل العشوائي (RDM) <span class="law-importance high-importance">عالية</span></h3>
+                            <p>يمنع قتل اللاعبين الآخرين بدون سبب أو تفاعل منطقي في لعبة الأدوار.</p>
+                            <span class="penalty">العقوبة: حظر مؤقت من 3 أيام إلى أسبوع</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">9.</span> منع السطو بدون تفاعل (VDM) <span class="law-importance high-importance">عالية</span></h3>
+                            <p>يمنع سرقة أو اعتقال اللاعبين بدون تفاعل كلامي أو سبب منطقي.</p>
+                            <span class="penalty">العقوبة: حظر مؤقت من يوم إلى 3 أيام</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">10.</span> تقييد استخدام الأسلحة <span class="law-importance medium-importance">متوسطة</span></h3>
+                            <p>يمنع استخدام الأسلحة الثقيلة أو المتفجرات إلا في الأحداث المخصصة.</p>
+                            <span class="penalty">العقوبة: مصادرة الأسلحة + غرامة مالية</span>
+                        </div>
+                    </div>
+                    
+                    <div class="law-category">
+                        <h2><i class="fas fa-user-tie"></i> قوانين الوظائف والمنظمات</h2>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">11.</span> الالتزام بدور الوظيفة <span class="law-importance medium-importance">متوسطة</span></h3>
+                            <p>يجب على الموظفين الرسميين الالتزام بدورهم وعدم استغلال صلاحياتهم.</p>
+                            <span class="penalty">العقوبة: فصل من الوظيفة أو حظر مؤقت</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">12.</span> منع انتحال الشخصيات الرسمية <span class="law-importance high-importance">عالية</span></h3>
+                            <p>يمنع انتحال شخصية موظف حكومي أو عضو إدارة بدون إذن.</p>
+                            <span class="penalty">العقوبة: حظر مؤقت من أسبوع إلى شهر</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">13.</span> قوانين إنشاء المنظمات <span class="law-importance medium-importance">متوسطة</span></h3>
+                            <p>يجب الحصول على موافقة الإدارة قبل إنشاء أي منظمة أو عصابة.</p>
+                            <span class="penalty">العقوبة: حل المنظمة + عقوبات على الأعضاء</span>
+                        </div>
+                    </div>
+                    
+                    <div class="law-category">
+                        <h2><i class="fas fa-microphone-alt-slash"></i> قوانين الشات الصوتي والنصي</h2>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">14.</span> منع التشويش أو الأصوات العالية <span class="law-importance low-importance">منخفضة</span></h3>
+                            <p>يمنع التشويش أو رفع صوت الميكروفون بشكل مزعج للآخرين.</p>
+                            <span class="penalty">العقوبة: كتم مؤقت أو طرد من الشات الصوتي</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">15.</span> منع الإعلانات غير المرخصة <span class="law-importance medium-importance">متوسطة</span></h3>
+                            <p>يمنع نشر إعلانات الخوادم الأخرى أو الإعلانات التجارية بدون إذن.</p>
+                            <span class="penalty">العقوبة: حظر من الشات النصي أو حظر مؤقت</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">16.</span> استخدام القنوات الصوتية المخصصة <span class="law-importance low-importance">منخفضة</span></h3>
+                            <p>يجب استخدام القنوات الصوتية المخصصة لكل منطقة أو نشاط.</p>
+                            <span class="penalty">العقوبة: نقل قسري إلى القناة الصحيحة</span>
+                        </div>
+                    </div>
+                    
+                    <div class="law-category">
+                        <h2><i class="fas fa-exclamation-triangle"></i> قوانين خاصة بالسيرفر</h2>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">17.</span> منع استغلال الأخطاء (البق) <span class="law-importance high-importance">عالية</span></h3>
+                            <p>يمنع استغلال أي أخطاء في السيرفر ويجب الإبلاغ عنها فوراً للإدارة.</p>
+                            <span class="penalty">العقوبة: حظر مؤقت أو دائم حسب الخطأ</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">18.</span> احترام قرارات الإدارة <span class="law-importance high-importance">عالية</span></h3>
+                            <p>قرارات الإدارة نهائية ويجب احترامها، مع حق الاعتراض عبر التذاكر.</p>
+                            <span class="penalty">العقوبة: حظر مؤقت أو دائم حسب التكرار</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">19.</span> قوانين المناطق الآمنة <span class="law-importance high-importance">عالية</span></h3>
+                            <p>يمنع أي أعمال إجرامية أو عنف في المناطق الآمنة المحددة.</p>
+                            <span class="penalty">العقوبة: سجن في اللعبة أو حظر مؤقت</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">20.</span> قوانين الفعاليات الخاصة <span class="law-importance medium-importance">متوسطة</span></h3>
+                            <p>قد تعلن إدارة السيرفر عن قوانين إضافية خلال الفعاليات الخاصة.</p>
+                            <span class="penalty">العقوبة: تختلف حسب الفعالية</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <a href="#" class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></a>
+        </main>
+        
+        <footer>
+            <div class="container">
+                <p> جميع الحقوق محفوضه لدى لاست يير &copy; قوانين سيرفر لاست يير</p>
+                <p>تم التصميم بشكل حصري لسيرفرنا فقط</p>            </div>
+        </footer>
+    </div>
+    
+    <script>
+        // زر العودة للأعلى
+        window.addEventListener('scroll', function() {
+            const backToTop = document.getElementById('backToTop');
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+        
+        // بحث في القوانين
+        document.getElementById('searchInput').addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            const lawItems = document.querySelectorAll('.law-item');
+            
+            lawItems.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                if (text.includes(searchTerm)) {
+                    item.style.display = 'block';
+                    item.parentElement.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                    
+                    // إخفاء الفئة إذا لم يكن بها أي عناصر ظاهرة
+                    const category = item.parentElement;
+                    const visibleItems = category.querySelectorAll('.law-item[style="display: block"]');
+                    if (visibleItems.length === 0) {
+                        category.style.display = 'none';
+                    } else {
+                        category.style.display = 'block';
+                    }
+                }
+            });
+        });
+        
+        // تأثيرات عند التمرير
+        const lawCategories = document.querySelectorAll('.law-category');
+        
+        function checkScroll() {
+            lawCategories.forEach(category => {
+                const categoryTop = category.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (categoryTop < windowHeight - 100) {
+                    category.style.opacity = '1';
+                    category.style.transform = 'translateY(0)';
+                }
+            });
+        }
+        
+        // تهيئة أولية للعناصر
+        lawCategories.forEach(category => {
+            category.style.opacity = '0';
+            category.style.transform = 'translateY(20px)';
+            category.style.transition = 'all 0.5s ease';
+        });
+        
+        window.addEventListener('scroll', checkScroll);
+        window.addEventListener('load', checkScroll);
+    </script>
+</body>
+</html>
