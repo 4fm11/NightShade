@@ -1,0 +1,1295 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مواقع السيناريوهات | سيرفر لاست يير</title>
+    <style>
+        :root {
+            --main-color: #2c3e50;
+            --secondary-color: #e74c3c;
+            --accent-color: #f36c12;
+            --light-color: #ecf0f1;
+            --dark-color: #1a252f;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tajawal', sans-serif;
+        }
+        
+        body {
+            background-color: var(--dark-color);
+            color: var(--light-color);
+            background-image: url('https://media.discordapp.net/attachments/1200079938842279937/1387276828355334155/PLAYER-LIST.gif?ex=685cc1ba&is=685b703a&hm=f5234b5cc4ed6e2b14d8374ba73715da3bb29aa5afaaf45b797a5172e1da093d&=&width=440&height=229');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+        }
+        
+        .overlay {
+            background-color: rgba(0, 0, 0, 0.9);
+            min-height: 100vh;
+            width: 100%;
+        }
+        
+        header {
+            padding: 20px 0;
+            border-bottom: 2px solid var(--accent-color);
+            position: sticky;
+            top: 0;
+            background-color: rgba(26, 37, 47, 0.95);
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .logo img {
+            width: 70px;
+            border-radius: 50%;
+            border: 2px solid var(--accent-color);
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+            color: var(--accent-color);
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 8px 20px;
+            background-color: var(--secondary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            margin: 5px;
+        }
+        
+        .btn:hover {
+            background-color: #c0392b;
+            transform: translateY(-2px);
+        }
+        
+        .btn-accent {
+            background-color: var(--accent-color);
+        }
+        
+        .btn-accent:hover {
+            background-color: #e67e22;
+        }
+        
+        .laws-container {
+            padding: 40px 0;
+        }
+        
+        .law-category {
+            margin-bottom: 40px;
+            background-color: rgba(26, 37, 47, 0.7);
+            border-radius: 10px;
+            padding: 25px;
+            border-left: 5px solid var(--accent-color);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .law-category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            border-left-color: var(--secondary-color);
+        }
+        
+        .law-category h2 {
+            font-size: 1.8rem;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--main-color);
+        }
+        
+        .law-item {
+            margin-bottom: 15px;
+            padding-left: 20px;
+            border-left: 2px solid var(--secondary-color);
+            position: relative;
+        }
+        
+        .law-item:before {
+            content: '';
+            position: absolute;
+            left: -6px;
+            top: 10px;
+            width: 10px;
+            height: 10px;
+            background-color: var(--secondary-color);
+            border-radius: 50%;
+        }
+        
+        .law-item h3 {
+            font-size: 1.3rem;
+            color: var(--light-color);
+            margin-bottom: 5px;
+        }
+        
+        .law-item p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #bdc3c7;
+        }
+        
+        .penalty {
+            display: inline-block;
+            background-color: rgba(231, 76, 60, 0.2);
+            color: var(--secondary-color);
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 0.9rem;
+            margin-top: 5px;
+            border: 1px solid var(--secondary-color);
+        }
+        
+        .scenario-image {
+            width: 100%;
+            max-width: 600px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border: 2px solid var(--accent-color);
+        }
+        
+        .zone-info {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: rgba(26, 37, 47, 0.5);
+            border-radius: 5px;
+            border-left: 3px solid var(--accent-color);
+        }
+        
+        .zone-info h4 {
+            color: var(--accent-color);
+            margin-bottom: 10px;
+        }
+        
+        .zone-info ul {
+            padding-right: 20px;
+        }
+        
+        .zone-info li {
+            margin-bottom: 8px;
+        }
+        
+        .red-zone {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        
+        .blue-zone {
+            color: #3498db;
+            font-weight: bold;
+        }
+        
+        .green-zone {
+            color: #2ecc71;
+            font-weight: bold;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            border-top: 1px solid var(--main-color);
+            margin-top: 50px;
+            background-color: rgba(26, 37, 47, 0.9);
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background-color: var(--accent-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            text-decoration: none;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            background-color: #e67e22;
+            transform: translateY(-3px);
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="overlay">
+        <header>
+            <div class="container">
+                <div class="logo">
+                    <a href="index.html" class="btn btn-accent"><i class="fas fa-home"></i> الرئيسية</a>
+                    <h1>مواقع السيناريوهات</h1>
+                    <img src="https://media.discordapp.net/attachments/784916891822194729/1387236209054580786/logo-anmititon-66.gif?ex=685c9be5&is=685b4a65&hm=a632382907b3996eff88b4eaf28a8269753977411eb3b4415c3208410f904efb&=" alt="شعار السيرفر">
+                </div>
+            </div>
+        </header>
+        
+        <main>
+            <div class="container">
+                <div class="laws-container">
+                    <div class="law-category">
+                        <h2><i class="fas fa-university"></i> قوانين سرقة البنك المركزي</h2>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">1.</span> يجب أن يكون عدد أعضاء العصابة المشاركين من 6 الى 15</h3>
+                            <span class="penalty">العقوبة: إلغاء السيناريو</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">2.</span> يجب أن يكون عدد العسكر المشاركين من 7 الى 18</h3>
+                            <span class="penalty">العقوبة: إلغاء السيناريو</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">3.</span> يمنع سرقة البنك المركزي في حاله وجود اقل من 6 عساكر</h3>
+                            <span class="penalty">العقوبة: إلغاء السيناريو</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">4.</span> يجب على العصابة تحديد المتفاوض ومستشارين للمتفاوض قبل بدء السيناريو</h3>
+                            <span class="penalty">العقوبة: إلغاء السيناريو</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">5.</span> في حال خروج اي رجل عصابه غيرالمتفاوض يحق للعسكر قتله فورا</h3>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">6.</span> عند الإعلان عن حالة سرقه للبنك المركزي يعتبر المكان داخل البنك مكان خطير و يمكن للعصابة خطف كل من يدخل البنك</h3>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">7.</span> الأسلحة الممنوعه وقت السيناريو ( السنايبر – المني قن - التيزر - الديقل - المتفجرات )</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+                        
+                        <img src="https://media.discordapp.net/attachments/1225371128961302619/1387455187748392986/image.png?ex=685d67d6&is=685c1656&hm=0a6e4b401ea164442e9d9fc3e91881919efcf57fa763d7415b8a7d05d018435d&=&format=webp&quality=lossless" alt="البنك المركزي" class="scenario-image">
+                    </div>
+                    
+                    <div class="law-category">
+                        <h2><i class="fas fa-gem"></i> قوانين سرقة محل المجوهرات</h2>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">1.</span> يجب أن يكون عدد الاعضاء المشاركين في السرقة من 5 الى 9 اشخاص</h3>
+                            <span class="penalty">العقوبة: إلغاء السيناريو</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">2.</span> يجب أن يكون عدد العساكر من القوات المشترك من 4 الى 13 عساكر</h3>
+                            <span class="penalty">العقوبة: إلغاء السيناريو</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">3.</span> لطلب هروب أمن يجب وجود معك رهينة</h3>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">4.</span> يجب على جميع اعضاء العصابة التواجد داخل مـحـل المجوهرات قبل بدء السيناريو ويمنع التواجد خارجه</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">5.</span> يجب على العصابة تحديد متفاوض للتفاوض مع العسكر وهم من يسمح له بـ الخروج فقط</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">6.</span> الأسلحة الممنوعه وقت السيناريو ( الشتقن - السنايبر – المني قن - التيزر - الديقل - المتفجرات )</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+                        
+                        <img src="https://media.discordapp.net/attachments/1225371128961302619/1387455412747501659/image.png?ex=685d680c&is=685c168c&hm=519a2118133c49aeeff64713d1f0059fd6f36c76f4f9b0dbcea9a8369864cbaf&=&format=webp&quality=lossless" alt="محل المجوهرات" class="scenario-image">
+                    </div>
+                    
+                    <div class="law-category">
+                        <h2><i class="fas fa-home"></i> قوانين سرقة بيت فرانكلن</h2>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">1.</span> يجب أن يكون عدد الاعضاء المشاركين في السرقة من 3 الى 7 اشخاص</h3>
+                            <span class="penalty">العقوبة: إلغاء السيناريو</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">2.</span> يجب أن يكون عدد العساكر من القوات المشترك من 4 الى 10 عساكر</h3>
+                            <span class="penalty">العقوبة: إلغاء السيناريو</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">3.</span> لطلب هروب أمن يجب وجود معك رهينة</h3>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">4.</span> يجب على جميع اعضاء العصابة التواجد داخل البيت قبل بدء السيناريو ويمنع التواجد خارجه</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">5.</span> يجب على العصابة تحديد متفاوض للتفاوض مع العسكر وهم من يسمح له بـ الخروج فقط</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">6.</span> الأسلحة الممنوعه وقت السيناريو ( الشتقن - السنايبر – المني قن - التيزر - الديقل - المتفجرات )</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+                        
+                        <img src="https://media.discordapp.net/attachments/1225371128961302619/1387455593887039578/image.png?ex=685d6837&is=685c16b7&hm=75b9b001585cf3b7e8d7bf0fceae4e21dd163cd13957af3e1a51896c95009767&=&format=webp&quality=lossless" alt="بيت فرانكلن" class="scenario-image">
+                    </div>
+                    
+                    <div class="law-category">
+                        <h2><i class="fas fa-tshirt"></i> قوانين سرقة محل الخياطة</h2>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">1.</span> يجب أن يكون عدد الاعضاء المشاركين في السرقة من 3 الى 5 اشخاص</h3>
+                            <span class="penalty">العقوبة: إلغاء السيناريو</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">2.</span> يجب أن يكون عدد العساكر من القوات المشترك من 4 الى 8 عساكر</h3>
+                            <span class="penalty">العقوبة: إلغاء السيناريو</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">3.</span> لطلب هروب أمن يجب وجود معك رهينة</h3>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">4.</span> يجب على جميع اعضاء العصابة التواجد داخل محل الخياطة قبل بدء السيناريو ويمنع التواجد خارجه</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">5.</span> يجب على العصابة تحديد متفاوض للتفاوض مع العسكر وهم من يسمح له بـ الخروج فقط</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">6.</span> الأسلحة المسموحة ( AP PISTOL ) فقط</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+                        
+                        <img src="https://images-ext-1.discordapp.net/external/p-FcTNoZodqnv_g0uAuDSPEmLMJ6aITg0etJx2I1G0I/https/probot.media/oSsDeoBQTB.png?format=webp&quality=lossless&width=518&height=390" alt="محل الخياطة" class="scenario-image">
+                    </div>
+                    
+                    <div class="law-category">
+                        <h2><i class="fas fa-industry"></i> قوانين سرقة المصنع مربع 1082</h2>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">1.</span> يجب أن يكون عدد الاعضاء المشاركين في السرقة من 6 الى 18 اشخاص</h3>
+                            <span class="penalty">العقوبة: إلغاء السيناريو</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">2.</span> يجب أن يكون عدد العساكر من القوات المشترك من 7 الى 20 عساكر</h3>
+                            <span class="penalty">العقوبة: إلغاء السيناريو</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">3.</span> لطلب هروب أمن يجب وجود معك رهينة</h3>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">4.</span> يجب على جميع اعضاء العصابة التواجد داخل المصنع قبل بدء السيناريو ويمنع التواجد خارجه</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">5.</span> يجب على العصابة تحديد متفاوض للتفاوض مع العسكر وهم من يسمح له بـ الخروج فقط</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">6.</span> الأسلحة الممنوعه وقت السيناريو ( الشتقن - السنايبر – المني قن - التيزر - الديقل - المتفجرات )</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+                        
+                        <img src="https://media.discordapp.net/attachments/1225371128961302619/1387455913170047047/image.png?ex=685d6883&is=685c1703&hm=feed6b880467160ee395842ad2822c23a9409ec09d7e8a832d0335fc6bb45b51&=&format=webp&quality=lossless" alt="المصنع مربع 1082" class="scenario-image">
+                    </div>
+                    
+                    <div class="law-category">
+                        <h2><i class="fas fa-hotel"></i> قوانين سرقة فندق فيصل 7229</h2>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">1.</span> يجب أن يكون عدد الاعضاء المشاركين في السرقة من 6 الى 13 اشخاص</h3>
+                            <span class="penalty">العقوبة: إلغاء السيناريو</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">2.</span> يجب أن يكون عدد العساكر من القوات المشترك من 8 الى 15 عساكر</h3>
+                            <span class="penalty">العقوبة: إلغاء السيناريو</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">3.</span> لطلب هروب أمن يجب وجود معك رهينة</h3>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">4.</span> يجب على جميع اعضاء العصابة التواجد داخل فندق فيصل قبل بدء السيناريو ويمنع التواجد خارجه</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">5.</span> يجب على العصابة تحديد متفاوض للتفاوض مع العسكر وهم من يسمح له بـ الخروج فقط</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">6.</span> الأسلحة الممنوعه وقت السيناريو ( الشتقن - السنايبر – المني قن - التيزر - الديقل - المتفجرات )</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+                        
+                        <img src="https://media.discordapp.net/attachments/1225371128961302619/1387456113871687802/image.png?ex=685d68b3&is=685c1733&hm=dff0622c07bed052793304ee7f29bacbfe7052749f0b64d2724eccf3f4db0466&=&format=webp&quality=lossless" alt="فندق فيصل 7229" class="scenario-image">
+                    </div>
+                    
+                    <div class="law-category">
+                        <h2><i class="fas fa-snowflake"></i> قوانين سرقة ونتر قاردن</h2>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">1.</span> يجب أن يكون عدد الاعضاء المشاركين في السرقة من 6 الى 18 اشخاص</h3>
+                            <span class="penalty">العقوبة: إلغاء السيناريو</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">2.</span> يجب أن يكون عدد العساكر من القوات المشترك من 7 الى 20 عساكر</h3>
+                            <span class="penalty">العقوبة: إلغاء السيناريو</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">3.</span> لطلب هروب أمن يجب وجود معك رهينة</h3>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">4.</span> يجب على جميع اعضاء العصابة التواجد داخل ونتر قاردن قبل بدء السيناريو ويمنع التواجد خارجه</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">5.</span> يجب على العصابة تحديد متفاوض للتفاوض مع العسكر وهم من يسمح له بـ الخروج فقط</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">6.</span> الأسلحة الممنوعه وقت السيناريو ( الشتقن – المني قن - التيزر - الديقل - المتفجرات )</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+                        
+                        <img src="https://media.discordapp.net/attachments/1225371128961302619/1387456085870379088/image.png?ex=685d68ac&is=685c172c&hm=5177164d6dbbde7180f9e055559aed1107780654f49c3bb6aeded0cd3a33ae37&=&format=webp&quality=lossless" alt="ونتر قاردن" class="scenario-image">
+                    </div>
+                    
+                    <div class="law-category">
+                        <h2><i class="fas fa-tractor"></i> قوانين بيت المزرعة مربع 2027</h2>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">1.</span> يجب أن يكون عدد الاعضاء المشاركين في السرقة من 4 الى 6 اشخاص</h3>
+                            <span class="penalty">العقوبة: إلغاء السيناريو</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">2.</span> يجب أن يكون عدد العساكر من القوات المشترك من 5 الى 8 عساكر</h3>
+                            <span class="penalty">العقوبة: إلغاء السيناريو</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">3.</span> لطلب هروب أمن يجب وجود معك رهينة</h3>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">4.</span> يجب على جميع اعضاء العصابة التواجد داخل المزرعة قبل بدء السيناريو ويمنع التواجد خارجه</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">5.</span> يجب على العصابة تحديد متفاوض للتفاوض مع العسكر وهم من يسمح له بـ الخروج فقط</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">6.</span> الأسلحة المسموحة ( AP PISTOL ) فقط</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+                        
+                        <img src="https://media.discordapp.net/attachments/1225371128961302619/1387456281471619212/image.png?ex=685d68db&is=685c175b&hm=ba0e2c9aa8662d5eb3767d74695289e38f7502319bd1da1be6e97f2750d6d357&=&format=webp&quality=lossless" alt="بيت المزرعة مربع 2027" class="scenario-image">
+                    </div>
+                    
+                    <div class="law-category">
+                        <h2><i class="fas fa-drumstick-bite"></i> قوانين سرقة المسلخ مربع 9299</h2>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">1.</span> يجب أن يكون عدد الاعضاء المشاركين في السرقة من4الى 13 اشخاص</h3>
+                            <span class="penalty">العقوبة: إلغاء السيناريو</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">2.</span> يجب أن يكون عدد العساكر من القوات المشترك من 6 الى 15 عساكر</h3>
+                            <span class="penalty">العقوبة: إلغاء السيناريو</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">3.</span> لطلب هروب أمن يجب وجود معك رهينة</h3>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">4.</span> يجب على جميع اعضاء العصابة التواجد داخل المسلخ قبل بدء السيناريو ويمنع التواجد خارجه</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">5.</span> يجب على العصابة تحديد متفاوض للتفاوض مع العسكر وهم من يسمح له بـ الخروج فقط</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">6.</span> الأسلحة الممنوعه وقت السيناريو ( الشتقن – المني قن - التيزر - الديقل - المتفجرات )</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+                        
+                        <img src="https://media.discordapp.net/attachments/1225371128961302619/1387456559960952943/image.png?ex=685d691d&is=685c179d&hm=361eba97d41cf7a4425e1f96219a318ff0f039c71910cf7bd8316d357a5e797a&=&format=webp&quality=lossless" alt="المسلخ مربع 9299" class="scenario-image">
+                    </div>
+                    
+                    <div class="law-category">
+                        <h2><i class="fas fa-subway"></i> قوانين سرقة ميترو المواقف</h2>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">1.</span> يجب أن يكون عدد الاعضاء المشاركين في السرقة من5الى 16 اشخاص</h3>
+                            <span class="penalty">العقوبة: إلغاء السيناريو</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">2.</span> يجب أن يكون عدد العساكر من القوات المشترك من 6 الى 18 عساكر</h3>
+                            <span class="penalty">العقوبة: إلغاء السيناريو</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">3.</span> لطلب هروب أمن يجب وجود معك رهينة</h3>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">4.</span> يجب على جميع اعضاء العصابة التواجد داخل ميترو المواقف قبل بدء السيناريو ويمنع التواجد خارجه</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">5.</span> يجب على العصابة تحديد متفاوض للتفاوض مع العسكر وهم من يسمح له بـ الخروج فقط</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">6.</span> الأسلحة الممنوعه وقت السيناريو ( الشتقن - السنايبر – المني قن - التيزر - الديقل - المتفجرات )</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+                        
+                        <img src="https://media.discordapp.net/attachments/1225371128961302619/1387456677732814988/image.png?ex=685d6939&is=685c17b9&hm=edb4b6837d72623124b05843cf22749228cb7b5cc4febe660af12dc2cc965bbc&=&format=webp&quality=lossless" alt="ميترو المواقف" class="scenario-image">
+                    </div>
+                    
+                    <div class="law-category">
+                        <h2><i class="fas fa-store"></i> قوانين سرقة مجمع سعد مربع9085</h2>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">1.</span> يجب أن يكون عدد الاعضاء المشاركين في السرقة من 3 الى 5 اشخاص</h3>
+                            <span class="penalty">العقوبة: إلغاء السيناريو</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">2.</span> يجب أن يكون عدد العساكر من القوات المشترك من 4 الى 8 عساكر</h3>
+                            <span class="penalty">العقوبة: إلغاء السيناريو</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">3.</span> لطلب هروب أمن يجب وجود معك رهينة</h3>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">4.</span> يجب على جميع اعضاء العصابة التواجد داخل مجمع سعد قبل بدء السيناريو ويمنع التواجد خارجه</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">5.</span> يجب على العصابة تحديد متفاوض للتفاوض مع العسكر وهم من يسمح له بـ الخروج فقط</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">6.</span> الأسلحة المسموحة ( AP PISTOL ) فقط</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+                        
+                        <img src="https://media.discordapp.net/attachments/1225371128961302619/1387456789380857887/image.png?ex=685d6954&is=685c17d4&hm=fbf57b7ec616ebd4ce5b9f4390bca9b241bbb275dd41a02e2a1d668645b40218&=&format=webp&quality=lossless" alt="مجمع سعد مربع9085" class="scenario-image">
+                    </div>
+                    
+                    <div class="law-category">
+                        <h2><i class="fas fa-theater-masks"></i> قوانين سرقة مسرح LastYearRp مربع 9006</h2>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">1.</span> يجب أن يكون عدد الاعضاء المشاركين في السرقة من 5 الى 12 اشخاص</h3>
+                            <span class="penalty">العقوبة: إلغاء السيناريو</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">2.</span> يجب أن يكون عدد العساكر من القوات المشترك من 7 الى 15 عساكر</h3>
+                            <span class="penalty">العقوبة: إلغاء السيناريو</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">3.</span> لطلب هروب أمن يجب وجود معك رهينة</h3>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">4.</span> يجب على جميع اعضاء العصابة التواجد داخل المسرح قبل بدء السيناريو ويمنع التواجد خارجه</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">5.</span> يجب على العصابة تحديد متفاوض للتفاوض مع العسكر وهم من يسمح له بـ الخروج فقط</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">6.</span> الأسلحة الممنوعه وقت السيناريو ( الشتقن - السنايبر – المني قن - التيزر - الديقل - المتفجرات )</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+                        
+                        <img src="https://media.discordapp.net/attachments/1225371128961302619/1387457045136937000/image.png?ex=685d6991&is=685c1811&hm=c75ccf377b49bb7c466fc3446192b191bb5f43616b19b2203cc2af80735d7418&=&format=webp&quality=lossless" alt="مسرح LastYearRp مربع 9006" class="scenario-image">
+                    </div>
+                    
+                    <div class="law-category">
+                        <h2><i class="fas fa-subway"></i> قوانين سرقة الميترو مربع 7180</h2>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">1.</span> يجب أن يكون عدد الاعضاء المشاركين في السرقة من 5 الى 16 اشخاص</h3>
+                            <span class="penalty">العقوبة: إلغاء السيناريو</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">2.</span> يجب أن يكون عدد العساكر من القوات المشترك من 6 الى 18 عساكر</h3>
+                            <span class="penalty">العقوبة: إلغاء السيناريو</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">3.</span> لطلب هروب أمن يجب وجود معك رهينة</h3>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">4.</span> يجب على جميع اعضاء العصابة التواجد داخل الميترو قبل بدء السيناريو ويمنع التواجد خارجه</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">5.</span> يجب على العصابة تحديد متفاوض للتفاوض مع العسكر وهم من يسمح له بـ الخروج فقط</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">6.</span> الأسلحة الممنوعه وقت السيناريو ( الشتقن - السنايبر – المني قن - التيزر - الديقل - المتفجرات )</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+                        
+                        <img src="https://media.discordapp.net/attachments/1225371128961302619/1387457283989966980/image.png?ex=685d69ca&is=685c184a&hm=52209cb2ba14a73969f746589b6bdd4877c1ac9d55d4d979b66350fa0029f71a&=&format=webp&quality=lossless" alt="الميترو مربع 7180" class="scenario-image">
+                    </div>
+                    
+                    <div class="law-category">
+                        <h2><i class="fas fa-film"></i> قوانين سرقة الاستديو مربع 7178</h2>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">1.</span> يجب أن يكون عدد الاعضاء المشاركين في السرقة من 4 الى 9 اشخاص</h3>
+                            <span class="penalty">العقوبة: إلغاء السيناريو</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">2.</span> يجب أن يكون عدد العساكر من القوات المشترك من 6 الى 11 عساكر</h3>
+                            <span class="penalty">العقوبة: إلغاء السيناريو</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">3.</span> لطلب هروب أمن يجب وجود معك رهينة</h3>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">4.</span> يجب على جميع اعضاء العصابة التواجد داخل الاستديو قبل بدء السيناريو ويمنع التواجد خارجه</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">5.</span> يجب على العصابة تحديد متفاوض للتفاوض مع العسكر وهم من يسمح له بـ الخروج فقط</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">6.</span> الأسلحة المسموحة ( AP PISTOL ) فقط</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+                        
+                        <img src="https://media.discordapp.net/attachments/1225371128961302619/1387457374046126233/image.png?ex=685d69df&is=685c185f&hm=a51edf90b940f789edeabcf3165a85e3d3b28ca82aee28b392040ffc1c7e5bcf&=&format=webp&quality=lossless" alt="الاستديو مربع 7178" class="scenario-image">
+                    </div>
+                    
+                    <div class="law-category">
+                        <h2><i class="fas fa-subway"></i> قوانين سرقة ميترو الشركة 7215</h2>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">1.</span> يجب أن يكون عدد الاعضاء المشاركين في السرقة من 5 الى 16 اشخاص</h3>
+                            <span class="penalty">العقوبة: إلغاء السيناريو</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">2.</span> يجب أن يكون عدد العساكر من القوات المشترك من 6 الى 18 عساكر</h3>
+                            <span class="penalty">العقوبة: إلغاء السيناريو</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">3.</span> لطلب هروب أمن يجب وجود معك رهينة</h3>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">4.</span> يجب على جميع اعضاء العصابة التواجد داخل ميترو الشركة قبل بدء السيناريو ويمنع التواجد خارجه</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">5.</span> يجب على العصابة تحديد متفاوض للتفاوض مع العسكر وهم من يسمح له بـ الخروج فقط</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">6.</span> الأسلحة الممنوعه وقت السيناريو ( الشتقن - السنايبر – المني قن - التيزر - الديقل - المتفجرات )</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+                        
+                        <img src="https://media.discordapp.net/attachments/1225371128961302619/1387457832319844562/image.png?ex=685d6a4c&is=685c18cc&hm=db983f38c6a8b522e12249886cf57078b3c631958798d5996902e5ab90231513&=&format=webp&quality=lossless" alt="ميترو الشركة 7215" class="scenario-image">
+                    </div>
+                    
+                    <div class="law-category">
+                        <h2><i class="fas fa-tools"></i> قوانين سرقة ورشة موهد</h2>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">1.</span> يجب أن يكون عدد الاعضاء المشاركين في السرقة من 3 الى 12 اشخاص</h3>
+                            <span class="penalty">العقوبة: إلغاء السيناريو</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">2.</span> يجب أن يكون عدد العساكر من القوات المشترك من 4 الى 14 عساكر</h3>
+                            <span class="penalty">العقوبة: إلغاء السيناريو</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">3.</span> لطلب هروب أمن يجب وجود معك رهينة</h3>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">4.</span> يجب على جميع اعضاء العصابة التواجد داخل ورشة موهد قبل بدء السيناريو ويمنع التواجد خارجه</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">5.</span> يجب على العصابة تحديد متفاوض للتفاوض مع العسكر وهم من يسمح له بـ الخروج فقط</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">6.</span> الأسلحة المسموحة ( AP PISTOL ) فقط</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+                        
+                        <img src="https://media.discordapp.net/attachments/1225371128961302619/1387458026348220416/image.png?ex=685d6a7b&is=685c18fb&hm=9731d558e884e0b8dfe3a1920a071c98de76040ac87943c3e2f6f7ce454beb1a&=&format=webp&quality=lossless" alt="ورشة موهد" class="scenario-image">
+                    </div>
+                    
+                    <div class="law-category">
+                        <h2><i class="fas fa-cable-car"></i> قوانين سرقة محطة التليفريك</h2>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">1.</span> يجب أن يكون عدد الاعضاء المشاركين في السرقة من 3 الى 5 اشخاص</h3>
+                            <span class="penalty">العقوبة: إلغاء السيناريو</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">2.</span> يجب أن يكون عدد العساكر من القوات المشترك من 4 الى 8 عساكر</h3>
+                            <span class="penalty">العقوبة: إلغاء السيناريو</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">3.</span> لطلب هروب أمن يجب وجود معك رهينة</h3>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">4.</span> يجب على جميع اعضاء العصابة التواجد داخل محطة التلفريك قبل بدء السيناريو ويمنع التواجد خارجه</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">5.</span> يجب على العصابة تحديد متفاوض للتفاوض مع العسكر وهم من يسمح له بـ الخروج فقط</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">6.</span> الأسلحة المسموحة ( AP PISTOL ) فقط</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+                        
+                        <img src="https://media.discordapp.net/attachments/1225371128961302619/1387458292372213881/image.png?ex=685d6aba&is=685c193a&hm=bce85802fc2ac914dc4f80ea04dfe5e210903f6f2ce2a0cc0ef3363ba6642965&=&format=webp&quality=lossless" alt="محطة التليفريك" class="scenario-image">
+                    </div>
+                    
+                    <div class="law-category">
+                        <h2><i class="fas fa-ship"></i> قوانين سرقة مستودع القوارب</h2>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">1.</span> يجب أن يكون عدد الاعضاء المشاركين في السرقة من 6 الى 14 اشخاص</h3>
+                            <span class="penalty">العقوبة: إلغاء السيناريو</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">2.</span> يجب أن يكون عدد العساكر من القوات المشترك من 8 الى 16 عساكر</h3>
+                            <span class="penalty">العقوبة: إلغاء السيناريو</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">3.</span> لطلب هروب أمن يجب وجود معك رهينة</h3>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">4.</span> يجب على جميع اعضاء العصابة التواجد داخل مستودع القوارب قبل بدء السيناريو ويمنع التواجد خارجه</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">5.</span> يجب على العصابة تحديد متفاوض للتفاوض مع العسكر وهم من يسمح له بـ الخروج فقط</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">6.</span> الأسلحة الممنوعه وقت السيناريو ( الشتقن - السنايبر – المني قن - التيزر - الديقل - المتفجرات )</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+                        
+                        <img src="https://media.discordapp.net/attachments/1225371128961302619/1387458415768506409/image.png?ex=685d6ad8&is=685c1958&hm=68505551792d61b4c2e8a7a30ed778215711fe7f8c04d8ea58546acd9e0a1d9c&=&format=webp&quality=lossless" alt="مستودع القوارب" class="scenario-image">
+                    </div>
+                    
+                    <div class="law-category">
+                        <h2><i class="fas fa-plane-departure"></i> قوانين سرقة ميترو المطار</h2>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">1.</span> يجب أن يكون عدد الاعضاء المشاركين في السرقة من 5 الى 16 اشخاص</h3>
+                            <span class="penalty">العقوبة: إلغاء السيناريو</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">2.</span> يجب أن يكون عدد العساكر من القوات المشترك من 6 الى 18 عساكر</h3>
+                            <span class="penalty">العقوبة: إلغاء السيناريو</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">3.</span> لطلب هروب أمن يجب وجود معك رهينة</h3>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">4.</span> يجب على جميع اعضاء العصابة التواجد داخل ميترو المطار قبل بدء السيناريو ويمنع التواجد خارجه</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">5.</span> يجب على العصابة تحديد متفاوض للتفاوض مع العسكر وهم من يسمح له بـ الخروج فقط</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">6.</span> الأسلحة الممنوعه وقت السيناريو ( الشتقن - السنايبر – المني قن - التيزر - الديقل - المتفجرات )</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+                        
+                        <img src="https://media.discordapp.net/attachments/1225371128961302619/1387458547658391572/image.png?ex=685d6af7&is=685c1977&hm=e6fae58cfccf0041ea42ac25df20677029efff4a2ef41c4f0c818de2815fb9d9&=&format=webp&quality=lossless" alt="ميترو المطار" class="scenario-image">
+                    </div>
+                    
+                    <div class="law-category">
+                        <h2><i class="fas fa-glass-cheers"></i> قوانين سرقة بار عمار</h2>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">1.</span> يجب أن يكون عدد الاعضاء المشاركين في السرقة من 3 الى 6 اشخاص</h3>
+                            <span class="penalty">العقوبة: إلغاء السيناريو</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">2.</span> يجب أن يكون عدد العساكر من القوات المشترك من 5 الى 9 عساكر</h3>
+                            <span class="penalty">العقوبة: إلغاء السيناريو</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">3.</span> لطلب هروب أمن يجب وجود معك رهينة</h3>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">4.</span> يجب على جميع اعضاء العصابة التواجد داخل بار عمار قبل بدء السيناريو ويمنع التواجد خارجه</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">5.</span> يجب على العصابة تحديد متفاوض للتفاوض مع العسكر وهم من يسمح له بـ الخروج فقط</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">6.</span> الأسلحة المسموحة ( AP PISTOL ) فقط</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+                        
+                        <img src="https://media.discordapp.net/attachments/1225371128961302619/1387458564943253699/image.png?ex=685d6afb&is=685c197b&hm=8bf1bb4adecf57f073d6fcf96078a75b85c397aa7e32f6f45615c0559e39e464&=&format=webp&quality=lossless" alt="بار عمار" class="scenario-image">
+                    </div>
+                    
+                    <div class="law-category">
+                        <h2><i class="fas fa-home"></i> قوانين سرقة بيت مايكل</h2>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">1.</span> يجب أن يكون عدد الاعضاء المشاركين في السرقة من 4 الى 8 اشخاص</h3>
+                            <span class="penalty">العقوبة: إلغاء السيناريو</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">2.</span> يجب أن يكون عدد العساكر من القوات المشترك من 7 الى 10 عساكر</h3>
+                            <span class="penalty">العقوبة: إلغاء السيناريو</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">3.</span> لطلب هروب أمن يجب وجود معك رهينة</h3>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">4.</span> يجب على جميع اعضاء العصابة التواجد داخل بيت مايكل قبل بدء السيناريو ويمنع التواجد خارجه</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">5.</span> يجب على العصابة تحديد متفاوض للتفاوض مع العسكر وهم من يسمح له بـ الخروج فقط</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">6.</span> الأسلحة المسموحة ( AP PISTOL ) فقط</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+                        
+                        <img src="https://media.discordapp.net/attachments/1225371128961302619/1387458721046593657/image.png?ex=685d6b20&is=685c19a0&hm=c053e6d5b0a46cb45176229f23136baeebd917c1cc78dd27dbae18aeebb0b4c9&=&format=webp&quality=lossless" alt="بيت مايكل" class="scenario-image">
+                    </div>
+                    
+                    <div class="law-category">
+                        <h2><i class="fas fa-gem"></i> قوانين سرقة مصنع الذهب</h2>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">1.</span> يجب أن يكون عدد الاعضاء المشاركين في السرقة من 7 الى 13 اشخاص</h3>
+                            <span class="penalty">العقوبة: إلغاء السيناريو</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">2.</span> يجب أن يكون عدد العساكر من القوات المشترك من 9 الى 15 عساكر</h3>
+                            <span class="penalty">العقوبة: إلغاء السيناريو</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">3.</span> لطلب هروب أمن يجب وجود معك رهينة</h3>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">4.</span> يجب على جميع اعضاء العصابة التواجد داخل مصنع الذهب قبل بدء السيناريو ويمنع التواجد خارجه</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">5.</span> يجب على العصابة تحديد متفاوض للتفاوض مع العسكر وهم من يسمح له بـ الخروج فقط</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">6.</span> الأسلحة الممنوعه وقت السيناريو ( الشتقن - السنايبر – المني قن - التيزر - الديقل - المتفجرات )</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+                        
+                        <img src="https://media.discordapp.net/attachments/1225371128961302619/1387458738713264258/image.png?ex=685d6b25&is=685c19a5&hm=69587824bd50b1bf86d4f963e16cfd3249caf7924c5f3c9b47fb9d447e9b7154&=&format=webp&quality=lossless" alt="مصنع الذهب" class="scenario-image">
+                    </div>
+                    
+                    <div class="law-category">
+                        <h2><i class="fas fa-subway"></i> قوانين سرقة الميترو الرئيسي</h2>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">1.</span> يجب أن يكون عدد الاعضاء المشاركين في السرقة من 5 الى 16 اشخاص</h3>
+                            <span class="penalty">العقوبة: إلغاء السيناريو</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">2.</span> يجب أن يكون عدد العساكر من القوات المشترك من 6 الى 18 عساكر</h3>
+                            <span class="penalty">العقوبة: إلغاء السيناريو</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">3.</span> لطلب هروب أمن يجب وجود معك رهينة</h3>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">4.</span> يجب على جميع اعضاء العصابة التواجد داخل الميترو الرئيسي قبل بدء السيناريو ويمنع التواجد خارجه</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">5.</span> يجب على العصابة تحديد متفاوض للتفاوض مع العسكر وهم من يسمح له بـ الخروج فقط</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">6.</span> الأسلحة الممنوعه وقت السيناريو ( الشتقن - السنايبر – المني قن - التيزر - الديقل - المتفجرات )</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+                        
+                        <img src="https://media.discordapp.net/attachments/1225371128961302619/1387459012059992146/image.png?ex=685d6b66&is=685c19e6&hm=89c7ca370cd7a1a88e1177a907c237dc4b710dca82fd81bb815bbe9d6acffa00&=&format=webp&quality=lossless" alt="الميترو الرئيسي" class="scenario-image">
+                    </div>
+                    
+                    <div class="law-category">
+                        <h2><i class="fas fa-trash"></i> قوانين سرقة بيت السكراب</h2>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">1.</span> يجب أن يكون عدد الاعضاء المشاركين في السرقة من 5 الى 10 اشخاص</h3>
+                            <span class="penalty">العقوبة: إلغاء السيناريو</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">2.</span> يجب أن يكون عدد العساكر من القوات المشترك من 7 الى 13 عساكر</h3>
+                            <span class="penalty">العقوبة: إلغاء السيناريو</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">3.</span> لطلب هروب أمن يجب وجود معك رهينة</h3>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">4.</span> يجب على جميع اعضاء العصابة التواجد داخل بيت السكراب قبل بدء السيناريو ويمنع التواجد خارجه</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">5.</span> يجب على العصابة تحديد متفاوض للتفاوض مع العسكر وهم من يسمح له بـ الخروج فقط</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">6.</span> الأسلحة المسموحة ( AP PISTOL ) فقط</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+                        
+                        <img src="https://media.discordapp.net/attachments/1225371128961302619/1387459304293925035/image.png?ex=685d6bab&is=685c1a2b&hm=f46de95acab74729a095de4db481dee2d22e98e0e2b57b04c112fe47e9d777e8&=&format=webp&quality=lossless" alt="بيت السكراب" class="scenario-image">
+                    </div>
+                    
+                    <div class="law-category">
+                        <h2><i class="fas fa-music"></i> قوانين سرقة المرقص مربع 9047</h2>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">1.</span> يجب أن يكون عدد الاعضاء المشاركين في السرقة من 4 الى 14 اشخاص</h3>
+                            <span class="penalty">العقوبة: إلغاء السيناريو</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">2.</span> يجب أن يكون عدد العساكر من القوات المشترك من 5 الى 16 عساكر</h3>
+                            <span class="penalty">العقوبة: إلغاء السيناريو</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">3.</span> لطلب هروب أمن يجب وجود معك رهينة</h3>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">4.</span> يجب على جميع اعضاء العصابة التواجد داخل المرقص قبل بدء السيناريو ويمنع التواجد خارجه</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">5.</span> يجب على العصابة تحديد متفاوض للتفاوض مع العسكر وهم من يسمح له بـ الخروج فقط</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">6.</span> الأسلحة المسموحة ( AP PISTOL ) فقط</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+                        
+                        <img src="https://media.discordapp.net/attachments/1225371128961302619/1387459321696358571/image.png?ex=685d6bb0&is=685c1a30&hm=8fe25f7954a184a2ef4eb181ed3823620b5cbf495480a3f0d4f7dc583d37e83e&=&format=webp&quality=lossless&width=466&height=350" alt="المرقص مربع 9047" class="scenario-image">
+                    </div>
+                    
+                    <div class="law-category">
+                        <h2><i class="fas fa-landmark"></i> قوانين سرقة مركز الحكومة</h2>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">1.</span> يجب أن يكون عدد الاعضاء المشاركين في السرقة من 5 الى 18 اشخاص</h3>
+                            <span class="penalty">العقوبة: إلغاء السيناريو</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">2.</span> يجب أن يكون عدد العساكر من القوات المشترك من 6 الى 20 عساكر</h3>
+                            <span class="penalty">العقوبة: إلغاء السيناريو</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">3.</span> لطلب هروب أمن يجب وجود معك رهينة</h3>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">4.</span> يجب على جميع اعضاء العصابة التواجد داخل مركز الحكومة قبل بدء السيناريو ويمنع التواجد خارجه</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">5.</span> يجب على العصابة تحديد متفاوض للتفاوض مع العسكر وهم من يسمح له بـ الخروج فقط</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">6.</span> الأسلحة الممنوعه وقت السيناريو ( الشتقن - المني قن - التيزر - الديقل - المتفجرات )</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+                        
+                        <img src="https://media.discordapp.net/attachments/1225371128961302619/1387459499014619246/image.png?ex=685d6bda&is=685c1a5a&hm=39f00c6abe66326cd71076f4fbf6f2bc9639f71a9c549c328c7ce921c02449f1&=&format=webp&quality=lossless" alt="مركز الحكومة" class="scenario-image">
+                    </div>
+                    
+                    <div class="law-category">
+                        <h2><i class="fas fa-monument"></i> قوانين سرقة البيت الابيض</h2>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">1.</span> يجب أن يكون عدد الاعضاء المشاركين في السرقة من 8 الى 13 اشخاص</h3>
+                            <span class="penalty">العقوبة: إلغاء السيناريو</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">2.</span> يجب أن يكون عدد العساكر من القوات المشترك من 9 الى 16 عساكر</h3>
+                            <span class="penalty">العقوبة: إلغاء السيناريو</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">3.</span> لطلب هروب أمن يجب وجود معك رهينة</h3>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">4.</span> يجب على جميع اعضاء العصابة التواجد داخل البيت الأبيض قبل بدء السيناريو ويمنع التواجد خارجه</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">5.</span> يجب على العصابة تحديد متفاوض للتفاوض مع العسكر وهم من يسمح له بـ الخروج فقط</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">6.</span> الأسلحة الممنوعه وقت السيناريو ( الشتقن - المني قن - التيزر - الديقل - المتفجرات )</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+                        
+                            <div class="law-item">
+                            <h3><span class="law-number">7.</span>الأسلحة المسموحة ( AP PISTOL ) فقط </h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+                        
+                        <img src="https://media.discordapp.net/attachments/1225371128961302619/1387459519457792181/image.png?ex=685d6bdf&is=685c1a5f&hm=1d8365ae674ceb880acd37a5660261319b4cfb95541eb1137d4dec087d5cbbbf&=&format=webp&quality=lossless" alt="البيت الابيض" class="scenario-image">
+                    </div>
+                    
+                    <div class="law-category">
+                        <h2><i class="fas fa-money-bill-wave"></i> قوانين سرقة المصارف</h2>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">1.</span> يجب أن يكون عدد الاعضاء المشاركين في السرقة من 2 الى 6 اشخاص</h3>
+                            <span class="penalty">العقوبة: إلغاء السيناريو</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">2.</span> يجب أن يكون عدد العساكر من القوات المشترك من 4 الى 8 عساكر</h3>
+                            <span class="penalty">العقوبة: إلغاء السيناريو</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">3.</span> للتفاوض يجب وجود رهينة او مركبة وارسل اعلان غير ذلك يحق للعساكر المداهمة</h3>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">4.</span> في حال خروج اي رجل عصابه غيرالمتفاوض يحق للعسكر قتله فورا</h3>
+                        </div>
+
+                                <img src="https://media.discordapp.net/attachments/1225371128961302619/1387459519457792181/image.png?ex=685d6bdf&is=685c1a5f&hm=1d8365ae674ceb880acd37a5660261319b4cfb95541eb1137d4dec087d5cbbbf&=&format=webp&quality=lossless" alt="البيت الابيض" class="scenario-image">
+                        </div>
+
+                           <div class="law-category">
+                        <h2><i class="fas fa-monument"></i> قوانين سرقة البقالات </h2>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">1.</span> الاعضاء المشاركين في السرقة من 2 الى 5 اشخاص </h3>
+                            <span class="penalty">العقوبة: إلغاء السيناريو</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">2.</span> يجب أن يكون عدد العساكر من القوات المشترك من 3 الى 6 عساكر</h3>
+                            <span class="penalty">العقوبة: إلغاء السيناريو</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">3.</span> تفاوض يجب وجود رهينة او مركبة وارسل اعلان غير ذلك يحق للعساكر المداهمة </h3>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">4.</span> اعضاء العصابة التواجد داخل البقالة قبل بدء السيناريو ويمنع التواجد خارجه </h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">5.</span> يجب على العصابة تحديد متفاوض للتفاوض مع العسكر وهم من يسمح له بـ الخروج فقط </h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">6.</span>الأسلحة المسموحة ( AP PISTOL ) فقط </h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+                        
+                        <img src="https://images-ext-1.discordapp.net/external/kd3r66d7DYAgfjg4-5HljjuQM8gyNPE-x8u0OHLDTRc/https/probot.media/hZKcUYkMGR.png?format=webp&quality=lossless" alt="البيت الابيض" class="scenario-image">
+                    </div>
+
+                        <div class="law-category">
+                        <h2><i class="fas fa-monument"></i> LastYearRp </h2>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">1.</span> المنطقة الحمراء : منقطة مجرمين ويمنع على المجرمين تجاوزها - في حال تجاوزها يتم استبعاده - يُمنع على العسكري الذهاب لحدود العصابة في  حال تجاوزها يحق لهم خطفه </h3>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">2.</span>  المنطقة الزرقاء : منقطة تفاوص ويسمح فقط بالتواجد فيها من يريد التفاوض ( شخص واحد فقط من طرف العصابات - وشخص واحد فقط من طرف الوزارات )</h3>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">3.</span>   المنطقة الخضراء : منقطة عساكر ويمنع على العساكر تجاوزها - في حال تجاوزها يتم استبعاده - يُمنع على عضو العصابة الذهاب لحدود العساكر في حال  تجاوز تجاوزها يحق لهم اخذه </h3>
+                        </div>
+                                            </div>

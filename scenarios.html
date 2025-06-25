@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>قوانين السيناريوهات | سيرفر لاست يير</title>
+    <style>
+        :root {
+            --main-color: #2c3e50;
+            --secondary-color: #e74c3c;
+            --accent-color: #f36c12;
+            --light-color: #ecf0f1;
+            --dark-color: #1a252f;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tajawal', sans-serif;
+        }
+        
+        body {
+            background-color: var(--dark-color);
+            color: var(--light-color);
+            background-image: url('https://media.discordapp.net/attachments/1200079938842279937/1387276828355334155/PLAYER-LIST.gif?ex=685cc1ba&is=685b703a&hm=f5234b5cc4ed6e2b14d8374ba73715da3bb29aa5afaaf45b797a5172e1da093d&=&width=440&height=229');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+        }
+        
+        .overlay {
+            background-color: rgba(0, 0, 0, 0.9);
+            min-height: 100vh;
+            width: 100%;
+        }
+        
+        header {
+            padding: 20px 0;
+            border-bottom: 2px solid var(--accent-color);
+            position: sticky;
+            top: 0;
+            background-color: rgba(26, 37, 47, 0.95);
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .logo img {
+            width: 70px;
+            border-radius: 50%;
+            border: 2px solid var(--accent-color);
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+            color: var(--accent-color);
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 8px 20px;
+            background-color: var(--secondary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            margin: 5px;
+        }
+        
+        .btn:hover {
+            background-color: #c0392b;
+            transform: translateY(-2px);
+        }
+        
+        .btn-accent {
+            background-color: var(--accent-color);
+        }
+        
+        .btn-accent:hover {
+            background-color: #e67e22;
+        }
+        
+        .laws-container {
+            padding: 40px 0;
+        }
+        
+        .law-category {
+            margin-bottom: 40px;
+            background-color: rgba(26, 37, 47, 0.7);
+            border-radius: 10px;
+            padding: 25px;
+            border-left: 5px solid var(--accent-color);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .law-category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            border-left-color: var(--secondary-color);
+        }
+        
+        .law-category h2 {
+            font-size: 1.8rem;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--main-color);
+        }
+        
+        .law-item {
+            margin-bottom: 15px;
+            padding-left: 20px;
+            border-left: 2px solid var(--secondary-color);
+            position: relative;
+        }
+        
+        .law-item:before {
+            content: '';
+            position: absolute;
+            left: -6px;
+            top: 10px;
+            width: 10px;
+            height: 10px;
+            background-color: var(--secondary-color);
+            border-radius: 50%;
+        }
+        
+        .law-item h3 {
+            font-size: 1.3rem;
+            color: var(--light-color);
+            margin-bottom: 5px;
+        }
+        
+        .law-item p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #bdc3c7;
+        }
+        
+        .penalty {
+            display: inline-block;
+            background-color: rgba(231, 76, 60, 0.2);
+            color: var(--secondary-color);
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 0.9rem;
+            margin-top: 5px;
+            border: 1px solid var(--secondary-color);
+        }
+        
+        .scenario-image {
+            width: 100%;
+            max-width: 600px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border: 2px solid var(--accent-color);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            border-top: 1px solid var(--main-color);
+            margin-top: 50px;
+            background-color: rgba(26, 37, 47, 0.9);
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background-color: var(--accent-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            text-decoration: none;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            background-color: #e67e22;
+            transform: translateY(-3px);
+        }
+
+        .note-box {
+            background-color: rgba(243, 108, 18, 0.1);
+            border: 1px solid var(--accent-color);
+            border-radius: 5px;
+            padding: 15px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .price-list {
+            background-color: rgba(46, 134, 222, 0.1);
+            border: 1px solid #2e86de;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .price-list li {
+            margin-bottom: 8px;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="overlay">
+        <header>
+            <div class="container">
+                <div class="logo">
+                    <a href="index.html" class="btn btn-accent"><i class="fas fa-home"></i> الرئيسية</a>
+                    <h1>قوانين السيناريوهات</h1>
+                    <img src="https://media.discordapp.net/attachments/784916891822194729/1387236209054580786/logo-anmititon-66.gif?ex=685c9be5&is=685b4a65&hm=a632382907b3996eff88b4eaf28a8269753977411eb3b4415c3208410f904efb&=" alt="شعار السيرفر">
+                </div>
+            </div>
+        </header>
+        
+        <main>
+            <div class="container">
+                <div class="laws-container">
+                    <div class="law-category">
+                        <h2><i class="fas fa-theater-masks"></i> القوانين العامة للسيناريوهات</h2>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">1.</span> ممنوع لبس خـوذة الـراس فـي جميع السيناريوهات</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">2.</span> يمنع منعا باتا على الاداري إنعاش الفائز او الخسران في جميع السيناريوهات الا بعد التاكد من عدم وجود مسعف او مراقب سيناريو</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">3.</span> يمنع منعآ باتآ المشاركة في السيناريو وانت ملقلق السبب لكثرة المشاكل</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">4.</span> في حال خطف مواطن يمنع منعا باتا ان تتجاوز مدة الخطف ال 10 دقايق</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">5.</span> في حال تم تجاوز مدة الخطف بدون عمل سيناريو يجب على الخاطف ترك المواطن او اعدامه</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">6.</span> يجب طلب مراقب سيناريو لتفادي المشاكل</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">7.</span> لعمل سيناريو تهريب سجين يجب عليك ان تنزل إعلان تذكر فيه هوية السجين</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">8.</span> في حال تريد تهريب جميع المساجين يجب عليك ان تنزل إعلان يذكر فيه تهريب جميع المساجين</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">9.</span> في حال عدم نزول إعلان او العد من المراقب لا يعتبر السيناريو قد بدء</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">10.</span> يمنع منعا باتا حمل الخصم أُثناء السيناريو</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">11.</span> يمنع منعا باتا كلبشة الخصم أُثناء السيناريو</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">12.</span> يمنع منعا باتا استخدام الاسلحة للتخريم من خلف الجدران + الزجاج</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">13.</span> عند الانتهاء من السيناريو يكتفي المراقب بكلمة "gg" مثال للعساكر</h3>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">14.</span> المده المسموحة للسيناريوهات هي نص ساعة للمداهمة تبدا من بداية العد</h3>
+                            <span class="penalty">العقوبة: إنهاء السيناريو</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">15.</span> في حال تم تجاوز المده ولم يتم القضاء على جميع الأعضاء المتداهمين يعتبر الفوز لهم</h3>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">16.</span> في حال نزول إعلان كاذب ب الإنتصار تتم الشكوى عند مسؤول</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">17.</span> وفي حال تاكد المسوؤل من الشكوى يقوم بإنزال إعلان إدارة تصحيح للفائز ومحاسبة صاحب الإعلان الكاذب</h3>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">18.</span> في حال كان السيناريو متفق وموافق عليه من الطرفين يحق لهم وضع قوانينهم الخاصة مع اعطاء خبر للمراقب و الإلتزام ب القوانين الأساسية مثل الإحترام</h3>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">19.</span> الأسلحة الممنوعة في جميع السيناريوهات و المداهمات من قبل العسكر او العصابات التيزر و المني قن و السنايبر و المتفجرات ب جميع أنواعه { الاسلحة الباقية يتفقون الطرفين } ويعطون خبر المراقب</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="note-box">
+                            <p><i class="fas fa-exclamation-triangle"></i> ملاحظة: الإخلال بإحدى هذه القوانين يعرضك إلى المحاسبة</p>
+                        </div>
+                    </div>
+                    
+                    <div class="law-category">
+                        <h2><i class="fas fa-university"></i> قوانين سرقة البنك المركزي</h2>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">1.</span> يجب أن يكون عدد أعضاء العصابة المشاركين من 6 الى 15</h3>
+                            <span class="penalty">العقوبة: إلغاء السيناريو</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">2.</span> يجب أن يكون عدد العسكر المشاركين من 7 الى 18</h3>
+                            <span class="penalty">العقوبة: إلغاء السيناريو</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">3.</span> يمنع سرقة البنك المركزي في حاله وجود اقل من 6 عساكر</h3>
+                            <span class="penalty">العقوبة: إلغاء السيناريو</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">4.</span> يجب على العصابة تحديد المتفاوض ومستشارين للمتفاوض قبل بدء السيناريو</h3>
+                            <span class="penalty">العقوبة: إلغاء السيناريو</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">5.</span> في حال خروج اي رجل عصابه غيرالمتفاوض يحق للعسكر قتله فورا</h3>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">6.</span> عند الإعلان عن حالة سرقه للبنك المركزي يعتبر المكان داخل البنك مكان خطير و يمكن للعصابة خطف كل من يدخل البنك</h3>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">7.</span> الأسلحة الممنوعه وقت السيناريو ( السنايبر – المني قن - التيزر - الديقل - المتفجرات )</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+                    </div>
+                    
+                    <div class="law-category">
+                        <h2><i class="fas fa-bullhorn"></i> قوانين الإعلانات في السيناريوهات</h2>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">1.</span> يمنع منعا باتا بدء أي سيناريو بدون إرسال إعلان</h3>
+                            <span class="penalty">العقوبة: إلغاء السيناريو</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">2.</span> يجب عليك تحديد مكان ونوع السيناريو</h3>
+                            <span class="penalty">العقوبة: إلغاء السيناريو</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">3.</span> تحديد سبب التفاوض مثل : ( رهائن , مركبة , الخ )</h3>
+                            <span class="penalty">العقوبة: إلغاء السيناريو</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">4.</span> في حال كان السيناريو مداهمة سواء من العسكر أو العصابات يجب عليك إنتظار رد الطرف الأخر</h3>
+                            <span class="penalty">العقوبة: إلغاء السيناريو</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">5.</span> في حال تم رفض السيناريو من الطرف الأخر يجب عليك التراجع الفوري</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">6.</span> في حال كان لديك رهينة وتم رفض السيناريو يجب عليك التخلص من الرهينة مباشرة</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">7.</span> في حال لم يتم الرد على السيناريو بإعلان قبول لمدة تجاوزت ال عشر دقائق يعتبر السيناريو مرفوض</h3>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">8.</span> يجب عليك كتابة الإعلان بشكل محترم دون التعدي على الطرف الأخر</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">9.</span> يمنع تكرار إرسال الإعلان على نفس السيناريو</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">10.</span> في حال نزلت إعلان يجب عليك إنتظار الرد لمدة عشر دقائق وعدم مغادرة السيناريو إلا بعد إنتهاء كامل المدة</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+                    </div>
+                    
+                    <div class="law-category">
+                        <h2><i class="fas fa-running"></i> قوانين الهــروب الامــن</h2>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">1.</span> يمنع الصدم العشوائي VDM</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">2.</span> يمنع التدخل الخارجي</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">3.</span> يمنع الاقتراب او الهروب الى الحديقة الملكية - مراكز الشرطة - مقرات العصابات - قراجات التصليح الرسبون -الاماكن المزدحمة</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">4.</span> اقصى مدة للهروب الامن دقيقة كاملة</h3>
+                            <span class="penalty">العقوبة: إنهاء الهروب</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">5.</span> طلب الهروب الامن يشمل مركبة من طرف العساكر ويحق الاتفاق بينهم ان تكون المركبة من طرف العصابة</h3>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">6.</span> يحق للعصابة في حال فشل الهروب الامن تبادل اطلاق النار مع العساكر بشرط:</h3>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">7.</span> ان يكون المكان خالي من المواطنين و الإزدحامات مع مراعة عدم الإقتراب من الاماكن المحظورة</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">8.</span> ان يكون تبادل الطلق من السيارة ويشترط عدم نزول العصابة من السيارة الى في حال الهروب من العساكر هروب تام</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">9.</span> الطلق يكون بعد فشل الهروب الامن و بدأ العساكر بالطلق ( لاتطلق قبل ما هم يطلقون )</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">10.</span> يمنع العودة إلى السيناريو في حال تم إسقاطك وخلاف ذلك يعرضك إلى المحاسبة الشديدة</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">11.</span> يمنع الاقتراب من الحديقة الملكيه او حولها</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+                    </div>
+                    
+                    <div class="law-category">
+                        <h2><i class="fas fa-user-secret"></i> قوانين مداهمات العصابات</h2>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">1.</span> لا يحق لاي عصابة مساندة عصابة اخرى الا بنزول اعلان رسمي بطلب مساندة</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">2.</span> يحق للعصابة طلب مساندة عصابة واحدة فقط</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">3.</span> يمنع على المواطنين المشاركة في سيناريوهات مع العصابة</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">4.</span> يمنع مداهمة مقر عصابة دون سابق انذار ويجب كتابة اعلان للمداهمة وانتظار الموافقة عليه وفي حال مرور اكثر من 5 دقايق بعدم الرد يعتبر المداهمة مرفوضة</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">5.</span> الأسلحة الممنوعه في وقت المداهمة ( الشتقن - السنايبر – المني قن - التيزر - الديقل - المتفجرات )</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">6.</span> يجب على جميع أعضاء العصابة المراد مداهمتها البقاء داخل حدود مقرهم ويمنع التواجد خارج حدود المقر</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">7.</span> في حال فوز العصابة المداهمة بالسيناريو , يسمح لهم السيطرة على المقر لمدة لا تتعدى عشر دقايق</h3>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">8.</span> في جميع المداهمات يمنع بدء القتال قبل العد من المراقب</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">9.</span> في حال مرور 10 دقيقه من بدايه السيناريو ولم تتم المداهمه يسمح للعصابة الاخرى تنزيل اعلان فوز</h3>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">10.</span> يجب أن يكون لبس العصابتين موحد من الطرفين وهذا لتجنب المشاكل يسمح في جميع السيناريوهات التحالف مع عصابة واحده فقط الا في وجود اتفاق بين الطرفين</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+                    </div>
+                    
+                    <div class="law-category">
+                        <h2><i class="fas fa-skull"></i> قوانــين سينـاريو الإعــدام</h2>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">1.</span> يسمح لجميع الوزارات طلب دعم من الوزارات أثناء التوجه إلى موقع الاعدام</h3>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">2.</span> يسمح لجميع العصابات التحالف أثناء التوجه إلى موقع الاعدام</h3>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">3.</span> يجب عند انزال اعلان اعدام الانتظار 5 دقائق وفي حال لم يتم انزال اعلان تحرير يتم الاعدام</h3>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">4.</span> سيناريو الاعدام دائما مقبول بأي عدد</h3>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">5.</span> في حال انزال اعلان تحرير يتم التفاوض على الرهينة</h3>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">6.</span> التفاوض اجباري في سيناريو الاعدام لتحديد الاماكن والاسحلة المسموحة</h3>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">7.</span> يجب على الطرف على الخاسر التحلل ويسمح للطرف الفائز بطلب مسعف لانعاش المصابين</h3>
+                        </div>
+                    </div>
+                    
+                    <div class="law-category">
+                        <h2><i class="fas fa-exclamation-triangle"></i> قوانين هامة في السيناريوهات</h2>
+                        
+                        <div class="law-item">
+                            <h3>يحق للمراقب إلغاء السيناريو في الحالات التالية:</h3>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">1.</span> الاسلوب الغير لائق من طرفين السيناريو</h3>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">2.</span> التخريب من الطرفين وقت السيناريو</h3>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">3.</span> إعادة السيناريو اكثر من مرة بسبب التخريب</h3>
+                        </div>
+
+                        <div class="law-item">
+                            <h3>الحالات الي يحسب السيناريو GG للطرف الاخر:</h3>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">1.</span> خروج لاعب واحد من منطقة السيناريو بعد العد يحاسب الشخص فقط ما يحسب GG</h3>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">2.</span> في حال وجود تخريب في السيناريو مثل تخريم , ثغرات , خواص . يتم محاسبة الشخص فقط ولا ينتهي السيناريو</h3>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">3.</span> جميع الشكاوي يتم استقبالها بعد السيناريو ويجب وجود تصوير</h3>
+                        </div>
+                    </div>
+
+                    <div class="law-category">
+                        <h2><i class="fas fa-money-bill-wave"></i> الحد المسموح للطلب على الرهينه</h2>
+                        
+                        <div class="price-list">
+                            <ul>
+                                <li>مواطن : 300 الف</li>
+                                <li>عسكري : 500 الف</li>
+                                <li>ضابط : 600 الف</li>
+                                <li>وزير : مليون</li>
+                                <li>رئيس الوزراء أو نائبه : 3 مليون</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="law-category">
+                        <h2><i class="fas fa-handshake"></i> قوانين التفاوض لجميع السيناريوهات</h2>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">1.</span> الجدية التامه من جميع الأطراف في التفاوض</h3>
+                            <span class="penalty">العقوبة: إلغاء التفاوض</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">2.</span> لايحق تفشيل التفاوض إلا للعسكري</h3>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">3.</span> يحق للمتفاوض طلب طلب واحد فقط على كل رهينة او مركبة</h3>
+                            <span class="penalty">العقوبة: إلغاء الطلب</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">4.</span> لا يحق للمتفاوض الطلب على المستندات</h3>
+                            <span class="penalty">العقوبة: إلغاء الطلب</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">5.</span> لا يحق للمتفواض المبالغة في المطلبات</h3>
+                            <span class="penalty">العقوبة: إلغاء الطلب</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">6.</span> في حال صدور أي إهانة للطرفين يتم تفشيل التفاوض بشكل مباشر</h3>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">7.</span> يجب على العسكري الخوف على حياة الرهينة ويجب على المتفاوض الخوف على حياته ب إعطاء طلبات طبيعية</h3>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">8.</span> يمنع على المتفاوض طلب هروب أمن أكثر من دقيقة</h3>
+                            <span class="penalty">العقوبة: إلغاء الطلب</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">9.</span> يمنع على المتفاوض طلب مبلغ مالي أكثر من 300 ألف على الرهينة</h3>
+                            <span class="penalty">العقوبة: إلغاء الطلب</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">10.</span> يمنع خطف او تهديد الشخص الي يدخل يشيك على حاله الرهينة</h3>
+                            <span class="penalty">العقوبة: المحاسبة</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">11.</span> يمنع على العسكري إعطاء مدة هروب أمن تقل عن 25 ثانية</h3>
+                            <span class="penalty">العقوبة: إلغاء الهروب</span>
+                        </div>
+
+                        <div class="law-item">
+                            <h3><span class="law-number">12.</span> يحق للعصابة خروج متفاوض واحد ومايحتاج يعطونه امان ( اذا فيه اتفاق بين الطرفين يتم ابلاغ المراقب )</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <a href="#" class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></a>
+        </main>
+        
+        <footer>
+            <div class="container">
+                <p> جميع الحقوق محفوظة لدى لاست يير &copy; قوانين سيرفر لاست يير</p>
+                <p>تم التصميم بشكل حصري لسيرفرنا فقط</p>
+            </div>
+        </footer>
+    </div>
+    
+    <script>
+        // زر العودة للأعلى
+        window.addEventListener('scroll', function() {
+            const backToTop = document.getElementById('backToTop');
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+        
+        // تأثيرات عند التمرير
+        const lawCategories = document.querySelectorAll('.law-category');
+        
+        function checkScroll() {
+            lawCategories.forEach(category => {
+                const categoryTop = category.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (categoryTop < windowHeight - 100) {
+                    category.style.opacity = '1';
+                    category.style.transform = 'translateY(0)';
+                }
+            });
+        }
+        
+        // تهيئة أولية للعناصر
+        lawCategories.forEach(category => {
+            category.style.opacity = '0';
+            category.style.transform = 'translateY(20px)';
+            category.style.transition = 'all 0.5s ease';
+        });
+        
+        window.addEventListener('scroll', checkScroll);
+        window.addEventListener('load', checkScroll);
+    </script>
+</body>
+</html>

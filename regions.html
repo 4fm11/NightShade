@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حدود المناطق | سيرفر لاست يير</title>
+    <style>
+        :root {
+            --main-color: #2c3e50;
+            --secondary-color: #e74c3c;
+            --accent-color: #f36c12;
+            --light-color: #ecf0f1;
+            --dark-color: #1a252f;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tajawal', sans-serif;
+        }
+        
+        body {
+            background-color: var(--dark-color);
+            color: var(--light-color);
+            background-image: url('https://media.discordapp.net/attachments/1200079938842279937/1387276828355334155/PLAYER-LIST.gif?ex=685cc1ba&is=685b703a&hm=f5234b5cc4ed6e2b14d8374ba73715da3bb29aa5afaaf45b797a5172e1da093d&=&width=440&height=229');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+        }
+        
+        .overlay {
+            background-color: rgba(0, 0, 0, 0.9);
+            min-height: 100vh;
+            width: 100%;
+        }
+        
+        header {
+            padding: 20px 0;
+            border-bottom: 2px solid var(--accent-color);
+            position: sticky;
+            top: 0;
+            background-color: rgba(26, 37, 47, 0.95);
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .logo img {
+            width: 70px;
+            border-radius: 50%;
+            border: 2px solid var(--accent-color);
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+            color: var(--accent-color);
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 8px 20px;
+            background-color: var(--secondary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            margin: 5px;
+        }
+        
+        .btn:hover {
+            background-color: #c0392b;
+            transform: translateY(-2px);
+        }
+        
+        .btn-accent {
+            background-color: var(--accent-color);
+        }
+        
+        .btn-accent:hover {
+            background-color: #e67e22;
+        }
+        
+        .laws-container {
+            padding: 40px 0;
+        }
+        
+        .law-category {
+            margin-bottom: 40px;
+            background-color: rgba(26, 37, 47, 0.7);
+            border-radius: 10px;
+            padding: 25px;
+            border-left: 5px solid var(--accent-color);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .law-category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            border-left-color: var(--secondary-color);
+        }
+        
+        .law-category h2 {
+            font-size: 1.8rem;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--main-color);
+        }
+        
+        .law-item {
+            margin-bottom: 15px;
+            padding-left: 20px;
+            border-left: 2px solid var(--secondary-color);
+            position: relative;
+        }
+        
+        .law-item:before {
+            content: '';
+            position: absolute;
+            left: -6px;
+            top: 10px;
+            width: 10px;
+            height: 10px;
+            background-color: var(--secondary-color);
+            border-radius: 50%;
+        }
+        
+        .law-item h3 {
+            font-size: 1.3rem;
+            color: var(--light-color);
+            margin-bottom: 5px;
+        }
+        
+        .law-item p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #bdc3c7;
+        }
+        
+        .penalty {
+            display: inline-block;
+            background-color: rgba(231, 76, 60, 0.2);
+            color: var(--secondary-color);
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 0.9rem;
+            margin-top: 5px;
+            border: 1px solid var(--secondary-color);
+        }
+        
+        .region-image {
+            width: 100%;
+            max-width: 600px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border: 2px solid var(--accent-color);
+        }
+        
+        .zone-type {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 3px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        
+        .safe-zone {
+            background-color: rgba(46, 204, 113, 0.2);
+            color: #2ecc71;
+            border: 1px solid #2ecc71;
+        }
+        
+        .danger-zone {
+            background-color: rgba(231, 76, 60, 0.2);
+            color: var(--secondary-color);
+            border: 1px solid var(--secondary-color);
+        }
+        
+        .neutral-zone {
+            background-color: rgba(241, 196, 15, 0.2);
+            color: #f1c40f;
+            border: 1px solid #f1c40f;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            border-top: 1px solid var(--main-color);
+            margin-top: 50px;
+            background-color: rgba(26, 37, 47, 0.9);
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background-color: var(--accent-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            text-decoration: none;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            background-color: #e67e22;
+            transform: translateY(-3px);
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="overlay">
+        <header>
+            <div class="container">
+                <div class="logo">
+                    <a href="index.html" class="btn btn-accent"><i class="fas fa-home"></i> الرئيسية</a>
+                    <h1>حدود المناطق</h1>
+                    <img src="https://media.discordapp.net/attachments/784916891822194729/1387236209054580786/logo-anmititon-66.gif?ex=685c9be5&is=685b4a65&hm=a632382907b3996eff88b4eaf28a8269753977411eb3b4415c3208410f904efb&=" alt="شعار السيرفر">
+                </div>
+            </div>
+        </header>
+        
+        <main>
+            <div class="container">
+                <div class="laws-container">
+                    <div class="law-category">
+                        <h2><i class="fas fa-map-marked-alt"></i> حدود المنطقة الامنه لسجن العكسري  </h2>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">1.</span> - يمنع القتل والتلويت فيها  <span class="zone-type safe-zone">آمنة</span></h3>
+                            <p>يمنع أي أعمال عنف أو إجرام في هذه المنطقة. وتشمل المباني الحكومية والساحات الرئيسية.</p>
+                            <img src="https://media.discordapp.net/attachments/1225371128961302619/1387463400841285632/image.png?ex=685d6f7c&is=685c1dfc&hm=fa4f677032549379e98f330af4b02cf5bcffbaf09766fa72dcad011d55c58fdd&=&format=webp&quality=lossless" alt="المنطقة الآمنة" class="region-image">
+                            <span class="penalty">العقوبة: حظر مؤقت من 3 أيام</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">2.</span> حدود المنطقة الامنه مابعد نقطة التقتيش  <span class="zone-type safe-zone">آمنة</span></h3>
+                            <p>- يمنع القتل والتلويت فيها .</p>
+                            <img src="https://media.discordapp.net/attachments/1225371128961302619/1387463915851743342/image.png?ex=685d6ff7&is=685c1e77&hm=c0b2e119e6512a5f5cf02a3b323c9acdbc0e89da339e07c6d626022c9576a58c&=&format=webp&quality=lossless" alt="المنطقة الآمنة" class="region-image">
+                            <span class="penalty">العقوبة: حظر مؤقت من أسبوع</span>
+                        </div>
+                    </div>
+                    
+                    <div class="law-category">
+                        <h2><i class="fas fa-skull-crossbones"></i> مناطق التهديد والقتل</h2>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">3.</span> حدود المنطقة الامنه الخط السريع باتجاه الشاطئ <span class="zone-type danger-zone">خطيرة</span></h3>
+                            <p>- يمنع القتل والتلويت فيها .</p>
+                            <img src="https://media.discordapp.net/attachments/1225371128961302619/1387464518413848697/image.png?ex=685d7087&is=685c1f07&hm=96146e4e75c300e474b105832d36b608ff4f961db22295f790be9cc4c5efbc80&=&format=webp&quality=lossless" alt="المناطق الخطيرة" class="region-image">
+                            <span class="penalty">العقوبة: حظر مؤقت من أسبوع</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">4.</span> حدود المنطقة الامنه لسكة القطار المدينة الثانيه <span class="zone-type danger-zone">خطيرة</span></h3>
+                            <img src="https://media.discordapp.net/attachments/1225371128961302619/1387465310638178406/image.png?ex=685d7143&is=685c1fc3&hm=aa9d49296f0551aff3285d281829ef71021a467ba26dc0adf2bc5aa1f45031c2&=&format=webp&quality=lossless" alt="المناطق الخطيرة" class="region-image">
+                            <p>- يمنع القتل والتلويت فيها </p>
+                            <span class="penalty">العقوبة: حظر مؤقت من أسبوع</span>
+                        </div>
+                    </div>
+            </div>
+            
+            <a href="#" class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></a>
+        </main>
+        
+        <footer>
+            <div class="container">
+                <p> جميع الحقوق محفوظة لدى لاست يير &copy; قوانين سيرفر لاست يير</p>
+                <p>تم التصميم بشكل حصري لسيرفرنا فقط</p>
+            </div>
+        </footer>
+    </div>
+    
+    <script>
+        // زر العودة للأعلى
+        window.addEventListener('scroll', function() {
+            const backToTop = document.getElementById('backToTop');
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+        
+        // تأثيرات عند التمرير
+        const lawCategories = document.querySelectorAll('.law-category');
+        
+        function checkScroll() {
+            lawCategories.forEach(category => {
+                const categoryTop = category.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (categoryTop < windowHeight - 100) {
+                    category.style.opacity = '1';
+                    category.style.transform = 'translateY(0)';
+                }
+            });
+        }
+        
+        // تهيئة أولية للعناصر
+        lawCategories.forEach(category => {
+            category.style.opacity = '0';
+            category.style.transform = 'translateY(20px)';
+            category.style.transition = 'all 0.5s ease';
+        });
+        
+        window.addEventListener('scroll', checkScroll);
+        window.addEventListener('load', checkScroll);
+    </script>
+</body>
+</html>

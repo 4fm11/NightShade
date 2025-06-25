@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>قوانين السرقات | سيرفر لاست يير</title>
+    <style>
+        :root {
+            --main-color: #2c3e50;
+            --secondary-color: #e74c3c;
+            --accent-color: #f36c12;
+            --light-color: #ecf0f1;
+            --dark-color: #1a252f;
+            --safe-zone: #2ecc71;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tajawal', sans-serif;
+        }
+        
+        body {
+            background-color: var(--dark-color);
+            color: var(--light-color);
+            background-image: url('https://media.discordapp.net/attachments/1200079938842279937/1387276828355334155/PLAYER-LIST.gif?ex=685cc1ba&is=685b703a&hm=f5234b5cc4ed6e2b14d8374ba73715da3bb29aa5afaaf45b797a5172e1da093d&=&width=440&height=229');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+        }
+        
+        .overlay {
+            background-color: rgba(0, 0, 0, 0.9);
+            min-height: 100vh;
+            width: 100%;
+        }
+        
+        header {
+            padding: 20px 0;
+            border-bottom: 2px solid var(--accent-color);
+            position: sticky;
+            top: 0;
+            background-color: rgba(26, 37, 47, 0.95);
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .logo img {
+            width: 70px;
+            border-radius: 50%;
+            border: 2px solid var(--accent-color);
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+            color: var(--accent-color);
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 8px 20px;
+            background-color: var(--secondary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            margin: 5px;
+        }
+        
+        .btn:hover {
+            background-color: #c0392b;
+            transform: translateY(-2px);
+        }
+        
+        .btn-accent {
+            background-color: var(--accent-color);
+        }
+        
+        .btn-accent:hover {
+            background-color: #e67e22;
+        }
+        
+        .laws-container {
+            padding: 40px 0;
+        }
+        
+        .law-category {
+            margin-bottom: 40px;
+            background-color: rgba(26, 37, 47, 0.7);
+            border-radius: 10px;
+            padding: 25px;
+            border-left: 5px solid var(--accent-color);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .law-category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            border-left-color: var(--secondary-color);
+        }
+        
+        .law-category h2 {
+            font-size: 1.8rem;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--main-color);
+        }
+        
+        .law-item {
+            margin-bottom: 15px;
+            padding-left: 20px;
+            border-left: 2px solid var(--secondary-color);
+            position: relative;
+        }
+        
+        .law-item:before {
+            content: '';
+            position: absolute;
+            left: -6px;
+            top: 10px;
+            width: 10px;
+            height: 10px;
+            background-color: var(--secondary-color);
+            border-radius: 50%;
+        }
+        
+        .law-item h3 {
+            font-size: 1.3rem;
+            color: var(--light-color);
+            margin-bottom: 5px;
+        }
+        
+        .law-item p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #bdc3c7;
+        }
+        
+        .penalty {
+            display: inline-block;
+            background-color: rgba(231, 76, 60, 0.2);
+            color: var(--secondary-color);
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 0.9rem;
+            margin-top: 5px;
+            border: 1px solid var(--secondary-color);
+        }
+        
+        .theft-image {
+            width: 100%;
+            max-width: 600px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border: 2px solid var(--accent-color);
+        }
+        
+        .safe-zone {
+            color: var(--safe-zone);
+            font-weight: bold;
+        }
+        
+        .weapon-allowed {
+            display: inline-block;
+            background-color: rgba(46, 204, 113, 0.2);
+            color: var(--safe-zone);
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 0.9rem;
+            margin: 5px 0;
+            border: 1px solid var(--safe-zone);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            border-top: 1px solid var(--main-color);
+            margin-top: 50px;
+            background-color: rgba(26, 37, 47, 0.9);
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background-color: var(--accent-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            text-decoration: none;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            background-color: #e67e22;
+            transform: translateY(-3px);
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="overlay">
+        <header>
+            <div class="container">
+                <div class="logo">
+                    <a href="index.html" class="btn btn-accent"><i class="fas fa-home"></i> الرئيسية</a>
+                    <h1>قوانين السرقات</h1>
+                    <img src="https://media.discordapp.net/attachments/784916891822194729/1387236209054580786/logo-anmititon-66.gif?ex=685c9be5&is=685b4a65&hm=a632382907b3996eff88b4eaf28a8269753977411eb3b4415c3208410f904efb&=" alt="شعار السيرفر">
+                </div>
+            </div>
+        </header>
+        
+        <main>
+            <div class="container">
+                <div class="laws-container">
+                    <div class="law-category">
+                        <h2><i class="fas fa-gavel"></i> قوانين السرقات العامة</h2>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">1.</span> مناطق آمنة</h3>
+                            <p>جميع أماكن السرقات تعتبر منطقة آمنة <span class="safe-zone">يمنع التلويت فيها منعاً باتاً</span>.</p>
+                            <span class="penalty">العقوبة: حظر مؤقت من يوم إلى 3 أيام</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">2.</span> الأسلحة المسموحة</h3>
+                            <p><span class="weapon-allowed">AP PISTOL</span> هو السلاح الوحيد المسموح في جميع السرقات (ما عدا البنك المركزي).</p>
+                            <span class="penalty">العقوبة: حظر مؤقت من 3 أيام</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">3.</span> الملابس المحظورة</h3>
+                            <p>يمنع منعاً باتاً لبس أي خوذ أو بريهات أو أقنعة من الطرفين (المجرمين والعساكر).</p>
+                            <span class="penalty">العقوبة: غرامة مالية أو حظر مؤقت</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">4.</span> تداخل العصابات</h3>
+                            <p>ممنوع منعاً باتاً تداخل عصابتين في نفس السرقة وتكون الأولوية لأول من سرق.</p>
+                            <span class="penalty">العقوبة: حظر مؤقت لأعضاء العصابة الثانية</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">5.</span> توقيت المداهمة</h3>
+                            <p>يمنع على العساكر مداهمة أي سرقة قبل أن يتم نزول إشعار السرقة.</p>
+                            <p>يجب أن تمر دقيقة على الأقل قبل مداهمة العساكر موقع السرقة.</p>
+                            <span class="penalty">العقوبة: إنذار للعساكر</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">6.</span> بعد انتهاء السرقة</h3>
+                            <p>في حال انتهاء السرقة يجب مغادرة جميع العساكر وعدم الانتظار في موقع السرقة.</p>
+                            <p>يمنع منعاً باتاً على المجرمين الانتظار في موقع السرقة وحجزه إلى حين إتاحة سرقته مرة أخرى.</p>
+                            <span class="penalty">العقوبة: حظر مؤقت من يوم إلى 3 أيام</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">7.</span> قواعد المواجهة</h3>
+                            <p>مداهمة العساكر للمجرمين في السرقة مرة واحدة فقط وفي حال فشل العساكر يجب عليهم المغادرة فوراً.</p>
+                            <p>في حال فشل المجرمين في المقاومة يجب عليهم مغادرة الموقع فوراً وعدم إكمال السرقة.</p>
+                            <span class="penalty">العقوبة: حظر مؤقت حسب الحالة</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">8.</span> بعد انتهاء السرقة</h3>
+                            <p>في حين انتهاء السرقة يمنع منعاً باتاً اعتداء الطرفين على بعض.</p>
+                            <span class="penalty">العقوبة: حظر مؤقت من 3 أيام إلى أسبوع</span>
+                        </div>
+                    </div>
+                    
+                    <div class="law-category">
+                        <h2><i class="fas fa-store"></i> قوانين سرقة البقالة</h2>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">1.</span> الأسلحة المسموحة</h3>
+                            <p><span class="weapon-allowed">AP PISTOL</span> هو السلاح الوحيد المسموح.</p>
+                            <span class="penalty">العقوبة: حظر مؤقت من 3 أيام</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">2.</span> منطقة التواجد</h3>
+                            <p>مكان تواجد المجرمين داخل البقالة فقط ويمنع منعاً باتاً خروجهم إلا بعد انتهاء السرقة.</p>
+                            <img src="https://media.discordapp.net/attachments/1225371128961302619/1387468517485449226/image.png?ex=685d7440&is=685c22c0&hm=2bee1080dc13ee84e0715d5527e81dfee36af1df1ed1b54e320cc7770b9369e5&=&format=webp&quality=lossless" alt="سرقة البقالة" class="theft-image">
+                            <span class="penalty">العقوبة: حظر مؤقت من يوم إلى 3 أيام</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">3.</span> القتل من أماكن بعيدة</h3>
+                            <p>يمنع منعاً باتاً القتل من أماكن بعيدة عن موقع السرقة لكل الطرفين.</p>
+                            <span class="penalty">العقوبة: حظر مؤقت من أسبوع</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">4.</span> مناطق العساكر</h3>
+                            <p>اللون <span class="safe-zone">الأخضر</span> يحدد مكان تواجد العساكر المسموح به.</p>
+                            <span class="penalty">العقوبة: إنذار للعساكر</span>
+                        </div>
+                    </div>
+                    
+                    <div class="law-category">
+                        <h2><i class="fas fa-home"></i> قوانين سرقة المنازل</h2>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">1.</span> الأسلحة المسموحة</h3>
+                            <p><span class="weapon-allowed">AP PISTOL</span> هو السلاح الوحيد المسموح.</p>
+                            <span class="penalty">العقوبة: حظر مؤقت من 3 أيام</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">2.</span> منطقة التواجد</h3>
+                            <p>مكان تواجد المجرمين داخل المنزل فقط ويمنع منعاً باتاً خروجهم إلا بعد انتهاء السرقة.</p>
+                            <span class="penalty">العقوبة: حظر مؤقت من يوم إلى 3 أيام</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">3.</span> القتل من أماكن بعيدة</h3>
+                            <p>يمنع منعاً باتاً القتل من أماكن بعيدة عن موقع السرقة لكل الطرفين.</p>
+                            <span class="penalty">العقوبة: حظر مؤقت من أسبوع</span>
+                        </div>
+                    </div>
+                    
+                    <div class="law-category">
+                        <h2><i class="fas fa-ship"></i> قوانين سرقة اليخت</h2>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">1.</span> الأسلحة المسموحة</h3>
+                            <p><span class="weapon-allowed">AP PISTOL</span> هو السلاح الوحيد المسموح.</p>
+                            <span class="penalty">العقوبة: حظر مؤقت من 3 أيام</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">2.</span> منطقة التواجد</h3>
+                            <p>مكان تواجد المجرمين داخل اليخت فقط ويمنع منعاً باتاً خروجهم إلا بعد انتهاء السرقة.</p>
+                            <img src="https://media.discordapp.net/attachments/1225371128961302619/1387468801343230022/image.png?ex=685d7484&is=685c2304&hm=5e1a65100e5154b5ac69846b1b4aac66da638c58a43e0c639e27ae00504f64f6&=&format=webp&quality=lossless" alt="سرقة اليخت" class="theft-image">
+                            <span class="penalty">العقوبة: حظر مؤقت من يوم إلى 3 أيام</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">3.</span> القتل من أماكن بعيدة</h3>
+                            <p>يمنع منعاً باتاً القتل من أماكن بعيدة عن موقع السرقة لكل الطرفين.</p>
+                            <span class="penalty">العقوبة: حظر مؤقت من أسبوع</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">4.</span> مناطق الطرفين</h3>
+                            <p>اللون <span class="safe-zone">الأخضر</span> يحدد مكان تواجد الطرفين المسموح به.</p>
+                            <span class="penalty">العقوبة: إنذار للطرف المخالف</span>
+                        </div>
+                    </div>
+                    
+                    <div class="law-category">
+                        <h2><i class="fas fa-university"></i> قوانين سرقة المصرف</h2>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">1.</span> الأسلحة المسموحة</h3>
+                            <p><span class="weapon-allowed">AP PISTOL</span> هو السلاح الوحيد المسموح.</p>
+                            <span class="penalty">العقوبة: حظر مؤقت من 3 أيام</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">2.</span> منطقة التواجد</h3>
+                            <p>مكان تواجد المجرمين داخل المصرف فقط ويمنع منعاً باتاً خروجهم إلا بعد انتهاء السرقة.</p>
+                            <img src="https://cdn.discordapp.com/attachments/1225371128961302619/1387468967354044486/image.png?ex=685d74ab&is=685c232b&hm=fe2cb30e3e01bb250015b4c3da28189a588d6b2a1a777bb59db460e553216de1&" alt="سرقة المصرف" class="theft-image">
+                            <span class="penalty">العقوبة: حظر مؤقت من يوم إلى 3 أيام</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">3.</span> القتل من أماكن بعيدة</h3>
+                            <p>يمنع منعاً باتاً القتل من أماكن بعيدة عن موقع السرقة لكل الطرفين.</p>
+                            <span class="penalty">العقوبة: حظر مؤقت من أسبوع</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">4.</span> مناطق العساكر</h3>
+                            <p>اللون <span class="safe-zone">الأخضر</span> يحدد مكان تواجد العساكر المسموح به.</p>
+                            <span class="penalty">العقوبة: إنذار للعساكر</span>
+                        </div>
+                    </div>
+                    
+                    <div class="law-category">
+                        <h2><i class="fas fa-landmark"></i> قوانين سرقة البنك المركزي</h2>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">1.</span> الأسلحة المسموحة</h3>
+                            <p><span class="weapon-allowed">MG - Combat MG - Assault Rifle - AP PISTOL</span> هي الأسلحة المسموحة.</p>
+                            <span class="penalty">العقوبة: حظر مؤقت من 3 أيام</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">2.</span> منطقة التواجد</h3>
+                            <p>مكان تواجد المجرمين داخل البنك المركزي فقط ويمنع منعاً باتاً خروجهم إلا بعد انتهاء السرقة.</p>
+                            <span class="penalty">العقوبة: حظر مؤقت من يوم إلى 3 أيام</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">3.</span> القتل من أماكن بعيدة</h3>
+                            <p>يمنع منعاً باتاً القتل من أماكن بعيدة عن موقع السرقة لكل الطرفين.</p>
+                            <span class="penalty">العقوبة: حظر مؤقت من أسبوع</span>
+                        </div>
+                    </div>
+                    
+                    <div class="law-category">
+                        <h2><i class="fas fa-gem"></i> قوانين سرقة المجوهرات</h2>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">1.</span> الأسلحة المسموحة</h3>
+                            <p><span class="weapon-allowed">AP PISTOL</span> هو السلاح الوحيد المسموح.</p>
+                            <span class="penalty">العقوبة: حظر مؤقت من 3 أيام</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">2.</span> منطقة التواجد</h3>
+                            <p>مكان تواجد المجرمين داخل المجوهرات فقط ويمنع منعاً باتاً خروجهم إلا بعد انتهاء السرقة.</p>
+                            <img src="https://media.discordapp.net/attachments/1225371128961302619/1387469059339194508/image.png?ex=685d74c1&is=685c2341&hm=2ea13ec7f761b74706880da3fcc881150ef93e442ef2b44cb31b1e4b6d48366f&=&format=webp&quality=lossless&width=530&height=350" alt="سرقة المجوهرات" class="theft-image">
+                            <span class="penalty">العقوبة: حظر مؤقت من يوم إلى 3 أيام</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">3.</span> القتل من أماكن بعيدة</h3>
+                            <p>يمنع منعاً باتاً القتل من أماكن بعيدة عن موقع السرقة لكل الطرفين.</p>
+                            <span class="penalty">العقوبة: حظر مؤقت من أسبوع</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">4.</span> مناطق العساكر</h3>
+                            <p>اللون <span class="safe-zone">الأخضر</span> يحدد مكان تواجد العساكر المسموح به.</p>
+                            <span class="penalty">العقوبة: إنذار للعساكر</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <a href="#" class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></a>
+        </main>
+        
+        <footer>
+            <div class="container">
+                <p> جميع الحقوق محفوظة لدى لاست يير &copy; قوانين سيرفر لاست يير</p>
+                <p>تم التصميم بشكل حصري لسيرفرنا فقط</p>
+            </div>
+        </footer>
+    </div>
+    
+    <script>
+        // زر العودة للأعلى
+        window.addEventListener('scroll', function() {
+            const backToTop = document.getElementById('backToTop');
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+        
+        // تأثيرات عند التمرير
+        const lawCategories = document.querySelectorAll('.law-category');
+        
+        function checkScroll() {
+            lawCategories.forEach(category => {
+                const categoryTop = category.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (categoryTop < windowHeight - 100) {
+                    category.style.opacity = '1';
+                    category.style.transform = 'translateY(0)';
+                }
+            });
+        }
+        
+        // تهيئة أولية للعناصر
+        lawCategories.forEach(category => {
+            category.style.opacity = '0';
+            category.style.transform = 'translateY(20px)';
+            category.style.transition = 'all 0.5s ease';
+        });
+        
+        window.addEventListener('scroll', checkScroll);
+        window.addEventListener('load', checkScroll);
+    </script>
+</body>
+</html>
