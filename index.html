@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>قوانين سيرفر لاست يير</title>
+    <title>قوانين FiveM | السيرفر الرسمي</title>
     <style>
         :root {
             --main-color: #2c3e50;
             --secondary-color: #e74c3c;
-            --accent-color: #f36c12;
+            --accent-color: #f35912;
             --light-color: #ecf0f1;
             --dark-color: #1a252f;
         }
@@ -23,14 +23,14 @@
         body {
             background-color: var(--dark-color);
             color: var(--light-color);
-            background-image: url('https://media.discordapp.net/attachments/1200079938842279937/1387276828355334155/PLAYER-LIST.gif?ex=685cc1ba&is=685b703a&hm=f5234b5cc4ed6e2b14d8374ba73715da3bb29aa5afaaf45b797a5172e1da093d&=&width=440&height=229');
+            background-image: url('https://media.discordapp.net/attachments/1200079938842279937/1387276828355334155/PLAYER-LIST.gif?ex=685cc1ba&is=685b703a&hm=f5234b5cc4ed6e2b14d8374ba73715da3bb29aa5afaaf45b797a5172e1da093d&=&width=1113&height=579');
             background-size: cover;
             background-attachment: fixed;
             background-position: center;
         }
         
         .overlay {
-            background-color: rgba(0, 0, 0, 0.9);
+            background-color: rgba(0, 0, 0, 0.85);
             min-height: 100vh;
             width: 100%;
         }
@@ -38,11 +38,6 @@
         header {
             padding: 20px 0;
             border-bottom: 2px solid var(--accent-color);
-            position: sticky;
-            top: 0;
-            background-color: rgba(26, 37, 47, 0.95);
-            z-index: 100;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
         
         .container {
@@ -51,26 +46,65 @@
             margin: 0 auto;
         }
         
+            .ali-container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .ali {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
         .logo {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+            text-align: center;
+            margin-bottom: 20px;
         }
         
         .logo img {
-            width: 70px;
+            max-width: 150px;
             border-radius: 50%;
-            border: 2px solid var(--accent-color);
+            border: 3px solid var(--accent-color);
+            box-shadow: 0 0 20px rgba(243, 138, 18, 0.5);
         }
         
         .logo h1 {
-            font-size: 1.8rem;
+            font-size: 2.5rem;
+            margin-top: 10px;
             color: var(--accent-color);
+            text-shadow: 0 0 10px rgba(243, 156, 18, 0.7);
+        }
+        
+        .welcome-section {
+            text-align: center;
+            padding: 50px 0;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .welcome-section h2 {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            color: var(--accent-color);
+        }
+        
+        .welcome-section p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
         }
         
         .btn {
             display: inline-block;
-            padding: 8px 20px;
+            padding: 12px 30px;
             background-color: var(--secondary-color);
             color: white;
             text-decoration: none;
@@ -79,13 +113,15 @@
             transition: all 0.3s ease;
             border: none;
             cursor: pointer;
-            font-size: 1rem;
-            margin: 5px;
+            font-size: 1.1rem;
+            margin: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
         
         .btn:hover {
             background-color: #c0392b;
-            transform: translateY(-2px);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
         }
         
         .btn-accent {
@@ -96,134 +132,41 @@
             background-color: #e67e22;
         }
         
-        .laws-container {
-            padding: 40px 0;
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin: 50px 0;
         }
         
-        .law-category {
-            margin-bottom: 40px;
-            background-color: rgba(26, 37, 47, 0.7);
+        .feature-card {
+            background-color: rgba(26, 37, 47, 0.8);
             border-radius: 10px;
             padding: 25px;
-            border-left: 5px solid var(--accent-color);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            transition: all 0.3s ease;
-        }
-        
-        .law-category:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-            border-left-color: var(--secondary-color);
-        }
-        
-        .law-category h2 {
-            font-size: 1.8rem;
-            color: var(--accent-color);
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid var(--main-color);
-        }
-        
-        .law-item {
-            margin-bottom: 15px;
-            padding-left: 20px;
-            border-left: 2px solid var(--secondary-color);
-            position: relative;
-        }
-        
-        .law-item:before {
-            content: '';
-            position: absolute;
-            left: -6px;
-            top: 10px;
-            width: 10px;
-            height: 10px;
-            background-color: var(--secondary-color);
-            border-radius: 50%;
-        }
-        
-        .law-item h3 {
-            font-size: 1.3rem;
-            color: var(--light-color);
-            margin-bottom: 5px;
-        }
-        
-        .law-item p {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            color: #bdc3c7;
-        }
-        
-        .penalty {
-            display: inline-block;
-            background-color: rgba(231, 76, 60, 0.2);
-            color: var(--secondary-color);
-            padding: 3px 8px;
-            border-radius: 3px;
-            font-size: 0.9rem;
-            margin-top: 5px;
-            border: 1px solid var(--secondary-color);
-        }
-        
-        .search-container {
-            margin: 20px 0;
-            position: sticky;
-            top: 80px;
-            z-index: 50;
-            background-color: rgba(26, 37, 47, 0.9);
-            padding: 15px;
-            border-radius: 5px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-        }
-        
-        .search-box {
-            width: 100%;
-            padding: 12px 15px;
-            border-radius: 5px;
-            border: none;
-            background-color: var(--dark-color);
-            color: var(--light-color);
-            font-size: 1.1rem;
+            width: 300px;
+            text-align: center;
             border: 1px solid var(--main-color);
             transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
         
-        .search-box:focus {
-            outline: none;
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
             border-color: var(--accent-color);
-            box-shadow: 0 0 10px rgba(243, 156, 18, 0.3);
         }
         
-        .law-importance {
-            display: inline-block;
-            font-size: 0.8rem;
-            padding: 2px 8px;
-            border-radius: 3px;
-            margin-left: 10px;
-            font-weight: bold;
-        }
-        
-        .high-importance {
-            background-color: rgba(231, 76, 60, 0.2);
-            color: var(--secondary-color);
-            border: 1px solid var(--secondary-color);
-        }
-        
-        .medium-importance {
-            background-color: rgba(243, 156, 18, 0.2);
+        .feature-icon {
+            font-size: 2.5rem;
             color: var(--accent-color);
-            border: 1px solid var(--accent-color);
+            margin-bottom: 15px;
         }
         
-        .low-importance {
-            background-color: rgba(46, 204, 113, 0.2);
-            color: #2ecc71;
-            border: 1px solid #2ecc71;
-        }
-        
-        .law-number {
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
             color: var(--accent-color);
-            font-weight: bold;
         }
         
         footer {
@@ -231,50 +174,37 @@
             padding: 20px 0;
             border-top: 1px solid var(--main-color);
             margin-top: 50px;
-            background-color: rgba(26, 37, 47, 0.9);
         }
         
-        .back-to-top {
-            position: fixed;
-            bottom: 30px;
-            left: 30px;
-            background-color: var(--accent-color);
-            color: white;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .countdown {
             font-size: 1.5rem;
-            text-decoration: none;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s ease;
-            opacity: 0;
-            visibility: hidden;
+            margin: 30px 0;
+            color: var(--accent-color);
         }
         
-        .back-to-top.visible {
-            opacity: 1;
-            visibility: visible;
-        }
-        
-        .back-to-top:hover {
-            background-color: #e67e22;
-            transform: translateY(-3px);
+        /* تأثيرات خاصة */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
         }
         
         @media (max-width: 768px) {
             .logo h1 {
-                font-size: 1.4rem;
+                font-size: 2rem;
             }
             
-            .law-category h2 {
-                font-size: 1.5rem;
+            .welcome-section h2 {
+                font-size: 1.8rem;
             }
             
-            .law-item h3 {
-                font-size: 1.1rem;
+            .features {
+                flex-direction: column;
+                align-items: center;
             }
         }
     </style>
@@ -283,239 +213,182 @@
 </head>
 <body>
     <div class="overlay">
+        <div class="particles" id="particles-js"></div>
+        
         <header>
             <div class="container">
                 <div class="logo">
-                    <a href="index.html" class="btn btn-accent"><i class="fas fa-home"></i> الرئيسية</a>
-                    <h1>قوانين السيرفر</h1>
                     <img src="https://media.discordapp.net/attachments/784916891822194729/1387236209054580786/logo-anmititon-66.gif?ex=685c9be5&is=685b4a65&hm=a632382907b3996eff88b4eaf28a8269753977411eb3b4415c3208410f904efb&=" alt="شعار السيرفر">
+                    <h1>قوانين السيرفر الرسميا</h1>
                 </div>
             </div>
         </header>
-        
         <main>
-            <div class="container">
-                <div class="search-container">
-                    <input type="text" class="search-box" placeholder="ابحث في القوانين..." id="searchInput">
+            <section class="welcome-section">
+                <div class="container">
+                    <h2>مرحبا بكم في قوانين سيرفر لاست يير</h2>
+                    <p>نقدم لكم تجربة لعب فريدة وممتعة مع أفضل القوانين والأنظمة التي تضمن العدل والمرح للجميع. اقرأ القوانين بعناية قبل الانضمام إلينا.</p>
+                    
+                    <div class="countdown" id="serverRestart">
+                        <i class="fas fa-clock"></i> الوقت المتبقي لإعادة تشغيل السيرفر: <span id="countdown">00:00:00</span>
+                    </div>
+                    <a href="laws.html" class="btn btn-accent">عرض القوانين</a>
+                    <a href="scenarios.html" class="btn">قوانين السيناريوهات</a>
+                    <a href="ministry.html" class="btn ">قوانين الوزارات</a>
+                    <a href="senario.html" class="btn ">مواقع السيناريوهات</a>
+                    <a href="regions.html" class="btn">حدود المناطق</a>
+                    <a href="theft.html" class="btn">قوانين السرقات</a>
+                    <a href="superheroes.html" class="btn">قوانين السوبر هيرو</a>
+                    <a href="crime.html" class="btn">قوانين الإجرام</a>
+                    <a href="#features" class="btn">المميزات السيرفر</a>
                 </div>
-                
-                <div class="laws-container" id="lawsContainer">
-                    <div class="law-category">
-                        <h2><i class="fas fa-gavel"></i> القوانين العامة</h2>
-                        
-                        <div class="law-item">
-                            <h3><span class="law-number">1.</span> احترام جميع اللاعبين <span class="law-importance high-importance">عالية</span></h3>
-                            <p>يمنع التمييز أو الإساءة لأي لاعب لأي سبب كان (عرق، دين، جنس، إلخ).</p>
-                            <span class="penalty">العقوبة: حظر مؤقت من 3 أيام إلى حظر دائم</span>
-                        </div>
-                        
-                        <div class="law-item">
-                            <h3><span class="law-number">2.</span> منع استخدام الألفاظ النابية <span class="law-importance medium-importance">متوسطة</span></h3>
-                            <p>يمنع استخدام الألفاظ النابية أو المسيئة في الشات الصوتي أو النصي.</p>
-                            <span class="penalty">العقوبة: إنذار ثم حظر مؤقت</span>
-                        </div>
-                        
-                        <div class="law-item">
-                            <h3><span class="law-number">3.</span> منع الغش أو الاستغلال <span class="law-importance high-importance">عالية</span></h3>
-                            <p>يمنع استخدام أي برامج أو أدوات غش أو استغلال ثغرات في السيرفر.</p>
-                            <span class="penalty">العقوبة: حظر دائم بدون سابق إنذار</span>
-                        </div>
-                        
-                        <div class="law-item">
-                            <h3><span class="law-number">4.</span> الالتزام بأدوار الشخصية <span class="law-importance medium-importance">متوسطة</span></h3>
-                            <p>يجب الالتزام بأدوار الشخصية (RP) وعدم الخروج عنها إلا في المناطق المخصصة.</p>
-                            <span class="penalty">العقوبة: إنذار ثم حظر مؤقت من السيرفر</span>
-                        </div>
-                    </div>
-                    
-                    <div class="law-category">
-                        <h2><i class="fas fa-car-crash"></i> قوانين المرور والمركبات</h2>
-                        
-                        <div class="law-item">
-                            <h3><span class="law-number">5.</span> الالتزام بقواعد المرور <span class="law-importance medium-importance">متوسطة</span></h3>
-                            <p>يجب الالتزام بإشارات المرور والسرعة المحددة في المناطق المختلفة.</p>
-                            <span class="penalty">العقوبة: غرامة مالية أو سحب رخصة</span>
-                        </div>
-                        
-                        <div class="law-item">
-                            <h3><span class="law-number">6.</span> منع القيادة المتهورة <span class="law-importance medium-importance">متوسطة</span></h3>
-                            <p>يمنع القيادة المتهورة التي تعرض حياة الآخرين للخطر.</p>
-                            <span class="penalty">العقوبة: سحب رخصة القيادة أو حظر من استخدام المركبات</span>
-                        </div>
-                        
-                        <div class="law-item">
-                            <h3><span class="law-number">7.</span> منع سرقة المركبات العشوائية <span class="law-importance high-importance">عالية</span></h3>
-                            <p>يمنع سرقة مركبات اللاعبين الآخرين بدون سبب منطقي في لعبة الأدوار.</p>
-                            <span class="penalty">العقوبة: سجن في اللعبة أو حظر مؤقت</span>
-                        </div>
-                    </div>
-                    
-                    <div class="law-category">
-                        <h2><i class="fas fa-shield-alt"></i> قوانين الأسلحة والجرائم</h2>
-                        
-                        <div class="law-item">
-                            <h3><span class="law-number">8.</span> منع القتل العشوائي (RDM) <span class="law-importance high-importance">عالية</span></h3>
-                            <p>يمنع قتل اللاعبين الآخرين بدون سبب أو تفاعل منطقي في لعبة الأدوار.</p>
-                            <span class="penalty">العقوبة: حظر مؤقت من 3 أيام إلى أسبوع</span>
-                        </div>
-                        
-                        <div class="law-item">
-                            <h3><span class="law-number">9.</span> منع السطو بدون تفاعل (VDM) <span class="law-importance high-importance">عالية</span></h3>
-                            <p>يمنع سرقة أو اعتقال اللاعبين بدون تفاعل كلامي أو سبب منطقي.</p>
-                            <span class="penalty">العقوبة: حظر مؤقت من يوم إلى 3 أيام</span>
-                        </div>
-                        
-                        <div class="law-item">
-                            <h3><span class="law-number">10.</span> تقييد استخدام الأسلحة <span class="law-importance medium-importance">متوسطة</span></h3>
-                            <p>يمنع استخدام الأسلحة الثقيلة أو المتفجرات إلا في الأحداث المخصصة.</p>
-                            <span class="penalty">العقوبة: مصادرة الأسلحة + غرامة مالية</span>
-                        </div>
-                    </div>
-                    
-                    <div class="law-category">
-                        <h2><i class="fas fa-user-tie"></i> قوانين الوظائف والمنظمات</h2>
-                        
-                        <div class="law-item">
-                            <h3><span class="law-number">11.</span> الالتزام بدور الوظيفة <span class="law-importance medium-importance">متوسطة</span></h3>
-                            <p>يجب على الموظفين الرسميين الالتزام بدورهم وعدم استغلال صلاحياتهم.</p>
-                            <span class="penalty">العقوبة: فصل من الوظيفة أو حظر مؤقت</span>
-                        </div>
-                        
-                        <div class="law-item">
-                            <h3><span class="law-number">12.</span> منع انتحال الشخصيات الرسمية <span class="law-importance high-importance">عالية</span></h3>
-                            <p>يمنع انتحال شخصية موظف حكومي أو عضو إدارة بدون إذن.</p>
-                            <span class="penalty">العقوبة: حظر مؤقت من أسبوع إلى شهر</span>
-                        </div>
-                        
-                        <div class="law-item">
-                            <h3><span class="law-number">13.</span> قوانين إنشاء المنظمات <span class="law-importance medium-importance">متوسطة</span></h3>
-                            <p>يجب الحصول على موافقة الإدارة قبل إنشاء أي منظمة أو عصابة.</p>
-                            <span class="penalty">العقوبة: حل المنظمة + عقوبات على الأعضاء</span>
-                        </div>
-                    </div>
-                    
-                    <div class="law-category">
-                        <h2><i class="fas fa-microphone-alt-slash"></i> قوانين الشات الصوتي والنصي</h2>
-                        
-                        <div class="law-item">
-                            <h3><span class="law-number">14.</span> منع التشويش أو الأصوات العالية <span class="law-importance low-importance">منخفضة</span></h3>
-                            <p>يمنع التشويش أو رفع صوت الميكروفون بشكل مزعج للآخرين.</p>
-                            <span class="penalty">العقوبة: كتم مؤقت أو طرد من الشات الصوتي</span>
-                        </div>
-                        
-                        <div class="law-item">
-                            <h3><span class="law-number">15.</span> منع الإعلانات غير المرخصة <span class="law-importance medium-importance">متوسطة</span></h3>
-                            <p>يمنع نشر إعلانات الخوادم الأخرى أو الإعلانات التجارية بدون إذن.</p>
-                            <span class="penalty">العقوبة: حظر من الشات النصي أو حظر مؤقت</span>
-                        </div>
-                        
-                        <div class="law-item">
-                            <h3><span class="law-number">16.</span> استخدام القنوات الصوتية المخصصة <span class="law-importance low-importance">منخفضة</span></h3>
-                            <p>يجب استخدام القنوات الصوتية المخصصة لكل منطقة أو نشاط.</p>
-                            <span class="penalty">العقوبة: نقل قسري إلى القناة الصحيحة</span>
-                        </div>
-                    </div>
-                    
-                    <div class="law-category">
-                        <h2><i class="fas fa-exclamation-triangle"></i> قوانين خاصة بالسيرفر</h2>
-                        
-                        <div class="law-item">
-                            <h3><span class="law-number">17.</span> منع استغلال الأخطاء (البق) <span class="law-importance high-importance">عالية</span></h3>
-                            <p>يمنع استغلال أي أخطاء في السيرفر ويجب الإبلاغ عنها فوراً للإدارة.</p>
-                            <span class="penalty">العقوبة: حظر مؤقت أو دائم حسب الخطأ</span>
-                        </div>
-                        
-                        <div class="law-item">
-                            <h3><span class="law-number">18.</span> احترام قرارات الإدارة <span class="law-importance high-importance">عالية</span></h3>
-                            <p>قرارات الإدارة نهائية ويجب احترامها، مع حق الاعتراض عبر التذاكر.</p>
-                            <span class="penalty">العقوبة: حظر مؤقت أو دائم حسب التكرار</span>
-                        </div>
-                        
-                        <div class="law-item">
-                            <h3><span class="law-number">19.</span> قوانين المناطق الآمنة <span class="law-importance high-importance">عالية</span></h3>
-                            <p>يمنع أي أعمال إجرامية أو عنف في المناطق الآمنة المحددة.</p>
-                            <span class="penalty">العقوبة: سجن في اللعبة أو حظر مؤقت</span>
-                        </div>
-                        
-                        <div class="law-item">
-                            <h3><span class="law-number">20.</span> قوانين الفعاليات الخاصة <span class="law-importance medium-importance">متوسطة</span></h3>
-                            <p>قد تعلن إدارة السيرفر عن قوانين إضافية خلال الفعاليات الخاصة.</p>
-                            <span class="penalty">العقوبة: تختلف حسب الفعالية</span>
-                        </div>
-                    </div>
+            </section>
+            
+            <div class="ali-container">
+                <div class="ali">
+                    <img src="https://media.discordapp.net/attachments/1387348550207275049/1387496391697498295/Laws-copy.gif?ex=685d8e36&is=685c3cb6&hm=e17a1e45df7906096729d544dc128f8c174dda2596b2d3bc3358bca077e22e05&=&width=375&height=263" alt="شعار السيرفر">
                 </div>
             </div>
-            
-            <a href="#" class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></a>
+        </header>
+
+            <section id="features" class="features-section">
+                <div class="container">
+                    <h2 style="text-align: center; margin-bottom: 40px; font-size: 2rem; color: var(--accent-color);">المميزات السيرفر</h2>
+                    
+                    <div class="features">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <h3>حماية متقدمة</h3>
+                            <p>نظام حماية متكامل ضد الغش والتخريب لضمان تجربة لعب عادلة للجميع</p>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-car"></i>
+                            </div>
+                            <h3>مركبات حصرية</h3>
+                            <p>أكثر من 50 مركبة حصرية لا توجد في أي سيرفر آخر مع تفاصيل دقيقة</p>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-home"></i>
+                            </div>
+                            <h3>منازل متطورة</h3>
+                            <p>نظام منازل متكامل مع تفاعلات حصرية وخصائص غير موجودة في الخوادم الأخرى</p>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-user-secret"></i>
+                            </div>
+                            <h3>أدوار فريدة</h3>
+                            <p>أكثر من 30 دوراً فريداً مع مهام وخصائص خاصة بكل دور</p>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <h3>بوتات ذكية</h3>
+                            <p>بوتات مساعدة ذكية لتسهيل تجربة اللعب والإجابة على استفساراتك</p>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                            <h3>أحداث دورية</h3>
+                            <p>مسابقات وأحداث حصرية مع جوائز قيمة كل أسبوع</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </main>
         
         <footer>
             <div class="container">
                 <p> جميع الحقوق محفوضه لدى لاست يير &copy; قوانين سيرفر لاست يير</p>
-                <p>تم التصميم بشكل حصري لسيرفرنا فقط</p>            </div>
+                <p>تم التصميم بشكل حصري لسيرفرنا فقط</p>
+            </div>
         </footer>
     </div>
     
     <script>
-        // زر العودة للأعلى
-        window.addEventListener('scroll', function() {
-            const backToTop = document.getElementById('backToTop');
-            if (window.pageYOffset > 300) {
-                backToTop.classList.add('visible');
-            } else {
-                backToTop.classList.remove('visible');
-            }
-        });
-        
-        // بحث في القوانين
-        document.getElementById('searchInput').addEventListener('input', function() {
-            const searchTerm = this.value.toLowerCase();
-            const lawItems = document.querySelectorAll('.law-item');
+        // عد تنازلي لإعادة تشغيل السيرفر (كل 12 ساعة)
+        function updateCountdown() {
+            const now = new Date();
+            const hours = now.getHours();
+            const minutes = now.getMinutes();
+            const seconds = now.getSeconds();
             
-            lawItems.forEach(item => {
-                const text = item.textContent.toLowerCase();
-                if (text.includes(searchTerm)) {
-                    item.style.display = 'block';
-                    item.parentElement.style.display = 'block';
-                } else {
-                    item.style.display = 'none';
-                    
-                    // إخفاء الفئة إذا لم يكن بها أي عناصر ظاهرة
-                    const category = item.parentElement;
-                    const visibleItems = category.querySelectorAll('.law-item[style="display: block"]');
-                    if (visibleItems.length === 0) {
-                        category.style.display = 'none';
-                    } else {
-                        category.style.display = 'block';
-                    }
-                }
-            });
-        });
-        
-        // تأثيرات عند التمرير
-        const lawCategories = document.querySelectorAll('.law-category');
-        
-        function checkScroll() {
-            lawCategories.forEach(category => {
-                const categoryTop = category.getBoundingClientRect().top;
-                const windowHeight = window.innerHeight;
-                
-                if (categoryTop < windowHeight - 100) {
-                    category.style.opacity = '1';
-                    category.style.transform = 'translateY(0)';
-                }
-            });
+            // احسب الوقت المتبقي لإعادة التشغيل القادمة (كل 12 ساعة)
+            const nextRestart = new Date(now);
+            if (hours < 12) {
+                nextRestart.setHours(12, 0, 0, 0);
+            } else {
+                nextRestart.setHours(24, 0, 0, 0);
+            }
+            
+            const diff = nextRestart - now;
+            
+            const h = Math.floor(diff / (1000 * 60 * 60));
+            const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const s = Math.floor((diff % (1000 * 60)) / 1000);
+            
+            document.getElementById('countdown').textContent = 
+                `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
         }
         
-        // تهيئة أولية للعناصر
-        lawCategories.forEach(category => {
-            category.style.opacity = '0';
-            category.style.transform = 'translateY(20px)';
-            category.style.transition = 'all 0.5s ease';
-        });
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
         
-        window.addEventListener('scroll', checkScroll);
-        window.addEventListener('load', checkScroll);
+        // تأثير الجسيمات البسيط
+        document.addEventListener('DOMContentLoaded', function() {
+            const particles = document.getElementById('particles-js');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.style.position = 'absolute';
+                particle.style.width = Math.random() * 3 + 1 + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.backgroundColor = `rgba(243, 156, 18, ${Math.random() * 0.5 + 0.1})`;
+                particle.style.borderRadius = '50%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.opacity = Math.random() * 0.5 + 0.1;
+                
+                const duration = Math.random() * 20 + 10;
+                const delay = Math.random() * 5;
+                const xMove = (Math.random() - 0.5) * 100;
+                const yMove = (Math.random() - 0.5) * 100;
+                
+                particle.style.animation = `float ${duration}s ease-in-out ${delay}s infinite alternate`;
+                particle.style.setProperty('--x-move', `${xMove}px`);
+                particle.style.setProperty('--y-move', `${yMove}px`);
+                
+                particles.appendChild(particle);
+            }
+            
+            // إضافة أنيميشن للجسيمات
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes float {
+                    0% {
+                        transform: translate(0, 0);
+                        opacity: ${Math.random() * 0.5 + 0.1};
+                    }
+                    100% {
+                        transform: translate(var(--x-move), var(--y-move));
+                        opacity: ${Math.random() * 0.5 + 0.1};
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+        });
     </script>
 </body>
 </html>
