@@ -3,653 +3,519 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Raven information - حول</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <title>قوانين سيرفر لاست يير</title>
     <style>
-        /* أنماط مشتركة مع الصفحة الرئيسية */
+        :root {
+            --main-color: #2c3e50;
+            --secondary-color: #e74c3c;
+            --accent-color: #f36c12;
+            --light-color: #ecf0f1;
+            --dark-color: #1a252f;
+        }
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Tajawal', sans-serif;
         }
-
+        
         body {
-            font-family: 'Tajawal', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
-            color: #ffffff;
+            background-color: var(--dark-color);
+            color: var(--light-color);
+            background-image: url('https://media.discordapp.net/attachments/1200079938842279937/1387276828355334155/PLAYER-LIST.gif?ex=685cc1ba&is=685b703a&hm=f5234b5cc4ed6e2b14d8374ba73715da3bb29aa5afaaf45b797a5172e1da093d&=&width=440&height=229');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+        }
+        
+        .overlay {
+            background-color: rgba(0, 0, 0, 0.9);
             min-height: 100vh;
-            position: relative;
-            overflow-x: hidden;
+            width: 100%;
         }
-
-        /* أنماط الجسيمات المتحركة */
-        .particles {
-            position: fixed;
+        
+        header {
+            padding: 20px 0;
+            border-bottom: 2px solid var(--accent-color);
+            position: sticky;
             top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .particle {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: rgba(64, 224, 255, 0.5);
-            border-radius: 50%;
-            animation: float 6s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0px) rotate(0deg);
-                opacity: 1;
-            }
-            50% {
-                transform: translateY(-20px) rotate(180deg);
-                opacity: 0.5;
-            }
-        }
-
-        /* أنماط الهيدر */
-        .header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: rgba(15, 15, 35, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(64, 224, 255, 0.2);
-            padding: 1rem 2rem;
-            z-index: 1000;
-            transition: all 0.3s ease;
-        }
-
-        .header.scrolled {
-            background: rgba(15, 15, 35, 0.98);
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        .nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: bold;
-            background: linear-gradient(45deg, #40e0ff, #8b5cf6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            transition: all 0.3s ease;
-        }
-
-        .logo:hover {
-            transform: scale(1.05);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 1.5rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: #ffffff;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            position: relative;
-            font-weight: 500;
-            padding: 0.5rem 0;
-        }
-
-        .nav-links a:hover {
-            color: #40e0ff;
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(45deg, #40e0ff, #8b5cf6);
-            transition: width 0.3s ease;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        .nav-links a.active {
-            color: #40e0ff;
-        }
-
-        .nav-links a.active::after {
-            width: 100%;
-        }
-
-        .auth-buttons {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .btn {
-            padding: 0.5rem 1.5rem;
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .btn-outline {
-            background: transparent;
-            border: 2px solid #40e0ff;
-            color: #40e0ff;
-        }
-
-        .btn-outline:hover {
-            background: #40e0ff;
-            color: #0f0f23;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(64, 224, 255, 0.4);
-        }
-
-        .btn-primary {
-            background: linear-gradient(45deg, #40e0ff, #8b5cf6);
-            color: white;
-            border: none;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(64, 224, 255, 0.4);
-        }
-
-        /* أنماط المحتوى الرئيسي */
-        .main-content {
-            padding-top: 100px;
-            min-height: 100vh;
-            position: relative;
+            background-color: rgba(26, 37, 47, 0.95);
             z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
-
-        .page-content {
+        
+        .container {
+            width: 90%;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 4rem 2rem;
-            min-height: 80vh;
         }
-
-        .page-title {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 2rem;
-            background: linear-gradient(45deg, #40e0ff, #8b5cf6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
-
-        .page-description {
-            font-size: 1.1rem;
-            color: #a0a0a0;
-            line-height: 1.8;
-            margin-bottom: 2rem;
+        
+        .logo img {
+            width: 70px;
+            border-radius: 50%;
+            border: 2px solid var(--accent-color);
         }
-
-        /* أنماط حول الشركة */
-        .about-section {
-            margin-bottom: 3rem;
-        }
-
-        .about-section h2 {
+        
+        .logo h1 {
             font-size: 1.8rem;
-            margin-bottom: 1.5rem;
-            color: #40e0ff;
-            padding-bottom: 0.5rem;
-            border-bottom: 1px solid rgba(64, 224, 255, 0.3);
+            color: var(--accent-color);
         }
-
-        .about-section p {
-            line-height: 1.8;
-            margin-bottom: 1.5rem;
+        
+        .btn {
+            display: inline-block;
+            padding: 8px 20px;
+            background-color: var(--secondary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            margin: 5px;
         }
-
-        .mission-vision {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin: 2rem 0;
+        
+        .btn:hover {
+            background-color: #c0392b;
+            transform: translateY(-2px);
         }
-
-        .mission-card, .vision-card {
-            background: rgba(255, 255, 255, 0.05);
+        
+        .btn-accent {
+            background-color: var(--accent-color);
+        }
+        
+        .btn-accent:hover {
+            background-color: #e67e22;
+        }
+        
+        .laws-container {
+            padding: 40px 0;
+        }
+        
+        .law-category {
+            margin-bottom: 40px;
+            background-color: rgba(26, 37, 47, 0.7);
             border-radius: 10px;
-            padding: 2rem;
-        }
-
-        .mission-card h3, .vision-card h3 {
-            font-size: 1.4rem;
-            margin-bottom: 1rem;
-            color: #8b5cf6;
-        }
-
-        .team-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .team-member {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            overflow: hidden;
-            text-align: center;
+            padding: 25px;
+            border-left: 5px solid var(--accent-color);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
             transition: all 0.3s ease;
         }
-
-        .team-member:hover {
+        
+        .law-category:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(64, 224, 255, 0.2);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            border-left-color: var(--secondary-color);
         }
-
-        .member-image {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
+        
+        .law-category h2 {
+            font-size: 1.8rem;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--main-color);
         }
-
-        .member-info {
-            padding: 1.5rem;
+        
+        .law-item {
+            margin-bottom: 15px;
+            padding-left: 20px;
+            border-left: 2px solid var(--secondary-color);
+            position: relative;
         }
-
-        .member-name {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
+        
+        .law-item:before {
+            content: '';
+            position: absolute;
+            left: -6px;
+            top: 10px;
+            width: 10px;
+            height: 10px;
+            background-color: var(--secondary-color);
+            border-radius: 50%;
         }
-
-        .member-position {
-            color: #a0a0a0;
-            margin-bottom: 1rem;
+        
+        .law-item h3 {
+            font-size: 1.3rem;
+            color: var(--light-color);
+            margin-bottom: 5px;
         }
-
-        .member-bio {
-            font-size: 0.9rem;
+        
+        .law-item p {
+            font-size: 1.1rem;
             line-height: 1.6;
-            margin-bottom: 1rem;
+            color: #bdc3c7;
         }
-
-        .social-links {
+        
+        .penalty {
+            display: inline-block;
+            background-color: rgba(231, 76, 60, 0.2);
+            color: var(--secondary-color);
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 0.9rem;
+            margin-top: 5px;
+            border: 1px solid var(--secondary-color);
+        }
+        
+        .search-container {
+            margin: 20px 0;
+            position: sticky;
+            top: 80px;
+            z-index: 50;
+            background-color: rgba(26, 37, 47, 0.9);
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .search-box {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 5px;
+            border: none;
+            background-color: var(--dark-color);
+            color: var(--light-color);
+            font-size: 1.1rem;
+            border: 1px solid var(--main-color);
+            transition: all 0.3s ease;
+        }
+        
+        .search-box:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 10px rgba(243, 156, 18, 0.3);
+        }
+        
+        .law-importance {
+            display: inline-block;
+            font-size: 0.8rem;
+            padding: 2px 8px;
+            border-radius: 3px;
+            margin-left: 10px;
+            font-weight: bold;
+        }
+        
+        .high-importance {
+            background-color: rgba(231, 76, 60, 0.2);
+            color: var(--secondary-color);
+            border: 1px solid var(--secondary-color);
+        }
+        
+        .medium-importance {
+            background-color: rgba(243, 156, 18, 0.2);
+            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+        }
+        
+        .low-importance {
+            background-color: rgba(46, 204, 113, 0.2);
+            color: #2ecc71;
+            border: 1px solid #2ecc71;
+        }
+        
+        .law-number {
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            border-top: 1px solid var(--main-color);
+            margin-top: 50px;
+            background-color: rgba(26, 37, 47, 0.9);
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background-color: var(--accent-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
             display: flex;
+            align-items: center;
             justify-content: center;
-            gap: 1rem;
+            font-size: 1.5rem;
+            text-decoration: none;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
         }
-
-        .social-links a {
-            color: #a0a0a0;
-            transition: color 0.3s ease;
+        
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
         }
-
-        .social-links a:hover {
-            color: #40e0ff;
+        
+        .back-to-top:hover {
+            background-color: #e67e22;
+            transform: translateY(-3px);
         }
-
-        .timeline {
-            position: relative;
-            max-width: 800px;
-            margin: 3rem auto;
-        }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            width: 2px;
-            background: rgba(64, 224, 255, 0.5);
-            top: 0;
-            bottom: 0;
-            right: 50%;
-            margin-right: -1px;
-        }
-
-        .timeline-item {
-            padding: 10px 40px;
-            position: relative;
-            width: 50%;
-            box-sizing: border-box;
-        }
-
-        .timeline-item:nth-child(odd) {
-            right: 0;
-        }
-
-        .timeline-item:nth-child(even) {
-            right: 50%;
-        }
-
-        .timeline-content {
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 8px;
-            position: relative;
-        }
-
-        .timeline-date {
-            color: #40e0ff;
-            font-weight: 600;
-        }
-
-        .timeline-item:nth-child(odd)::after {
-            content: '';
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            right: -10px;
-            background: #8b5cf6;
-            border-radius: 50%;
-            top: 15px;
-        }
-
-        .timeline-item:nth-child(even)::after {
-            content: '';
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            right: calc(50% - 10px);
-            background: #8b5cf6;
-            border-radius: 50%;
-            top: 15px;
-        }
-
-        /* أنماط الوضع الفاتح */
-        body.light-mode {
-            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 50%, #d8e1e8 100%);
-            color: #333;
-        }
-
-        body.light-mode .header {
-            background: rgba(245, 247, 250, 0.95);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-        }
-
-        body.light-mode .nav-links a {
-            color: #333;
-        }
-
-        body.light-mode .mission-card,
-        body.light-mode .vision-card,
-        body.light-mode .team-member,
-        body.light-mode .timeline-content {
-            background: rgba(255, 255, 255, 0.8);
-        }
-
-        /* تحسينات للاستجابة */
+        
         @media (max-width: 768px) {
-            .page-content {
-                padding: 2rem 1rem;
+            .logo h1 {
+                font-size: 1.4rem;
             }
-
-            .timeline::before {
-                right: 31px;
+            
+            .law-category h2 {
+                font-size: 1.5rem;
             }
-
-            .timeline-item {
-                width: 100%;
-                padding-right: 70px;
-                padding-left: 25px;
-            }
-
-            .timeline-item:nth-child(even) {
-                right: 0;
-            }
-
-            .timeline-item:nth-child(odd)::after,
-            .timeline-item:nth-child(even)::after {
-                right: 21px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .page-title {
-                font-size: 2rem;
-            }
-
-            .team-grid {
-                grid-template-columns: 1fr;
+            
+            .law-item h3 {
+                font-size: 1.1rem;
             }
         }
     </style>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <!-- جسيمات الخلفية المتحركة -->
-    <div class="particles" id="particles"></div>
-
-    <!-- الهيدر -->
-    <header class="header" id="header">
-        <nav class="nav">
-            <a href="index.html" class="logo">Raven information</a>
-            <ul class="nav-links">
-                <li><a href="1index.html">الرئيسية</a></li>
-                <li><a href="ai.html">الذكاء الاصطناعي</a></li>
-                <li><a href="features.html">المميزات</a></li>
-                <li><a href="api.html">API</a></li>
-                <li><a href="docs.html">التوثيق</a></li>
-                <li><a href="about.html" class="active">حول</a></li>
-            </ul>
-            <div class="auth-buttons" id="authButtons">
-                <a href="#login" class="btn btn-outline" id="loginBtn">تسجيل الدخول</a>
-                <a href="#signup" class="btn btn-primary" id="signupBtn">إنشاء حساب</a>
+    <div class="overlay">
+        <header>
+            <div class="container">
+                <div class="logo">
+                    <a href="index.html" class="btn btn-accent"><i class="fas fa-home"></i> الرئيسية</a>
+                    <h1>قوانين السيرفر</h1>
+                    <img src="https://media.discordapp.net/attachments/784916891822194729/1387236209054580786/logo-anmititon-66.gif?ex=685c9be5&is=685b4a65&hm=a632382907b3996eff88b4eaf28a8269753977411eb3b4415c3208410f904efb&=" alt="شعار السيرفر">
+                </div>
             </div>
-            <div class="user-info" id="userInfo" style="display: none;">
-                <div class="user-avatar" id="userAvatar"></div>
-                <span class="user-name" id="userName"></span>
-                <button class="logout-btn" id="logoutBtn">تسجيل خروج</button>
-            </div>
-        </nav>
-    </header>
-
-    <!-- المحتوى الرئيسي -->
-    <main class="main-content">
-        <div class="page-content">
-            <h1 class="page-title">حول Raven information</h1>
-            <p class="page-description">منصة الذكاء الاصطناعي المتقدمة التي تقدم حلولاً ذكية لمشاكل العالم الحقيقي</p>
-            
-            <div class="about-section">
-                <h2>قصتنا</h2>
-                <p>تأسست Raven information في عام 2023 بهدف تقديم حلول ذكاء اصطناعي متقدمة وسهلة الاستخدام للعالم العربي. بدأنا برؤية بسيطة وهي جعل تقنيات الذكاء الاصطناعي في متناول الجميع، بغض النظر عن خلفياتهم التقنية.</p>
-                <p>منذ إطلاقنا، ساعدنا الآلاف من المستخدمين في مختلف المجالات مثل التعليم، الأعمال، البرمجة، والبحث العلمي. نفتخر بكوننا منصة عربية بمعايير عالمية.</p>
+        </header>
+        
+        <main>
+            <div class="container">
+                <div class="search-container">
+                    <input type="text" class="search-box" placeholder="ابحث في القوانين..." id="searchInput">
+                </div>
                 
-                <div class="mission-vision">
-                    <div class="mission-card">
-                        <h3>مهمتنا</h3>
-                        <p>تمكين الأفراد والشركات من الاستفادة القصوى من تقنيات الذكاء الاصطناعي لتسريع الابتكار وتحسين الإنتاجية وحل المشكلات المعقدة بطرق ذكية وفعالة.</p>
+                <div class="laws-container" id="lawsContainer">
+                    <div class="law-category">
+                        <h2><i class="fas fa-gavel"></i> القوانين العامة</h2>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">1.</span> احترام جميع اللاعبين <span class="law-importance high-importance">عالية</span></h3>
+                            <p>يمنع التمييز أو الإساءة لأي لاعب لأي سبب كان (عرق، دين، جنس، إلخ).</p>
+                            <span class="penalty">العقوبة: حظر مؤقت من 3 أيام إلى حظر دائم</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">2.</span> منع استخدام الألفاظ النابية <span class="law-importance medium-importance">متوسطة</span></h3>
+                            <p>يمنع استخدام الألفاظ النابية أو المسيئة في الشات الصوتي أو النصي.</p>
+                            <span class="penalty">العقوبة: إنذار ثم حظر مؤقت</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">3.</span> منع الغش أو الاستغلال <span class="law-importance high-importance">عالية</span></h3>
+                            <p>يمنع استخدام أي برامج أو أدوات غش أو استغلال ثغرات في السيرفر.</p>
+                            <span class="penalty">العقوبة: حظر دائم بدون سابق إنذار</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">4.</span> الالتزام بأدوار الشخصية <span class="law-importance medium-importance">متوسطة</span></h3>
+                            <p>يجب الالتزام بأدوار الشخصية (RP) وعدم الخروج عنها إلا في المناطق المخصصة.</p>
+                            <span class="penalty">العقوبة: إنذار ثم حظر مؤقت من السيرفر</span>
+                        </div>
                     </div>
                     
-                    <div class="vision-card">
-                        <h3>رؤيتنا</h3>
-                        <p>أن نكون المنصة الرائدة في مجال الذكاء الاصطناعي في المنطقة العربية، وأن نساهم في تحويل المجتمع إلى مجتمع رقمي متقدم يعتمد على المعرفة والابتكار.</p>
+                    <div class="law-category">
+                        <h2><i class="fas fa-car-crash"></i> قوانين المرور والمركبات</h2>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">5.</span> الالتزام بقواعد المرور <span class="law-importance medium-importance">متوسطة</span></h3>
+                            <p>يجب الالتزام بإشارات المرور والسرعة المحددة في المناطق المختلفة.</p>
+                            <span class="penalty">العقوبة: غرامة مالية أو سحب رخصة</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">6.</span> منع القيادة المتهورة <span class="law-importance medium-importance">متوسطة</span></h3>
+                            <p>يمنع القيادة المتهورة التي تعرض حياة الآخرين للخطر.</p>
+                            <span class="penalty">العقوبة: سحب رخصة القيادة أو حظر من استخدام المركبات</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">7.</span> منع سرقة المركبات العشوائية <span class="law-importance high-importance">عالية</span></h3>
+                            <p>يمنع سرقة مركبات اللاعبين الآخرين بدون سبب منطقي في لعبة الأدوار.</p>
+                            <span class="penalty">العقوبة: سجن في اللعبة أو حظر مؤقت</span>
+                        </div>
+                    </div>
+                    
+                    <div class="law-category">
+                        <h2><i class="fas fa-shield-alt"></i> قوانين الأسلحة والجرائم</h2>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">8.</span> منع القتل العشوائي (RDM) <span class="law-importance high-importance">عالية</span></h3>
+                            <p>يمنع قتل اللاعبين الآخرين بدون سبب أو تفاعل منطقي في لعبة الأدوار.</p>
+                            <span class="penalty">العقوبة: حظر مؤقت من 3 أيام إلى أسبوع</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">9.</span> منع السطو بدون تفاعل (VDM) <span class="law-importance high-importance">عالية</span></h3>
+                            <p>يمنع سرقة أو اعتقال اللاعبين بدون تفاعل كلامي أو سبب منطقي.</p>
+                            <span class="penalty">العقوبة: حظر مؤقت من يوم إلى 3 أيام</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">10.</span> تقييد استخدام الأسلحة <span class="law-importance medium-importance">متوسطة</span></h3>
+                            <p>يمنع استخدام الأسلحة الثقيلة أو المتفجرات إلا في الأحداث المخصصة.</p>
+                            <span class="penalty">العقوبة: مصادرة الأسلحة + غرامة مالية</span>
+                        </div>
+                    </div>
+                    
+                    <div class="law-category">
+                        <h2><i class="fas fa-user-tie"></i> قوانين الوظائف والمنظمات</h2>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">11.</span> الالتزام بدور الوظيفة <span class="law-importance medium-importance">متوسطة</span></h3>
+                            <p>يجب على الموظفين الرسميين الالتزام بدورهم وعدم استغلال صلاحياتهم.</p>
+                            <span class="penalty">العقوبة: فصل من الوظيفة أو حظر مؤقت</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">12.</span> منع انتحال الشخصيات الرسمية <span class="law-importance high-importance">عالية</span></h3>
+                            <p>يمنع انتحال شخصية موظف حكومي أو عضو إدارة بدون إذن.</p>
+                            <span class="penalty">العقوبة: حظر مؤقت من أسبوع إلى شهر</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">13.</span> قوانين إنشاء المنظمات <span class="law-importance medium-importance">متوسطة</span></h3>
+                            <p>يجب الحصول على موافقة الإدارة قبل إنشاء أي منظمة أو عصابة.</p>
+                            <span class="penalty">العقوبة: حل المنظمة + عقوبات على الأعضاء</span>
+                        </div>
+                    </div>
+                    
+                    <div class="law-category">
+                        <h2><i class="fas fa-microphone-alt-slash"></i> قوانين الشات الصوتي والنصي</h2>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">14.</span> منع التشويش أو الأصوات العالية <span class="law-importance low-importance">منخفضة</span></h3>
+                            <p>يمنع التشويش أو رفع صوت الميكروفون بشكل مزعج للآخرين.</p>
+                            <span class="penalty">العقوبة: كتم مؤقت أو طرد من الشات الصوتي</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">15.</span> منع الإعلانات غير المرخصة <span class="law-importance medium-importance">متوسطة</span></h3>
+                            <p>يمنع نشر إعلانات الخوادم الأخرى أو الإعلانات التجارية بدون إذن.</p>
+                            <span class="penalty">العقوبة: حظر من الشات النصي أو حظر مؤقت</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">16.</span> استخدام القنوات الصوتية المخصصة <span class="law-importance low-importance">منخفضة</span></h3>
+                            <p>يجب استخدام القنوات الصوتية المخصصة لكل منطقة أو نشاط.</p>
+                            <span class="penalty">العقوبة: نقل قسري إلى القناة الصحيحة</span>
+                        </div>
+                    </div>
+                    
+                    <div class="law-category">
+                        <h2><i class="fas fa-exclamation-triangle"></i> قوانين خاصة بالسيرفر</h2>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">17.</span> منع استغلال الأخطاء (البق) <span class="law-importance high-importance">عالية</span></h3>
+                            <p>يمنع استغلال أي أخطاء في السيرفر ويجب الإبلاغ عنها فوراً للإدارة.</p>
+                            <span class="penalty">العقوبة: حظر مؤقت أو دائم حسب الخطأ</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">18.</span> احترام قرارات الإدارة <span class="law-importance high-importance">عالية</span></h3>
+                            <p>قرارات الإدارة نهائية ويجب احترامها، مع حق الاعتراض عبر التذاكر.</p>
+                            <span class="penalty">العقوبة: حظر مؤقت أو دائم حسب التكرار</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">19.</span> قوانين المناطق الآمنة <span class="law-importance high-importance">عالية</span></h3>
+                            <p>يمنع أي أعمال إجرامية أو عنف في المناطق الآمنة المحددة.</p>
+                            <span class="penalty">العقوبة: سجن في اللعبة أو حظر مؤقت</span>
+                        </div>
+                        
+                        <div class="law-item">
+                            <h3><span class="law-number">20.</span> قوانين الفعاليات الخاصة <span class="law-importance medium-importance">متوسطة</span></h3>
+                            <p>قد تعلن إدارة السيرفر عن قوانين إضافية خلال الفعاليات الخاصة.</p>
+                            <span class="penalty">العقوبة: تختلف حسب الفعالية</span>
+                        </div>
                     </div>
                 </div>
             </div>
             
-            <div class="about-section">
-                <h2>فريقنا</h2>
-                <p>نحن فريق من خبراء الذكاء الاصطناعي، المطورين، والمصممين الذين يجمعهم الشغف للتكنولوجيا والرغبة في إحداث تأثير إيجابي في العالم.</p>
+            <a href="#" class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></a>
+        </main>
+        
+        <footer>
+            <div class="container">
+                <p> جميع الحقوق محفوضه لدى لاست يير &copy; قوانين سيرفر لاست يير</p>
+                <p>تم التصميم بشكل حصري لسيرفرنا فقط</p>            </div>
+        </footer>
+    </div>
+    
+    <script>
+        // زر العودة للأعلى
+        window.addEventListener('scroll', function() {
+            const backToTop = document.getElementById('backToTop');
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+        
+        // بحث في القوانين
+        document.getElementById('searchInput').addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            const lawItems = document.querySelectorAll('.law-item');
+            
+            lawItems.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                if (text.includes(searchTerm)) {
+                    item.style.display = 'block';
+                    item.parentElement.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                    
+                    // إخفاء الفئة إذا لم يكن بها أي عناصر ظاهرة
+                    const category = item.parentElement;
+                    const visibleItems = category.querySelectorAll('.law-item[style="display: block"]');
+                    if (visibleItems.length === 0) {
+                        category.style.display = 'none';
+                    } else {
+                        category.style.display = 'block';
+                    }
+                }
+            });
+        });
+        
+        // تأثيرات عند التمرير
+        const lawCategories = document.querySelectorAll('.law-category');
+        
+        function checkScroll() {
+            lawCategories.forEach(category => {
+                const categoryTop = category.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
                 
-                <div class="team-grid">
-                    <div class="team-member">
-                        <img src="https://media.discordapp.net/attachments/1048907974728486953/1354422686360670290/thomas5.gif?ex=6853512c&is=6851ffac&hm=a91304bd29f2faa57187bfd6ae54478ebf595ee40a058d2ffc9a5216a48e6388&=&width=594&height=564" alt="أحمد محمد" class="member-image">
-                        <div class="member-info">
-                            <h4 class="member-name">أحمد محمد</h4>
-                            <p class="member-position">المؤسس والرئيس التنفيذي</p>
-                            <p class="member-bio">خبير في الذكاء الاصطناعي والتعلم الآلي مع أكثر من 10 سنوات من الخبرة في المجال.</p>
-                            <div class="social-links">
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                                <a href="#"><i class="fab fa-linkedin"></i></a>
-                                <a href="#"><i class="fab fa-github"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="team-member">
-                        <img src="https://media.discordapp.net/attachments/1316731196281196617/1384737317935124542/IMG_9503.jpg?ex=6853849f&is=6852331f&hm=5415eec147aa30945398a1ea5d96599ae0117a18a02d33c7686676d4335af4f7&=&format=webp&width=810&height=810" alt="سارة أحمد" class="member-image">
-                        <div class="member-info">
-                            <h4 class="member-name">ابو مريم</h4>
-                            <p class="member-position">مدير التطوير</p>
-                            <p class="member-bio">مهندسة برمجيات متخصصة في أنظمة الذكاء الاصطناعي ومعالجة اللغات الطبيعية.</p>
-                            <div class="social-links">
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                                <a href="#"><i class="fab fa-linkedin"></i></a>
-                                <a href="#"><i class="fab fa-github"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="team-member">
-                        <img src="https://media.discordapp.net/attachments/1048907974728486953/1353106970084774002/indir_-_2024-06-02T050222.058.jpg?ex=68532511&is=6851d391&hm=c6b3519e8d43260fe5c74f3bb518b8bb836573e03f004c8e89ee965220d9390f&=&format=webp&width=500&height=500" alt="خالد عبدالله" class="member-image">
-                        <div class="member-info">
-                            <h4 class="member-name">علي صلاح</h4>
-                            <p class="member-position">رئيس قسم التصميم</p>
-                            <p class="member-bio">مصمم واجهات مستخدم وخبرة واسعة في تجربة المستخدم وتصميم المنتجات الرقمية.</p>
-                            <div class="social-links">
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                                <a href="#"><i class="fab fa-linkedin"></i></a>
-                                <a href="#"><i class="fab fa-dribbble"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="about-section">
-                <h2>رحلة التطور</h2>
-                <p>إليك أبرز المحطات في رحلتنا منذ التأسيس وحتى اليوم:</p>
-                
-                <div class="timeline">
-                    <div class="timeline-item">
-                        <div class="timeline-content">
-                            <div class="timeline-date">يناير 2023</div>
-                            <p>تأسيس الشركة وبدء تطوير النموذج الأولي</p>
-                        </div>
-                    </div>
-                    
-                    <div class="timeline-item">
-                        <div class="timeline-content">
-                            <div class="timeline-date">مايو 2023</div>
-                            <p>إطلاق النسخة التجريبية الأولى مع 1000 مستخدم</p>
-                        </div>
-                    </div>
-                    
-                    <div class="timeline-item">
-                        <div class="timeline-content">
-                            <div class="timeline-date">سبتمبر 2023</div>
-                            <p>الحصول على أول تمويل واستثمار</p>
-                        </div>
-                    </div>
-                    
-                    <div class="timeline-item">
-                        <div class="timeline-content">
-                            <div class="timeline-date">يناير 2024</div>
-                            <p>إطلاق النسخة الرسمية مع دعم متعدد اللغات</p>
-                        </div>
-                    </div>
-                    
-                    <div class="timeline-item">
-                        <div class="timeline-content">
-                            <div class="timeline-date">يونيو 2024</div>
-                            <p>تجاوز 50,000 مستخدم نشط شهرياً</p>
-                        </div>
-                    </div>
-                    
-                    <div class="timeline-item">
-                        <div class="timeline-content">
-                            <div class="timeline-date">ديسمبر 2024</div>
-                            <p>إطلاق واجهة برمجة التطبيقات (API) للشركات</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="about-section">
-                <h2>قيمنا</h2>
-                <div class="mission-vision">
-                    <div class="mission-card">
-                        <h3><i class="fas fa-lightbulb"></i> الابتكار</h3>
-                        <p>نؤمن بالتطوير المستمر وتبني أحدث التقنيات لتقديم أفضل الحلول.</p>
-                    </div>
-                    
-                    <div class="mission-card">
-                        <h3><i class="fas fa-users"></i> العمل الجماعي</h3>
-                        <p>قوتنا في تنوع مهاراتنا وتعاوننا لتحقيق الأهداف المشتركة.</p>
-                    </div>
-                    
-                    <div class="mission-card">
-                        <h3><i class="fas fa-lock"></i> الخصوصية</h3>
-                        <p>نحمي بيانات مستخدمينا ونضمن سرية معلوماتهم.</p>
-                    </div>
-                    
-                    <div class="mission-card">
-                        <h3><i class="fas fa-globe"></i> التأثير</h3>
-                        <p>نسعى لخلق تأثير إيجابي في المجتمع من خلال التكنولوجيا.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <!-- الفوتر -->
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="social-links">
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-facebook"></i></a>
-                <a href="#"><i class="fab fa-linkedin"></i></a>
-                <a href="#"><i class="fab fa-github"></i></a>
-                <a href="#"><i class="fab fa-youtube"></i></a>
-            </div>
-            <div class="footer-links">
-                <a href="index.html">الرئيسية</a>
-                <a href="ai.html">الذكاء الاصطناعي</a>
-                <a href="features.html">المميزات</a>
-                <a href="api.html">API</a>
-                <a href="docs.html">التوثيق</a>
-                <a href="about.html">حول</a>
-                <a href="#privacy">سياسة الخصوصية</a>
-                <a href="#terms">شروط الاستخدام</a>
-                <a href="#contact">اتصل بنا</a>
-            </div>
-            <p class="footer-text">© 2025 Raven information. جميع الحقوق محفوظة.</p>
-        </div>
-    </footer>
-
-    <!-- مودال تسجيل الدخول -->
-    <div class="modal" id="loginModal">
-        <!-- ... نفس محتوى المودال السابق ... -->
-    </div>
-
-    <!-- مودال إنشاء حساب -->
-    <div class="modal" id="signupModal">
-        <!-- ... نفس محتوى المودال السابق ... -->
-    </div>
-
-    <!-- زر تبديل الوضع الليلي -->
-    <div class="dark-mode-toggle" id="darkModeToggle">
-        <i class="fas fa-moon"></i>
-    </div>
-
-    <script src="script.js"></script>
+                if (categoryTop < windowHeight - 100) {
+                    category.style.opacity = '1';
+                    category.style.transform = 'translateY(0)';
+                }
+            });
+        }
+        
+        // تهيئة أولية للعناصر
+        lawCategories.forEach(category => {
+            category.style.opacity = '0';
+            category.style.transform = 'translateY(20px)';
+            category.style.transition = 'all 0.5s ease';
+        });
+        
+        window.addEventListener('scroll', checkScroll);
+        window.addEventListener('load', checkScroll);
+    </script>
 </body>
 </html>
