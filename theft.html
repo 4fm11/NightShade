@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>قوانين السرقات | سيرفر لاست يير</title>
+    <title>قوانين السرقات | سيرفر اورا</title>
     <style>
         :root {
             --main-color: #2c3e50;
-            --secondary-color: #e74c3c;
-            --accent-color: #f36c12;
+            --secondary-color: #e7a33c;
+            --accent-color: #f3c212;
             --light-color: #ecf0f1;
             --dark-color: #1a252f;
             --safe-zone: #2ecc71;
@@ -21,17 +21,30 @@
             font-family: 'Tajawal', sans-serif;
         }
         
-        body {
-            background-color: var(--dark-color);
+body {
+            margin: 0;
+            padding: 0;
             color: var(--light-color);
-            background-image: url('https://media.discordapp.net/attachments/1200079938842279937/1387276828355334155/PLAYER-LIST.gif?ex=685cc1ba&is=685b703a&hm=f5234b5cc4ed6e2b14d8374ba73715da3bb29aa5afaaf45b797a5172e1da093d&=&width=440&height=229');
-            background-size: cover;
-            background-attachment: fixed;
-            background-position: center;
+        }
+        
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .video-background video {
+            min-width: 100%;
+            min-height: 100%;
+            object-fit: cover;
         }
         
         .overlay {
-            background-color: rgba(0, 0, 0, 0.9);
+            background-color: rgba(0, 0, 0, 0.691);
             min-height: 100vh;
             width: 100%;
         }
@@ -94,7 +107,7 @@
         }
         
         .btn-accent:hover {
-            background-color: #e67e22;
+            background-color: #e6a822;
         }
         
         .laws-container {
@@ -224,7 +237,7 @@
         }
         
         .back-to-top:hover {
-            background-color: #e67e22;
+            background-color: #e6a822;
             transform: translateY(-3px);
         }
     </style>
@@ -238,11 +251,15 @@
                 <div class="logo">
                     <a href="index.html" class="btn btn-accent"><i class="fas fa-home"></i> الرئيسية</a>
                     <h1>قوانين السرقات</h1>
-                    <img src="https://media.discordapp.net/attachments/784916891822194729/1387236209054580786/logo-anmititon-66.gif?ex=685c9be5&is=685b4a65&hm=a632382907b3996eff88b4eaf28a8269753977411eb3b4415c3208410f904efb&=" alt="شعار السيرفر">
+                    <img src="https://i.postimg.cc/SNJ0Jfq9/Full-Quality.gif" alt="شعار السيرفر">
                 </div>
             </div>
         </header>
-        
+            <div class="video-background">
+        <video autoplay muted loop id="myVideo">
+            <source src="background.mp4" type="video/mp4">
+        </video>
+    </div>
         <main>
             <div class="container">
                 <div class="laws-container">
@@ -468,7 +485,7 @@
         
         <footer>
             <div class="container">
-                <p> جميع الحقوق محفوظة لدى لاست يير &copy; قوانين سيرفر لاست يير</p>
+                <p> جميع الحقوق محفوظة لدى اورا &copy; قوانين سيرفر اورا</p>
                 <p>تم التصميم بشكل حصري لسيرفرنا فقط</p>
             </div>
         </footer>
