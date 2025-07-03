@@ -7,8 +7,8 @@
     <style>
         :root {
             --main-color: #2c3e50;
-            --secondary-color: #e74c3c;
-            --accent-color: #f35912;
+            --secondary-color: #e7a33c;
+            --accent-color: #f3c212;
             --light-color: #ecf0f1;
             --dark-color: #1a252f;
         }
@@ -21,16 +21,29 @@
         }
         
         body {
-            background-color: var(--dark-color);
+            margin: 0;
+            padding: 0;
             color: var(--light-color);
-            background-image: url('https://media.discordapp.net/attachments/1200079938842279937/1387276828355334155/PLAYER-LIST.gif?ex=685cc1ba&is=685b703a&hm=f5234b5cc4ed6e2b14d8374ba73715da3bb29aa5afaaf45b797a5172e1da093d&=&width=1113&height=579');
-            background-size: cover;
-            background-attachment: fixed;
-            background-position: center;
+        }
+        
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .video-background video {
+            min-width: 100%;
+            min-height: 100%;
+            object-fit: cover;
         }
         
         .overlay {
-            background-color: rgba(0, 0, 0, 0.85);
+            background-color: rgba(0, 0, 0, 0.691);
             min-height: 100vh;
             width: 100%;
         }
@@ -46,7 +59,7 @@
             margin: 0 auto;
         }
         
-            .ali-container {
+        .ali-container {
             width: 90%;
             max-width: 1200px;
             margin: 0 auto;
@@ -66,14 +79,14 @@
             max-width: 150px;
             border-radius: 50%;
             border: 3px solid var(--accent-color);
-            box-shadow: 0 0 20px rgba(243, 138, 18, 0.5);
+            box-shadow: 0 0 20px rgba(243, 179, 18, 0.836);
         }
         
         .logo h1 {
             font-size: 2.5rem;
             margin-top: 10px;
             color: var(--accent-color);
-            text-shadow: 0 0 10px rgba(243, 156, 18, 0.7);
+            text-shadow: 0 0 10px rgba(243, 179, 18, 0.76);
         }
         
         .welcome-section {
@@ -119,7 +132,7 @@
         }
         
         .btn:hover {
-            background-color: #c0392b;
+            background-color: #573a01;
             transform: translateY(-3px);
             box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
         }
@@ -129,7 +142,7 @@
         }
         
         .btn-accent:hover {
-            background-color: #e67e22;
+            background-color: #e6a822;
         }
         
         .features {
@@ -212,13 +225,20 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
+    <div class="video-background">
+        <video autoplay muted loop id="myVideo">
+            <source src="background.mp4" type="video/mp4">
+            <!-- يمكنك إضافة مصادر أخرى للفيديو هنا إذا لزم الأمر -->
+        </video>
+    </div>
+    
     <div class="overlay">
         <div class="particles" id="particles-js"></div>
         
         <header>
             <div class="container">
                 <div class="logo">
-                    <img src="https://media.discordapp.net/attachments/784916891822194729/1387236209054580786/logo-anmititon-66.gif?ex=685c9be5&is=685b4a65&hm=a632382907b3996eff88b4eaf28a8269753977411eb3b4415c3208410f904efb&=" alt="شعار السيرفر">
+                    <img src="https://media.discordapp.net/attachments/784916891822194729/1390201120583979128/Full-Quality.gif?ex=6867652f&is=686613af&hm=02b38f77777728c05b8085decb096eabf158b42bc0fddb78042a4e7bafe270d2&=" alt="شعار السيرفر">
                     <h1>قوانين السيرفر الرسميا</h1>
                 </div>
             </div>
@@ -226,7 +246,7 @@
         <main>
             <section class="welcome-section">
                 <div class="container">
-                    <h2>مرحبا بكم في قوانين سيرفر لاست يير</h2>
+                    <h2>مرحبا بكم في قوانين سيرفر اورا</h2>
                     <p>نقدم لكم تجربة لعب فريدة وممتعة مع أفضل القوانين والأنظمة التي تضمن العدل والمرح للجميع. اقرأ القوانين بعناية قبل الانضمام إلينا.</p>
                     
                     <div class="countdown" id="serverRestart">
@@ -243,13 +263,6 @@
                     <a href="#features" class="btn">المميزات السيرفر</a>
                 </div>
             </section>
-            
-            <div class="ali-container">
-                <div class="ali">
-                    <img src="https://media.discordapp.net/attachments/1387348550207275049/1387496391697498295/Laws-copy.gif?ex=685d8e36&is=685c3cb6&hm=e17a1e45df7906096729d544dc128f8c174dda2596b2d3bc3358bca077e22e05&=&width=375&height=263" alt="شعار السيرفر">
-                </div>
-            </div>
-        </header>
 
             <section id="features" class="features-section">
                 <div class="container">
@@ -310,11 +323,12 @@
         
         <footer>
             <div class="container">
-                <p> جميع الحقوق محفوضه لدى لاست يير &copy; قوانين سيرفر لاست يير</p>
+                <p> جميع الحقوق محفوضه لدى اورا &copy; قوانين سيرفر اورا</p>
                 <p>تم التصميم بشكل حصري لسيرفرنا فقط</p>
             </div>
         </footer>
     </div>
+    
     
     <script>
         // عد تنازلي لإعادة تشغيل السيرفر (كل 12 ساعة)
