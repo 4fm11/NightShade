@@ -1,408 +1,1845 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>قوانين FiveM | السيرفر الرسمي</title>
+    <title>NightShade RP</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            --main-color: #2c3e50;
-            --secondary-color: #e7a33c;
-            --accent-color: #f3c212;
-            --light-color: #ecf0f1;
-            --dark-color: #1a252f;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+:root {
+    --primary-color: #00b37d;
+    --primary-light: #26d4a8
+    ;
+    --primary-dark: #00bd8e;
+    --secondary-color: #0A0A0A;
+    --secondary-light: #1A1A1A;
+    --secondary-dark: #000000;
+    --dark-color: #121212;
+    --darker-color: #0D0D0D;
+    --light-color: #E6E6E6;
+    --lighter-color: #FFFFFF;
+    --accent-color: #00b88a;
+    --success-color: #00b679;
+    --danger-color: #00c98c;
+    --warning-color: #DAA520;
+    --info-color: #4682B4;
+    --border-radius: 10px;
+    --box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    --transition: all 0.3s ease;
+}
+            a {
             font-family: 'Tajawal', sans-serif;
         }
-        
+
+        button {
+            font-family: 'Tajawal', sans-serif;
+        }
+
         body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: var(--darker-color);
+            color: var(--light-color);
             margin: 0;
             padding: 0;
-            color: var(--light-color);
+            transition: var(--transition);
+            background-image:
+                radial-gradient(circle at 10% 20%, rgba(42, 42, 42, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(0, 0, 0, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 30% 50%, rgba(58, 58, 58, 0.1) 0%, transparent 25%),
+                radial-gradient(circle at 70% 30%, rgba(42, 42, 42, 0.1) 0%, transparent 25%);
+            background-size: 200% 200%;
+            animation: gradientBG 15s ease infinite;
         }
-        
-        .video-background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            overflow: hidden;
+
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 0%;
+            }
+
+            50% {
+                background-position: 100% 100%;
+            }
+
+            100% {
+                background-position: 0% 0%;
+            }
         }
-        
-        .video-background video {
-            min-width: 100%;
-            min-height: 100%;
-            object-fit: cover;
-        }
-        
-        .overlay {
-            background-color: rgba(0, 0, 0, 0.691);
-            min-height: 100vh;
-            width: 100%;
-        }
-        
-        header {
-            padding: 20px 0;
-            border-bottom: 2px solid var(--accent-color);
-        }
-        
+
         .container {
-            width: 90%;
             max-width: 1200px;
             margin: 0 auto;
+            padding: 2rem;
         }
-        
-        .ali-container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .ali {
-            text-align: center;
-            margin-bottom: 40px;
+
+        /* Navbar Styles */
+        .navbar {
+            background: linear-gradient(135deg, rgba(20, 20, 20, 0.95), rgba(15, 15, 15, 0.98));
+            padding: 1rem 2rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--box-shadow);
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .logo {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        
-        .logo img {
-            max-width: 150px;
-            border-radius: 50%;
-            border: 3px solid var(--accent-color);
-            box-shadow: 0 0 20px rgba(243, 179, 18, 0.836);
-        }
-        
-        .logo h1 {
-            font-size: 2.5rem;
-            margin-top: 10px;
-            color: var(--accent-color);
-            text-shadow: 0 0 10px rgba(243, 179, 18, 0.76);
-        }
-        
-        .welcome-section {
-            text-align: center;
-            padding: 50px 0;
-            animation: fadeIn 1.5s ease-in-out;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .welcome-section h2 {
-            font-size: 2.2rem;
-            margin-bottom: 20px;
-            color: var(--accent-color);
-        }
-        
-        .welcome-section p {
-            font-size: 1.2rem;
-            line-height: 1.8;
-            margin-bottom: 30px;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        .btn {
-            display: inline-block;
-            padding: 12px 30px;
-            background-color: var(--secondary-color);
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            font-size: 1.1rem;
-            margin: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        
-        .btn:hover {
-            background-color: #573a01;
-            transform: translateY(-3px);
-            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-        }
-        
-        .btn-accent {
-            background-color: var(--accent-color);
-        }
-        
-        .btn-accent:hover {
-            background-color: #e6a822;
-        }
-        
-        .features {
             display: flex;
-            flex-wrap: wrap;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo img {
+            height: 50px;
+            border-radius: 50%;
+        }
+
+        .logo h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            color: var(--primary-light);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--light-color);
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: var(--transition);
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+        }
+
+        .nav-links a:hover {
+            background-color: rgba(58, 58, 58, 0.3);
+            color: var(--primary-light);
+        }
+
+        .nav-links a.active {
+            background-color: var(--accent-color);
+            color: var(--lighter-color);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            color: var(--light-color);
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            color: var(--primary-light);
+            transform: translateY(-3px);
+        }
+
+        /* Page Content Styles */
+        .page {
+            display: none;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, rgba(15, 15, 15, 0.95), rgba(10, 10, 10, 0.9));
+            border-radius: var(--border-radius);
+            margin-bottom: 3rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: var(--box-shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://media.discordapp.net/attachments/1389674762577379334/1392991843565834341/1.3.png?ex=68718c40&is=68703ac0&hm=f984dd32f29bc4cecef30277b1f7d1def0ae83b93f02763ce1547fc14ed5fca4&=&format=webp&quality=lossless') no-repeat center center;
+            background-size: cover;
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-light);
+            animation: fadeInDown 1s ease;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .btn {
+            background: var(--accent-color);
+            color: var(--lighter-color);
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: bold;
+            box-shadow: var(--box-shadow);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background: var(--primary-color);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Social Media Section */
+        .social-media {
+            background: linear-gradient(135deg, rgba(15, 15, 15, 0.95), rgba(10, 10, 10, 0.9));
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 3rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: var(--box-shadow);
+            text-align: center;
+        }
+
+        .social-media h2 {
+            color: var(--primary-light);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .social-media p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .stats {
+            display: flex;
             justify-content: center;
-            gap: 30px;
-            margin: 50px 0;
+            gap: 3rem;
+            margin-top: 2rem;
         }
-        
-        .feature-card {
-            background-color: rgba(26, 37, 47, 0.8);
-            border-radius: 10px;
-            padding: 25px;
-            width: 300px;
-            text-align: center;
-            border: 1px solid var(--main-color);
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
         }
-        
-        .feature-card:hover {
+
+        .stat-icon {
+            font-size: 2rem;
+            color: var(--primary-light);
+        }
+
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary-light);
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .divider {
+            width: 1px;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Links Section */
+        .links-section {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .link-card {
+            flex: 1;
+            background: linear-gradient(135deg, rgba(15, 15, 15, 0.95), rgba(10, 10, 10, 0.9));
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+
+        .link-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
-            border-color: var(--accent-color);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
         }
-        
-        .feature-icon {
-            font-size: 2.5rem;
-            color: var(--accent-color);
-            margin-bottom: 15px;
-        }
-        
-        .feature-card h3 {
+
+        .link-card h3 {
+            color: var(--primary-light);
             font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: var(--accent-color);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
-        
-        footer {
+
+        .link-card p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Footer */
+        .footer {
             text-align: center;
-            padding: 20px 0;
-            border-top: 1px solid var(--main-color);
-            margin-top: 50px;
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(15, 15, 15, 0.95), rgba(10, 10, 10, 0.9));
+            border-radius: var(--border-radius);
+            margin-top: 3rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: var(--box-shadow);
         }
-        
-        .countdown {
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links a {
+            color: var(--light-color);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-light);
+        }
+
+        .footer-divider {
+            height: 1px;
+            background-color: rgba(255, 255, 255, 0.05);
+            margin: 1.5rem 0;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-icons a {
+            color: var(--light-color);
             font-size: 1.5rem;
-            margin: 30px 0;
-            color: var(--accent-color);
+            transition: var(--transition);
         }
-        
-        /* تأثيرات خاصة */
-        .particles {
+
+        .social-icons a:hover {
+            color: var(--primary-light);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem;
+        }
+
+        /* Rules Page */
+        .buttons-container {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .law-btn {
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: bold;
+            box-shadow: var(--box-shadow);
+            min-width: 200px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .law-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.4);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .law-btn.active {
+            background: linear-gradient(135deg, var(--accent-color), var(--primary-color));
+            transform: translateY(-5px);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .law-section {
+            display: none;
+            background: linear-gradient(135deg, rgba(15, 15, 15, 0.95), rgba(10, 10, 10, 0.9));
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .law-section.active {
+            display: block;
+        }
+
+        .rules-page h2 {
+            color: var(--primary-light);
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .rules-page h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-color), transparent);
+            border-radius: 3px;
+        }
+
+        .collapse-container {
+            margin-bottom: 1rem;
+        }
+
+        .collapse-btn {
+            background: linear-gradient(135deg, rgba(15, 15, 15, 0.95), rgba(10, 10, 10, 0.9));
+            color: white;
+            border: none;
+            padding: 1rem 1.5rem;
+            width: 100%;
+            text-align: right;
+            cursor: pointer;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+            font-weight: bold;
+            font-size: 1.1rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .collapse-btn:hover {
+            background: linear-gradient(135deg, rgba(20, 20, 20, 0.95), rgba(15, 15, 15, 0.9));
+        }
+
+        .collapse-btn::after {
+            content: '+';
+            font-size: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .collapse-btn.active::after {
+            content: '-';
+        }
+
+        .collapse-content {
+            background: rgba(10, 10, 10, 0.7);
+            border-radius: 0 0 var(--border-radius) var(--border-radius);
+            overflow: hidden;
+            max-height: 0;
+            transition: max-height 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-top: none;
+        }
+
+        .collapse-content.show {
+            max-height: 5000px;
+        }
+
+        .collapse-content-inner {
+            padding: 1.5rem;
+        }
+
+        ul {
+            list-style-type: none;
+            padding-right: 1rem;
+        }
+
+        li {
+            position: relative;
+            padding-right: 1.5rem;
+            margin-bottom: 0.8rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        li::before {
+            content: '•';
+            position: absolute;
+            right: 0;
+            color: var(--primary-light);
+            font-weight: bold;
+        }
+
+        .note {
+            background: rgba(249, 168, 37, 0.1);
+            padding: 1.5rem;
+            border-right: 5px solid var(--warning-color);
+            margin: 2rem 0;
+            border-radius: var(--border-radius);
+            position: relative;
+        }
+
+        .note strong {
+            color: var(--warning-color);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Tutorials Page */
+        .tutorials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .tutorial-card {
+            background: linear-gradient(135deg, rgba(15, 15, 15, 0.95), rgba(10, 10, 10, 0.9));
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+
+        .tutorial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .rules-video {
+            width: 560px;
+            height: 315px;
+            object-fit: fill;
+        }
+
+        .tutorial-video {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .tutorial-info {
+            padding: 1.5rem;
+        }
+
+        .tutorial-info h3 {
+            color: var(--primary-light);
+            margin-bottom: 0.5rem;
+        }
+
+        .tutorial-info p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        /* Jobs Page */
+        .jobs-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .job-card {
+            background: linear-gradient(135deg, rgba(15, 15, 15, 0.95), rgba(10, 10, 10, 0.9));
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .job-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .job-card h3 {
+            color: var(--primary-light);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .job-card p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 1.5rem;
+        }
+
+        .job-card.disabled {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1;
-            pointer-events: none;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
         }
-        
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, rgba(20, 20, 20, 0.95), rgba(15, 15, 15, 0.98));
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            width: 90%;
+            max-width: 500px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: var(--box-shadow);
+            animation: modalFadeIn 0.3s ease;
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-header h3 {
+            color: var(--primary-light);
+            margin: 0;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: var(--light-color);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .close-modal:hover {
+            color: var(--primary-light);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: var(--border-radius);
+            color: white;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 2px rgba(58, 58, 58, 0.3);
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        /* Notification */
+        .notification {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--success-color);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            z-index: 1001;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .notification.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .notification.error {
+            background: var(--danger-color);
+        }
+
+        /* Responsive Styles */
         @media (max-width: 768px) {
-            .logo h1 {
+            .navbar {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                gap: 0.5rem;
+                width: 100%;
+            }
+
+            .nav-links a {
+                width: 100%;
+                text-align: center;
+            }
+
+            .links-section {
+                flex-direction: column;
+            }
+
+            .hero h1 {
                 font-size: 2rem;
             }
-            
-            .welcome-section h2 {
-                font-size: 1.8rem;
+
+            .hero p {
+                font-size: 1.2rem;
             }
-            
-            .features {
+
+            .stats {
                 flex-direction: column;
-                align-items: center;
+                gap: 1rem;
+            }
+
+            .divider {
+                display: none;
+            }
+
+            .buttons-container {
+                flex-direction: column;
+            }
+
+            .law-btn {
+                width: 100%;
             }
         }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
+
 <body>
-    <div class="video-background">
-        <video autoplay muted loop id="myVideo">
-            <source src="background.mp4" type="video/mp4">
-            <!-- يمكنك إضافة مصادر أخرى للفيديو هنا إذا لزم الأمر -->
-        </video>
-    </div>
-    
-    <div class="overlay">
-        <div class="particles" id="particles-js"></div>
-        
-        <header>
-            <div class="container">
-                <div class="logo">
-                    <img src="https://media.discordapp.net/attachments/784916891822194729/1390201120583979128/Full-Quality.gif?ex=6867652f&is=686613af&hm=02b38f77777728c05b8085decb096eabf158b42bc0fddb78042a4e7bafe270d2&=" alt="شعار السيرفر">
-                    <h1>قوانين السيرفر الرسميا</h1>
-                </div>
+    <!-- Navbar -->
+    <div class="container">
+        <nav class="navbar">
+            <div class="logo">
+                <a href="#" onclick="showPage('home')">
+                    <img src="https://cdn.discordapp.com/attachments/1400917660702867578/1401570037017481256/raw.png?ex=6890c150&is=688f6fd0&hm=171da29fd9f58d15db60e4c95a15ba516ebf3e68d5111841d58f363c4148972d&"
+                        alt="NightShade RP Logo">
+                </a>
             </div>
-        </header>
-        <main>
-            <section class="welcome-section">
-                <div class="container">
-                    <h2>مرحبا بكم في قوانين سيرفر اورا</h2>
-                    <p>نقدم لكم تجربة لعب فريدة وممتعة مع أفضل القوانين والأنظمة التي تضمن العدل والمرح للجميع. اقرأ القوانين بعناية قبل الانضمام إلينا.</p>
-                    
-                    <div class="countdown" id="serverRestart">
-                        <i class="fas fa-clock"></i> الوقت المتبقي لإعادة تشغيل السيرفر: <span id="countdown">00:00:00</span>
-                    </div>
-                    <a href="laws.html" class="btn btn-accent">عرض القوانين</a>
-                    <a href="scenarios.html" class="btn">قوانين السيناريوهات</a>
-                    <a href="ministry.html" class="btn ">قوانين الوزارات</a>
-                    <a href="senario.html" class="btn ">مواقع السيناريوهات</a>
-                    <a href="regions.html" class="btn">حدود المناطق</a>
-                    <a href="theft.html" class="btn">قوانين السرقات</a>
-                    <a href="superheroes.html" class="btn">قوانين السوبر هيرو</a>
-                    <a href="crime.html" class="btn">قوانين الإجرام</a>
-                    <a href="#features" class="btn">المميزات السيرفر</a>
+
+            <div class="nav-links">
+                <a href="#" class="active" onclick="showPage('home')">Home</a>
+                <a href="#" onclick="showPage('rules')">Rules</a>
+                <a href="#" onclick="showPage('tutorials')">Explanations</a>
+                <a href="#" onclick="showPage('jobs')">Apply Jobs</a>
+                <a href="https://op2.thta.shop/products" target="_blank">Store</a>
+            </div>
+
+            <div class="social-links">
+                <a href="https://discord.gg/NTRP" target="_blank" style="text-decoration: none;">Join Discord<i
+                        style="padding-right: 10px;" class="fab fa-discord"></i></a>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Home Page -->
+    <div id="home" class="page active">
+        <div class="container">
+            <!-- Hero Section -->
+            <section class="hero">
+                <div class="hero-content">
+                    <h1>مرحبًا بك في NightShade RP</h1>
+                    <p>جاهدين في تقديم أفضل تجربة RP في الشرق الأوسط</p>
+                    <a href="#" class="btn" onclick="showPage('rules')">انضم إلينا الآن</a>
                 </div>
             </section>
 
-            <section id="features" class="features-section">
-                <div class="container">
-                    <h2 style="text-align: center; margin-bottom: 40px; font-size: 2rem; color: var(--accent-color);">المميزات السيرفر</h2>
-                    
-                    <div class="features">
-                        <div class="feature-card">
-                            <div class="feature-icon">
-                                <i class="fas fa-shield-alt"></i>
-                            </div>
-                            <h3>حماية متقدمة</h3>
-                            <p>نظام حماية متكامل ضد الغش والتخريب لضمان تجربة لعب عادلة للجميع</p>
+            <!-- Social Media Section -->
+            <section class="social-media">
+                <h2>منصات التواصل</h2>
+                <p>مجتمع Eagle Town يمتلك حضورًا قويًا على منصات التواصل الاجتماعي</p>
+
+                <div class="stats">
+                    <div class="stat-item">
+                        <div class="stat-icon"><i class="fab fa-discord"></i></div>
+                        <div>
+                            <div class="stat-number">1,250+</div>
+                            <div class="stat-label">أعضاء في الدسكورد</div>
                         </div>
-                        
-                        <div class="feature-card">
-                            <div class="feature-icon">
-                                <i class="fas fa-car"></i>
-                            </div>
-                            <h3>مركبات حصرية</h3>
-                            <p>أكثر من 50 مركبة حصرية لا توجد في أي سيرفر آخر مع تفاصيل دقيقة</p>
-                        </div>
-                        
-                        <div class="feature-card">
-                            <div class="feature-icon">
-                                <i class="fas fa-home"></i>
-                            </div>
-                            <h3>منازل متطورة</h3>
-                            <p>نظام منازل متكامل مع تفاعلات حصرية وخصائص غير موجودة في الخوادم الأخرى</p>
-                        </div>
-                        
-                        <div class="feature-card">
-                            <div class="feature-icon">
-                                <i class="fas fa-user-secret"></i>
-                            </div>
-                            <h3>أدوار فريدة</h3>
-                            <p>أكثر من 30 دوراً فريداً مع مهام وخصائص خاصة بكل دور</p>
-                        </div>
-                        
-                        <div class="feature-card">
-                            <div class="feature-icon">
-                                <i class="fas fa-robot"></i>
-                            </div>
-                            <h3>بوتات ذكية</h3>
-                            <p>بوتات مساعدة ذكية لتسهيل تجربة اللعب والإجابة على استفساراتك</p>
-                        </div>
-                        
-                        <div class="feature-card">
-                            <div class="feature-icon">
-                                <i class="fas fa-trophy"></i>
-                            </div>
-                            <h3>أحداث دورية</h3>
-                            <p>مسابقات وأحداث حصرية مع جوائز قيمة كل أسبوع</p>
+                    </div>
+
+                    <div class="divider"></div>
+
+                    <div class="stat-item">
+                        <div class="stat-icon"><i class="fas fa-users"></i></div>
+                        <div>
+                            <div class="stat-number">5,000+</div>
+                            <div class="stat-label">متابعين على السوشيال ميديا</div>
                         </div>
                     </div>
                 </div>
             </section>
-        </main>
-        
-        <footer>
-            <div class="container">
-                <p> جميع الحقوق محفوضه لدى اورا &copy; قوانين سيرفر اورا</p>
-                <p>تم التصميم بشكل حصري لسيرفرنا فقط</p>
+
+            <!-- Links Section -->
+            <section class="links-section">
+                <div class="link-card">
+                    <h3><i class="fas fa-info-circle"></i> من نحن</h3>
+                    <p>سيرفر NightShade سيرفر FiveM مختص بنظام CFW تأسس عام 2025 بهدف تقديم تجربة استثنائية</p>
+                </div>
+
+                <div class="link-card">
+                    <h3><i class="fa-solid fa-book"></i> القوانين</h3>
+                    <p>القوانين تهدف إلى ضمان المتعة والاحترام بين اللاعبين، مع تنظيم سير اللعب بطريقة عادلة</p>
+                    <a href="#" class="btn" onclick="showPage('rules')">اطلاع على القوانين</a>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Rules Page -->
+    <div id="rules" class="page">
+        <div class="container">
+            <div class="rules-page">
+                <h1><i class="fa-solid fa-book"></i> قوانين السيرفر</h1>
+                <p>يمكنك قراءة القوانين بحسب تصنيفها</p>
+
+                <div class="buttons-container">
+                    <button class="law-btn active" onclick="showLawSection('server-laws')">
+                        <i class="fa-solid fa-city"></i></i> Server Rules
+                    </button>
+                    <button class="law-btn" onclick="showLawSection('police-laws')">
+                        <i class="fas fa-shield-alt"></i> Police Rules
+                    </button>
+                    <button class="law-btn" onclick="showLawSection('crime-laws')">
+                        <i class="fas fa-skull"></i> Crime Rules
+                    </button>
+                    <!--
+                    <button class="law-btn" onclick="showLawSection('safezones-laws')">
+                        <i class="fas fa-skull"></i> Safe Zones
+                    </button>
+                    -->
+
+                </div>
+
+                <!-- قوانين السيرفر -->
+                <div id="server-laws" class="law-section active">
+                    <h2><i class="fa-solid fa-city"></i> قوانين المدينة</h2>
+
+                    <div class="collapse-container">
+                        <button class="collapse-btn">اساسية</button>
+                        <div class="collapse-content">
+                            <div class="collapse-content-inner">
+                                <ul>
+                                    <li>يمنع دخول السيرفر من اي جهاز اخر غير الجهازك الخاص بك مثل (اجهزة المقاهي/مراكز
+                                        توفر اجهزة للعب الجماعي/مقهى انترنت)</li>
+                                    <li>يمنع التحدث بالسياسة والاعراض والدين وأيضا المضايقات</li>
+                                    <li>يمنع الكلام المشفر بجميع انواعه بمعنى (أي كلام له أكثر من معنى/يفهم بشكل سلبي)
+                                    </li>
+                                    <li>يمنع استخدام أدوات الغش كـ(القلتشات/الثغرات/استغلال أوامر الشات/الخ)</li>
+                                    <li>يمنع استخدام اي جرافيكس او برنامج خارجي او ملفات تساعد او تسهل طريقة اللعب</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="collapse-container">
+                        <button class="collapse-btn">الحياة الواقعية - RP</button>
+                        <div class="collapse-content">
+                            <div class="collapse-content-inner">
+                                <ul>
+                                    <li>يجب عليك تقمص الشخصية داخل RP كأنك في الواقع سواء كانت شخصيتك: مسعف، محامي،
+                                        عسكري، عصابه، مواطن سواءً (شاب/مسن)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="collapse-container">
+                        <button class="collapse-btn">الحياة الجديدة</button>
+                        <div class="collapse-content">
+                            <div class="collapse-content-inner">
+                                <ul>
+                                    <li>في حال اغمائك لا يمكنك (الكلام/الحركة/فعل اي شيء)</li>
+                                    <li>عند (الموت/التحلل) يجب عليك نسيان الاشخاص المتسببين بذلك فقط</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="collapse-container">
+                        <button class="collapse-btn">الباور قيمنق - PowerGaming</button>
+                        <div class="collapse-content">
+                            <div class="collapse-content-inner">
+                                <ul>
+                                    <li>يمنع استخدام الوسائل غير موجودة في اللعبة للحصول على ميزة أو عدم التوافق مع
+                                        العالم بطريقة معقولة وبشكل واقعي</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="collapse-container">
+                        <button class="collapse-btn">تقدير الحياة - NWL</button>
+                        <div class="collapse-content">
+                            <div class="collapse-content-inner">
+                                <ul>
+                                    <li>يجب عليك تقدير موقفك في اي حالة كنت متواجد فيها</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="collapse-container">
+                        <button class="collapse-btn">الخوف على الحياة - NVL</button>
+                        <div class="collapse-content">
+                            <div class="collapse-content-inner">
+                                <ul>
+                                    <li>يجب عليك الخوف على حياتك بشكل واقعي عندما تتعرض للتهديد بأسلحة سواء
+                                        (نارية/بيضاء)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="collapse-container">
+                        <button class="collapse-btn">التواصل الغير شرعي - Meta Gaming</button>
+                        <div class="collapse-content">
+                            <div class="collapse-content-inner">
+                                <ul>
+                                    <li>يمنع (التواصل/استخدام اي معلومة تحصل عليها من خارج RP) سواء من (بث/دسكورد/مقطع
+                                        باليوتيوب/الخ)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="collapse-container">
+                        <button class="collapse-btn">القتل العشوائي - RDM</button>
+                        <div class="collapse-content">
+                            <div class="collapse-content-inner">
+                                <ul>
+                                    <li>يمنع القتل العشوائي دون (سبب/تهديد/عداوة)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="collapse-container">
+                        <button class="collapse-btn">القتل بالمركبة - VDM</button>
+                        <div class="collapse-content">
+                            <div class="collapse-content-inner">
+                                <ul>
+                                    <li>يمنع استخدام المركبة كـ سلاح</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="collapse-container">
+                        <button class="collapse-btn">الكاركتر</button>
+                        <div class="collapse-content">
+                            <div class="collapse-content-inner">
+                                <ul>
+                                    <li>يجب وضع اسم واقعي للكرتر</li>
+                                    <li>يجب كتابة اسم الكاركتر باللغة الأنجليزية</li>
+                                    <li>يمنع تكرار الأسامي بين الكركترات</li>
+                                    <li>يمنع ترابط شخصيتك الاولى , بالشخصية الثانية</li>
+                                    <li>يمنع تقليد الكركترات والاسماء الموجوده بالسيرفر بأي طريقة كانت</li>
+                                    <li>يجب عليك تقمص شخصيتك مع الكل حتى ولو خويك بمعنى لو انك عسكري و خويك مجرم م
+                                        تتساهل معه ابداً</li>
+                                    <li>في حال عندك شخصيه وبتغير الصوت حقها في اي برنامج يجب ان الصوت يبقى ثابت على هذي
+                                        الشخصيه</li>
+                                    <li>يجب الالتزام بالذوق العام في الملابس بشكل كامل</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="collapse-container">
+                        <button class="collapse-btn">عام</button>
+                        <div class="collapse-content">
+                            <div class="collapse-content-inner">
+                                <ul>
+                                    <li>يمنع (التحدث/التلميح) عن أمور خارج الرول بلاي</li>
+                                    <li>يمنع الكتابة خارج الرول بلاي في جميع التطبيقات مثل تويتر</li>
+                                    <li>يمنع الكذب بالمسطلحات التالية (سحر/باخذ حبه/صداع/الخ)</li>
+                                    <li>يمنع الاعتداء على المدنيين ويجب ان تعتبره مواطن ويتم تطبيق القوانين عليه</li>
+                                    <li>يجب عليك تقدير قيمة مركبتك والقيادة بشكل سليم وتجنب صدم الاخرين</li>
+                                    <li>يمنع طلب تعويض في حال خسرت (فلوسك/أسلحتك/اغراضك) بسبب (التحلل/نقلك إلى المستشفى)
+                                    </li>
+                                    <li>يمنع تكوين عداوة على اسباب تافهه مثل (الضرب بالايدي بسبب مشادة كلاميه/شخص صدمك
+                                        بالمركبه و هرب/الخ)</li>
+                                    <li>يمنع (الترصد/قتل اللاعب) أكثر من مرة متتالية بدون سبب</li>
+                                    <li>يمنع الشخصنة بجميع اشكالها وانواعها</li>
+                                    <li>يمنع إهانة اي لاعب بعد قتله</li>
+                                    <li>يمنع على إي لاعب حرق او تفجير جثة ونقلها</li>
+                                    <li>يمنع طلب الخدمات المتاحة بالجوال بقصد (الخطف/القتل/السرقة/بغير الاستفادة من
+                                        الخدمة/الخ)</li>
+                                    <li>يمنع التعرض للمسعفين الا في حال تعرض لك</li>
+                                    <li>يمنع لبس الملابس الجيشية والعسكرية ومن ضمنها الحزام العسكري</li>
+                                    <li>يمنع (إرتداء/إستعمال) اي خوذة اثناء مشاركتك في اي طلق ناري</li>
+                                    <li>يمنع تغيير ملامح وجهك او شعرك بعد قيامك بعملية إجرامية</li>
+                                    <li>يمنع حمل شخصين في نفس الوقت</li>
+                                    <li>يمنع (توزيع/تسليف) الفلوس بين اللاعبين بمبالغ كبيرة (10 الاف فما فوق)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="collapse-container">
+                        <button class="collapse-btn">Warn and Banned System</button>
+                        <div class="collapse-content">
+                            <div class="collapse-content-inner">
+                                <ul>
+                                    <p>ماهو الـ Warn؟</p>
+                                    <li>هو تحذير بسبب ارتكاب مخالفة احد قوانين المدينة</li>
+                                    <p>متى تحصل على Warn؟</p>
+                                    <li>مخالفة القوانين المدينة = x1 Warn</li>
+                                    <p>المخالفة حسب الـ Warn؟</p>
+                                    <li>Warn 1 : Banned 6-12 Hours</li>
+                                    <li>Warn 2 : Banned 1 Day + 4 Point</li>
+                                    <li>Warn 3 : Banned 3 Days + 10 Point</li>
+                                    <li>Warn 4 : Banned 7 Days + reavtive + 15 Point</li>
+                                    <li>Warn 5 : Final Banned with the right to request a chance after each month + 30
+                                        Point</li>
+                                    <li>Warn 6 = Final Banned </li>
+                                    <p>طريقة ازالة الـ Warn؟</p>
+                                    <li>بعد مرور (30 يوم) وما حصلت (اي Warn ثاني) = يشيلها النظام تلقائياً</li>
+                                    <li>اي (Warn يجيك) خلال الـ (30 يوم) = يتصفر العداد ويرجع يحسب 30 يوم ثانية</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="note">
+                        <strong>ملاحظة:</strong>
+                        <ul>
+                            <li>يحق للرقابه المحاسبه على جميع الاخطاء حتى لو لم تكن ضمن القوانين</li>
+                            <li>لا يحق لك مخالفة القوانين (حتى لو رأيت شخص يخالفها قم بمجارته بالاحداث والاستكمال معه
+                                حتى النهاية) بعد ذلك قم برفع شكوى في الدسكورد</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- قوانين الشرطة -->
+                <div id="police-laws" class="law-section">
+                    <h2><i class="fas fa-shield-alt"></i> قوانين الشرطة</h2>
+
+                    <div class="collapse-container">
+                        <button class="collapse-btn">أساسية</button>
+                        <div class="collapse-content">
+                            <div class="collapse-content-inner">
+                                <ul>
+                                    <li>يجب عليك في حال تسجيل الدخول (التواجد بالموجة)</li>
+                                    <li>يجب عليك احترام انظمة السير وعدم قطع اي اشارة الا في حال وجود حالة طارئة (يجب
+                                        تشغيل السفتي)</li>
+                                    <li>احترام وطاعة الرتب الاعلى منك</li>
+                                    <li>يمنع التسلط على العسكر الاقل منك رتبة</li>
+                                    <li>يمنع التسلط على اي شخص</li>
+                                    <li>يمنع الحقد على اي شخص سواء (عصابة/مواطن)</li>
+                                    <li>يمنع توصيل الاشخاص بمركبات حكومية</li>
+                                    <li>لا يحق لك (بيع /توزيع) الممتلكات الحكومية</li>
+                                    <li>في حال تم اهانتك من قبل المتهم يحق لك رفض (الكفالة وطلب محامي)</li>
+                                    <li>يحق للمواطن طلب مقابلة رتبة عالية اذا كان متواجد</li>
+                                    <li>يمنع كلبشة الشخص وهو مسقط</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="collapse-container">
+                        <button class="collapse-btn">الذهاب الى بلاغ</button>
+                        <div class="collapse-content">
+                            <div class="collapse-content-inner">
+                                <ul>
+                                    <li>يمنع الذهاب الى بلاغ الا بعد اخذ الاذن من (Dispatch) الا في حال تم توجيهك مسبقا
+                                        الى المنطقة</li>
+                                    <p>شرح نظري</p>
+                                    <li>في حال تم توجيهك مسبقا الى المنطقة: تقول من (وحدتك) الى Dispatch انا متوجة الى
+                                        اخر (نوع البلاغ)</li>
+                                    <li>في حال لم يتم توجيهك مسبقا: تقول من (وحدتك) الى Dispatch تسمح لي بالتوجة الى اخر
+                                        (نوع البلاغ)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="collapse-container">
+                        <button class="collapse-btn">الاستيقاف المروري</button>
+                        <div class="collapse-content">
+                            <div class="collapse-content-inner">
+                                <ul>
+                                    <p>ماهو الاستيقاف المروري</p>
+                                    <li>هو استيقاف الشخص بسبب مخالفه مروريه</li>
+                                    <p>امثلة على المخالفات المرورية الموجبة للتوقيف</p>
+                                    <li>قطع اشارة</li>
+                                    <li>عكس سير</li>
+                                    <li>قيادة متهورة</li>
+                                    <li>الخ</li>
+                                    <p>شرح نظري</p>
+                                    <li>تشغيل Code 2</li>
+                                    <li>تشغيل Code 3</li>
+                                    <li>الوقوف خلف المركبة (بزاوية 40 درجة)</li>
+                                    <li>طلب من المواطن ايقاف المحرك</li>
+                                    <li>تبليغ Dispatch: نوع البلاغ + نوع المركبة + لون المركبة + اخر 3 ارقام من لوحة
+                                        المركبة + الموقع + السبب</li>
+                                    <li>الذهاب الى المواطن</li>
+                                    <li>تعرف بنفسك</li>
+                                    <li>تذكر Badge Number حقك</li>
+                                    <li>تذكر سبب استيقافه</li>
+                                    <li>طلب الهوية والرخصة</li>
+                                    <li>تقول له عطني سبب مقنع يخليك تسوي المخالفة</li>
+                                    <li>تعطية المخالفة</li>
+                                    <li>طلب منه عدم تكرارها</li>
+                                    <li>تقول له في حال (طفيت السفتي) يمديك تحرك</li>
+                                    <li>الرجوع الى المركبة</li>
+                                    <li>تبليغ Dispatch: تم التعامل مع اخر حالة استيقاف مروري</li>
+                                    <li>تطفي السفتي</li>
+                                    <br>
+                                    <div class="note">
+                                        <strong>ملاحظة:</strong>
+                                        <ul>
+                                            <li>في حال الهروب تتحول الى مطاردة</li>
+                                        </ul>
+                                    </div>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="collapse-container">
+                        <button class="collapse-btn">الاستيقاف الجنائي</button>
+                        <div class="collapse-content">
+                            <div class="collapse-content-inner">
+                                <ul>
+                                    <li>لا يحق لك الـ(سجن / كلبشة) الا في حال (وجود بلاغ / حيازة ممنوعات)</li>
+                                    <p>امثلة على المخالفات الجنائية الموجبة للتوقيف</p>
+                                    <li>وجود بلاغ</li>
+                                    <li>اشتباه</li>
+                                    <li>الخ</li>
+                                    <p>شرح نظري</p>
+                                    <li>تبليغ Dispatch: نوع البلاغ + نوع المركبة + حالة التعميم على المركبة + الموقع +
+                                        طلب وحدات دعم + اطلب الاذن بالاستيقاف الجنائي</li>
+                                    <li>تشغيل Code 2</li>
+                                    <li>تشغيل Code 3</li>
+                                    <li>الوقوف خلف المركبة (بزاوية 40 درجة)</li>
+                                    <li>طلب من المواطن ايقاف المحرك</li>
+                                    <li>بعد وصول وحدات الدعم</li>
+                                    <li>النزول من المركبة</li>
+                                    <li>رفع السلاح على الشخص</li>
+                                    <li>طلب النزول مع رفع اليد</li>
+                                    <li>القاء القبض على الشخص</li>
+                                    <li>ذكر سبب القبض</li>
+                                    <li>ذكر الفعل الجنائي</li>
+                                    <li>ذكر حقوقة الشخصية</li>
+                                    <li>ذكر حقوق LSPD</li>
+                                    <li>ذكر حقوقة القانونية</li>
+                                    <li>ادخال الشخص الى المركبة</li>
+                                    <li>طلب من وحدة الدعم تفتيش المركبة</li>
+                                    <li>الوقوف خلف المركبة مع رفع السلاح</li>
+                                    <li>وحدة الاسناد تفتح المركبة بعد 3 ثواني</li>
+                                    <li>تبليغ Dispatch: تم التعامل مع اخر حالة استيقاف جنائي</li>
+                                    <br>
+                                    <div class="note">
+                                        <strong>ملاحظة:</strong>
+                                        <ul>
+                                            <li>في حال الهروب تتحول الى مطاردة</li>
+                                        </ul>
+                                    </div>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="collapse-container">
+                        <button class="collapse-btn">المطاردة</button>
+                        <div class="collapse-content">
+                            <div class="collapse-content-inner">
+                                <ul>
+                                    <p>شروط المطاردة</p>
+                                    <li>-</li>
+                                    <p>شرح المطاردة نظري</p>
+                                    <li>-</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="collapse-container">
+                        <button class="collapse-btn">القاء القبض</button>
+                        <div class="collapse-content">
+                            <div class="collapse-content-inner">
+                                <ul>
+                                    <p>ماهو القاء القبض</p>
+                                    <li>هو القاء القبض على متهم في قضية ما</li>
+                                    <p>شرح نظري</p>
+                                    <li>تكلبشة</li>
+                                    <li>تقول له تم القبض عليك من شرطة LSPD</li>
+                                    <li>تقول له تهمته</li>
+                                    <li>تقول له حقوقه + اي شي يقوله راح ينقلب ضده</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="collapse-container">
+                        <button class="collapse-btn">التفاوض</button>
+                        <div class="collapse-content">
+                            <div class="collapse-content-inner">
+                                <ul>
+                                    <p>ماهو التفاوض</p>
+                                    <li>هو عملية تواصل بين الشرطة والمجرمين وتهدف إلى الوصول (لحل سلمي/تقليل الخسائر)
+                                    </li>
+                                    <p>من يكون المفاوض</p>
+                                    <li>اكبر رتبة موجودة</li>
+                                    <li>في حال عدم وجود رتبة: يتم ترشيح مفاوض</li>
+                                    <p>شروط التفاوض</p>
+                                    <li>يجب على المفاوض تقدير حياة الرهينة وتلبية مطالب الخاطفين الممكنة</li>
+                                    <li>يتم تقدير الحالة من المفاوض اذا الحالة قوية مرة له الحق بـ التساهل في بعض
+                                        الطلبات (حسب ما يراه مناسب)</li>
+
+                                    <p>طلبات المجرمين الممكنة</p>
+                                    <li>طلب خروج امن</li>
+                                    <li>طلب هروب امن</li>
+                                    <li>اللي تخص هروبه بشكل عام</li>
+
+                                    <p>طلبات المجرمين المرفوضة</p>
+                                    <li>طلب التحكم في الوحدات</li>
+                                    <li>طلب اخراج احد من السحن</li>
+                                    <li>طلب عتاد عسكري</li>
+                                    <li>طلب فلوس</li>
+                                    <li>الطلبات القوية بشكل عام</li>
+
+                                    <p>طلبات الشرطة الممكنة</p>
+                                    <li>عكس السير لمدة 3 مرات</li>
+                                    <li>ممنوع تعريض حياة المواطنين للخطر</li>
+                                    <li>ممنوع القفز</li>
+                                    <li>طلبات تخص المطاردة بشكل عام</li>
+
+                                    <p>شرح التفاوض نظري</p>
+                                    <li>-</li>
+
+
+                                    <br>
+                                    <div class="note">
+                                        <strong>ملاحظة:</strong>
+                                        <ul>
+                                            <li>في حال مخالفة احد طلبات الشرطة يفشل الهروب الامن</li>
+                                        </ul>
+                                    </div>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="note">
+                        <strong>ملاحظة:</strong>
+                        <ul>
+                            <li>يحق للقيادة المحاسبه على جميع الاخطاء حتى لو لم تكن ضمن القوانين</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- قوانين الاجرام -->
+                <div id="crime-laws" class="law-section">
+                    <h2><i class="fas fa-skull"></i> قوانين الاجرام</h2>
+
+                    <!-- محتوى قوانين الاجرام -->
+                    <div class="collapse-container">
+                        <button class="collapse-btn">قوانين الاجرام</button>
+                        <div class="collapse-content">
+                            <div class="collapse-content-inner">
+                                <ul>
+                                    <li>يجب عليك فهم معنى الحياة الواقعية سواء كنت مجرم او رهينة وذلك بقياسها بالحياة
+                                        الواقعية</li>
+                                    <li>يمنع الاتفاق مع اي شخص ليصبح رهينة</li>
+                                    <li>مدة رهن الرهينة ( 20 د) الا في حال بدأ السيناريو يلغى الوقت</li>
+                                    <li>يمنع المتاجره بالممنوعات في المناطق الامنه و يمنع النصب والاحتيال في المناطق
+                                        الامنه</li>
+                                    <li>يمنع سرقة المواطن الا بسبب وجود عداوه واثبات العداوه باكثر من موقف ( 3 مواقف
+                                        وتكون مثبته بالمقاطع )</li>
+                                    <li>حد المجموعات او العائلات المسموح فقط 10 اشخاص</li>
+                                    <li>يمنع تحالف العصابات ضد الداخلية او ضد مجموعة او عصابة اخرى باستثناء السرقة ويجب
+                                        الالتزام بعدد السرقة</li>
+                                    <li>يمنع منعا باتا خطف رهينه بغاية التوجه للسجن والتفاوض مع العساكر لاطلاق سراح اي
+                                        سجين</li>
+                                    <li>يمنع الاعتداء على مفاوض الشرطة في السيناريو ويمنع الاعتداء على مفاوض المجرمين
+                                    </li>
+                                    <li>يمنع مقاومة السلاح الناري بسلاح ابيض مهما كانت الحاله + يمنع مقاومة اي سلاح ثقيل
+                                        بسلاح خفيف مثل الجلوك</li>
+                                    <li>يمنع اطلاق النار او خطف العسكري في اي قضية مروريه</li>
+                                    <li>يمنع منعاً باتاً مشاركة الرهينة للخاطفين في نص السيناريو</li>
+                                    <li>يمنع تقليد ملابس احد العصابات</li>
+                                    <li>يمنع الخطف والتهديد في حال وجود مواطن او اثنين من المدنيين او اكثر</li>
+                                    <li>يمنع التعدي او اختطاف سائق السطحه او طلب تاكسي او عسكري او ميكانيكي او محامي او
+                                        اي شخص في اي وظيفة حكوميه</li>
+                                    <li>يُمنع على إي فرد او جماعة السرقة ثم الانتظار لفترة في نفس الموقع سواء للتفاوض او
+                                        غيره</li>
+                                    <li>يمنع منعا باتا تدبيل الراديو اثناء اي عمليه اطلاق نار</li>
+                                    <li>يمنع منعا باتا تبادل اطلاق النار داخل</li>
+                                    <li>يمنع منعا باتا طلب على الرهينه اي مبلغ مادي ويحق لك طلب واحد على كل رهينة</li>
+                                    <li>في حال تم اسقاطك يمنع تحديث او اعطاء كول اوت ب اي طريقة كانت</li>
+                                    <li>يجب عليك قبل بدأ السرقة التخطيط لها ووضع لها خطة محكمة</li>
+                                    <li>حد افراد العصابة داخل السيرفر 20 عضو فقط</li>
+                                    <li>يمنع افتعال فايت دون سبب وقد تصل عقوبتها</li>
+                                    <li>الحد الأعلى للرهائن هو 3 رهائن فقط لجميع السرقات ويمنع منعًا باتًا الزيادة عن
+                                        هذا العدد</li>
+                                    <li>ييمنع منعاً باتاً في حال علاج شخص بالميدكت خطفه او اسقاطه مره اخرى</li>
+                                    <li>يمنع استخدام أي ايموت في أي حالة شوت فاير بأي شكل من الأشكال</li>
+                                    <li>اثناء عملية النصب يمنع منعًا باتًا الحلف مهما كان السبب</li>
+                                    <li>لايحق لك قتل الشخص بعد ان تنصب عليه بحجة النسيان</li>
+                                    <li>في حال نصب عليك شخص يحق لك قتله بشكل مباشر واخذ الغرض الذي تم الاتفاق عليه , ولا
+                                        يحق لك اخذ اي غرض ثاني او يحقلك اخذ شي بنفس القيمة</li>
+                                    <li>يمنع منعا باتا سرقة السيارات الخاصة باي شكل من الاشكال</li>
+                                    <li>يمنع منعا باتا سرقة الهيلي باي شكل من الاشكال</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--____________-->
+                    <div class="collapse-container">
+                        <button class="collapse-btn">تسلسل السرقات</button>
+                        <div class="collapse-content">
+                            <div class="collapse-content-inner">
+                                <ul>
+                                    <li>Store Robbery - Police (4-5) | Crimenals (1-3)</li>
+                                    <li>ATM Robbery - Police (3-5) | Crimenals (1-3)</li>
+                                    <li>House Robbery - Police (4-6) | Crimenals (1-4)</li>
+                                    <li>Police Staff house - Police (5-7) | Crimenals (2-5)</li>
+                                    <li>DigitalDen Robbery - Police (5-7) | Crimenals (2-2)</li>
+                                    <li>Laundromat Robbery - Police (5-7) | Crimenals (2-5)</li>
+                                    <li>Cash Exchange Robbery - Police (5-8) | Crimenals (3-6)</li>
+                                    <li>Maze Bank - Police (10-12) | Crimenals (5-10)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!--____________-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tutorials Page -->
+    <div id="tutorials" class="page">
+        <div class="container">
+            <h1><i class="fa-solid fa-clapperboard"></i> الشروحات</h1>
+            <p>شروحات مرئية لمساعدتك في فهم السيرفر</p>
+
+            <div class="tutorials-grid">
+
+                <!--________________-->
+
+                <div class="tutorial-card">
+                    <iframe class="tutorial-video" width="560" height="315"
+                        src="https://www.youtube.com/embed/1aJAhQPz-lw?si=ULPLQ1R4hzYoR5WD" title="YouTube video player"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    <div class="tutorial-info">
+                        <h3>شرح نظام التفعيل</h3>
+                        <p>سيتم اضافته قريباً</p>
+                    </div>
+                </div>
+
+                <!--________________-->
+
+                <div class="tutorial-card">
+                    <iframe class="tutorial-video" width="560" height="315"
+                        src="https://www.youtube.com/embed/1aJAhQPz-lw?si=ULPLQ1R4hzYoR5WD" title="YouTube video player"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    <div class="tutorial-info">
+                        <h3>شرح تقديم الشرطة</h3>
+                        <p>سيتم اضافته قريباً</p>
+                    </div>
+                </div>
+
+                <!--________________-->
+
+                <div class="tutorial-card">
+                    <iframe class="tutorial-video" width="560" height="315"
+                        src="https://www.youtube.com/embed/1aJAhQPz-lw?si=ULPLQ1R4hzYoR5WD" title="YouTube video player"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    <div class="tutorial-info">
+                        <h3>شرح تقديم الصحة</h3>
+                        <p>سيتم اضافته قريباً</p>
+                    </div>
+                </div>
+
+                <!--________________-->
+
+                <div class="tutorial-card">
+                    <iframe class="tutorial-video" width="560" height="315"
+                        src="https://www.youtube.com/embed/1aJAhQPz-lw?si=ULPLQ1R4hzYoR5WD" title="YouTube video player"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    <div class="tutorial-info">
+                        <h3>شرح نظام الميكانيك</h3>
+                        <p>سيتم اضافته قريباً</p>
+                    </div>
+                </div>
+
+                <!--________________-->
+
+                <div class="tutorial-card">
+                    <iframe class="tutorial-video" width="560" height="315"
+                        src="https://www.youtube.com/embed/1aJAhQPz-lw?si=ULPLQ1R4hzYoR5WD" title="YouTube video player"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    <div class="tutorial-info">
+                        <h3>شرح نظام العصابات</h3>
+                        <p>سيتم اضافته قريباً</p>
+                    </div>
+                </div>
+
+                <!--________________-->
+
+                <div class="tutorial-card">
+                    <iframe class="tutorial-video" width="560" height="315"
+                        src="https://www.youtube.com/embed/1aJAhQPz-lw?si=ULPLQ1R4hzYoR5WD" title="YouTube video player"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    <div class="tutorial-info">
+                        <h3>شرح نظام المشاريع</h3>
+                        <p>سيتم اضافته قريباً</p>
+                    </div>
+                </div>
+
+                <!--________________-->
+
+                <div class="tutorial-card">
+                    <iframe class="tutorial-video" width="560" height="315"
+                        src="https://www.youtube.com/embed/1aJAhQPz-lw?si=ULPLQ1R4hzYoR5WD" title="YouTube video player"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    <div class="tutorial-info">
+                        <h3>شرح وظيفة Taxi</h3>
+                        <p>سيتم اضافته قريباً</p>
+                    </div>
+                </div>
+
+                <!--________________-->
+
+                <div class="tutorial-card">
+                    <iframe class="tutorial-video" width="560" height="315"
+                        src="https://www.youtube.com/embed/1aJAhQPz-lw?si=ULPLQ1R4hzYoR5WD" title="YouTube video player"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    <div class="tutorial-info">
+                        <h3>شرح وظيفة الصيد</h3>
+                        <p>سيتم اضافته قريباً</p>
+                    </div>
+                </div>
+
+                <!--________________-->
+
+                <div class="tutorial-card">
+                    <iframe class="tutorial-video" width="560" height="315"
+                        src="https://www.youtube.com/embed/1aJAhQPz-lw?si=ULPLQ1R4hzYoR5WD" title="YouTube video player"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    <div class="tutorial-info">
+                        <h3>شرح وظيفة Recycl</h3>
+                        <p>سيتم اضافته قريباً</p>
+                    </div>
+                </div>
+
+                <!--________________-->
+
+                <div class="tutorial-card">
+                    <iframe class="tutorial-video" width="560" height="315"
+                        src="https://www.youtube.com/embed/1aJAhQPz-lw?si=ULPLQ1R4hzYoR5WD" title="YouTube video player"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    <div class="tutorial-info">
+                        <h3>شرح Pawnshop</h3>
+                        <p>سيتم اضافته قريباً</p>
+                    </div>
+                </div>
+
+                <!--________________-->
+
+                <!--
+                    <div class="tutorial-card">
+                    <iframe class="tutorial-video" width="560" height="315" src="https://www.youtube.com/embed/1aJAhQPz-lw?si=ULPLQ1R4hzYoR5WD" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        <div class="tutorial-info">
+                            <h3>شرح</h3>
+                            <p>سيتم اضافته قريباً</p>
+                        </div>
+                    </div>
+                -->
+                <!--________________-->
+            </div>
+        </div>
+    </div>
+
+    <!-- Jobs Page -->
+    <div id="jobs" class="page">
+        <div class="container">
+            <h1><i class="fa-solid fa-paper-plane"></i> تقديم الوظائف</h1>
+            <p>اختر الوظيفة التي ترغب في التقديم عليها</p>
+
+            <div class="jobs-container">
+                <div class="job-card" id="police-job">
+                    <h3><i class="fas fa-shield-alt"></i> تقديم LSPD</h3>
+                    <p>انضم إلى قوات الشرطة وكن جزءًا من حفظ الأمن</p>
+                    <button class="btn" onclick="openJobModal('police')">تقديم الآن</button>
+                </div>
+
+                <div class="job-card" id="ems-job">
+                    <h3><i class="fas fa-ambulance"></i> تقديم EMS</h3>
+                    <p>انضم إلى فريق الإسعاف وأنقذ الأرواح</p>
+                    <button class="btn" onclick="openJobModal('ems')">تقديم الآن</button>
+                </div>
+
+                <div class="job-card" id="justice-job">
+                    <h3><i class="fas fa-gavel"></i> تقديم Justice</h3>
+                    <p>مقفل</p>
+                    <button class="btn" onclick="openJobModal('justice')">تقديم الآن</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Job Application Modal -->
+    <div class="modal" id="job-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title">تقديم على وظيفة</h3>
+                <button class="close-modal" onclick="closeModal()">&times;</button>
+            </div>
+
+            <form id="job-form">
+                <input type="hidden" id="job-type">
+
+                <div class="form-group">
+                    <label for="character-name">Character Name:</label>
+                    <input type="text" id="character-name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="character-id">Citizen id:</label>
+                    <input type="text" id="character-id" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone-number">Phone Number (Optional):</label>
+                    <input type="text" id="phone-number" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="discord-user">Copy Discord:</label>
+                    <input type="text" id="discord-user" required>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn" onclick="closeModal()">Cancel</button>
+                    <button type="submit" class="btn">Apply</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        <i class="fas fa-check-circle"></i>
+        <span id="notification-message">تم ارسال تقديمك وستصلك رسالة القبول بالدسكورد</span>
+    </div>
+
+    <!-- Footer -->
+    <div class="container">
+        <footer class="footer">
+            <div class="social-icons">
+                <a href="#" target="_blank"><i class="fab fa-youtube"></i></a>
+                <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="#" target="_blank"><i class="fab fa-tiktok"></i></a>
+                <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://discord.gg/vceFGmtAmN" target="_blank"><i class="fab fa-discord"></i></a>
+            </div>
+
+            <div class="footer-divider"></div>
+
+            <div class="copyright">
+                جميع الحقوق محفوظة © NightShade 2025
             </div>
         </footer>
     </div>
-    
-    
+
     <script>
-        // عد تنازلي لإعادة تشغيل السيرفر (كل 12 ساعة)
-        function updateCountdown() {
-            const now = new Date();
-            const hours = now.getHours();
-            const minutes = now.getMinutes();
-            const seconds = now.getSeconds();
-            
-            // احسب الوقت المتبقي لإعادة التشغيل القادمة (كل 12 ساعة)
-            const nextRestart = new Date(now);
-            if (hours < 12) {
-                nextRestart.setHours(12, 0, 0, 0);
-            } else {
-                nextRestart.setHours(24, 0, 0, 0);
-            }
-            
-            const diff = nextRestart - now;
-            
-            const h = Math.floor(diff / (1000 * 60 * 60));
-            const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const s = Math.floor((diff % (1000 * 60)) / 1000);
-            
-            document.getElementById('countdown').textContent = 
-                `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
-        }
-        
-        setInterval(updateCountdown, 1000);
-        updateCountdown();
-        
-        // تأثير الجسيمات البسيط
-        document.addEventListener('DOMContentLoaded', function() {
-            const particles = document.getElementById('particles-js');
-            const particleCount = 50;
-            
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.style.position = 'absolute';
-                particle.style.width = Math.random() * 3 + 1 + 'px';
-                particle.style.height = particle.style.width;
-                particle.style.backgroundColor = `rgba(243, 156, 18, ${Math.random() * 0.5 + 0.1})`;
-                particle.style.borderRadius = '50%';
-                particle.style.top = Math.random() * 100 + '%';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.opacity = Math.random() * 0.5 + 0.1;
-                
-                const duration = Math.random() * 20 + 10;
-                const delay = Math.random() * 5;
-                const xMove = (Math.random() - 0.5) * 100;
-                const yMove = (Math.random() - 0.5) * 100;
-                
-                particle.style.animation = `float ${duration}s ease-in-out ${delay}s infinite alternate`;
-                particle.style.setProperty('--x-move', `${xMove}px`);
-                particle.style.setProperty('--y-move', `${yMove}px`);
-                
-                particles.appendChild(particle);
-            }
-            
-            // إضافة أنيميشن للجسيمات
-            const style = document.createElement('style');
-            style.textContent = `
-                @keyframes float {
-                    0% {
-                        transform: translate(0, 0);
-                        opacity: ${Math.random() * 0.5 + 0.1};
-                    }
-                    100% {
-                        transform: translate(var(--x-move), var(--y-move));
-                        opacity: ${Math.random() * 0.5 + 0.1};
-                    }
+        // Job Applications Config
+        const jobConfig = {
+            police: { open: true, webhook: "https://discord.com/api/webhooks/1401607763007897774/nyCLDi294J-HNEWsxnDuJ4iCBXHcoWOWJlx8Sv2sTJeBAz8ktP60ivpuSGQXLufCtQ9s" },
+            ems: { open: true, webhook: "https://discord.com/api/webhooks/1401608388101804245/PUgdkQxAs5rrrPjpt0r4r2A10HPKdyv_TRheLj05HKdDcyBs7blLrd4AIDufUDzZH724" },
+            justice: { open: true, webhook: "https://discord.com/api/webhooks/1398891272462143498/md7abSEoykZuZzbzx3K2bCLqTtexobGsvaCKBpBQC-Rze-ZZ6ZrSFWv9CTCFtozfMfE8" }
+        };
+
+        // Show Page Function
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+
+            // Update active nav link
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.classList.remove('active');
+            });
+
+            // Find and activate the corresponding nav link
+            const navLinks = document.querySelectorAll('.nav-links a');
+            for (let i = 0; i < navLinks.length; i++) {
+                if (navLinks[i].getAttribute('onclick') === `showPage('${pageId}')`) {
+                    navLinks[i].classList.add('active');
+                    break;
                 }
-            `;
-            document.head.appendChild(style);
+            }
+
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        // Show Law Section Function
+        function showLawSection(sectionId) {
+            // Hide all law sections
+            document.querySelectorAll('.law-section').forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Show selected law section
+            document.getElementById(sectionId).classList.add('active');
+
+            // Update active law buttons
+            document.querySelectorAll('.law-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Find and activate the corresponding law button
+            const lawBtns = document.querySelectorAll('.law-btn');
+            for (let i = 0; i < lawBtns.length; i++) {
+                if (lawBtns[i].getAttribute('onclick') === `showLawSection('${sectionId}')`) {
+                    lawBtns[i].classList.add('active');
+                    break;
+                }
+            }
+        }
+
+        // Collapse/Expand for Law Sections
+        document.querySelectorAll('.collapse-btn').forEach(button => {
+            button.addEventListener('click', function () {
+                this.classList.toggle('active');
+                const content = this.nextElementSibling;
+
+                if (content.style.maxHeight) {
+                    content.style.maxHeight = null;
+                    content.classList.remove('show');
+                } else {
+                    content.style.maxHeight = content.scrollHeight + 'px';
+                    content.classList.add('show');
+                }
+            });
+        });
+
+        // Job Application Modal Functions
+        function openJobModal(jobType) {
+            if (!jobConfig[jobType].open) {
+                showNotification('التقديم مغلق حالياً', true);
+                return;
+            }
+
+            document.getElementById('job-type').value = jobType;
+            document.getElementById('modal-title').textContent = `تقديم ${getJobTitle(jobType)}`;
+            document.getElementById('job-modal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('job-modal').classList.remove('active');
+            document.getElementById('job-form').reset();
+        }
+
+        function getJobTitle(jobType) {
+            switch (jobType) {
+                case 'police': return 'LSPD';
+                case 'ems': return 'EMS';
+                case 'justice': return 'Justice';
+                default: return 'وظيفة';
+            }
+        }
+
+        // Notification Function
+        function showNotification(message, isError = false) {
+            const notification = document.getElementById('notification');
+            const notificationMsg = document.getElementById('notification-message');
+
+            notificationMsg.textContent = message;
+
+            if (isError) {
+                notification.classList.add('error');
+            } else {
+                notification.classList.remove('error');
+            }
+
+            notification.classList.add('show');
+
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 5000);
+        }
+
+        // Form Submission
+        document.getElementById('job-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const jobType = document.getElementById('job-type').value;
+            const characterName = document.getElementById('character-name').value;
+            const characterId = document.getElementById('character-id').value;
+            const phoneNumber = document.getElementById('phone-number').value;
+            const discordUser = document.getElementById('discord-user').value;
+
+            const webhookUrl = jobConfig[jobType].webhook;
+            const jobTitle = getJobTitle(jobType);
+
+            // Prepare the data to send to Discord webhook
+            const data = {
+                content: `**تقديم جديد لـ ${jobTitle}**\n\n**اسم الشخصية:** ${characterName}\n**ايدي الشخصية:** ${characterId}\n**رقم الجوال:** ${phoneNumber}\n**يوزر الدسكورد:** ${discordUser}`
+            };
+
+            // Send data to Discord webhook
+            fetch(webhookUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+                .then(response => {
+                    if (response.ok) {
+                        showNotification('تم ارسال تقديمك وستصلك رسالة القبول بالدسكورد');
+                        closeModal();
+                    } else {
+                        showNotification('حدث خطأ أثناء إرسال التقديم', true);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    showNotification('حدث خطأ أثناء إرسال التقديم', true);
+                });
+        });
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function () {
+            // Auto-expand first collapse in each section
+            document.querySelectorAll('.law-section.active .collapse-container:first-child .collapse-btn').forEach(btn => {
+                btn.click();
+            });
         });
     </script>
 </body>
+
 </html>
